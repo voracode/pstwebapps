@@ -1,0 +1,42 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# next.js
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# prisma generated client
+src/generated/
+
+# env & secrets — only .env.example is committed
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# runtime data
+storage/
+uploads/
+backups/
+*.sql
+*.sql.gz
+*.dump
+
+# legacy site archive (contains DB dump and credentials)
+*.rar
+*.zip
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# logs
+npm-debug.log*
+*.log
