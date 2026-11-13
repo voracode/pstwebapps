@@ -478,7 +478,7 @@ model UserSession {
 model UserRecoveryCode {
   id        String    @id @default(cuid())
   userId    String    @map("user_id")
-  codeHash  String    @map("code_hash") /// argon2id
+  codeHash  String    @map("code_hash") /// HMAC-SHA256 blind index (codes are high-entropy)
   usedAt    DateTime? @map("used_at")
   createdAt DateTime  @default(now()) @map("created_at")
 

@@ -153,12 +153,5 @@ export const MUNICIPALITIES: MunicipalitySeed[] = [
   },
 ];
 
-/** URL-safe ASCII slug: "Oé-Cusse Ambeno" → "oe-cusse-ambeno". */
-export function slugify(input: string): string {
-  return input
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
+// Single slug implementation shared with the app (import file, CMS slugs).
+export { slugify } from "../../src/lib/utils/slug";
