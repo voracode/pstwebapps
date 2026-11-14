@@ -232,15 +232,16 @@ touch "$NGINX_LOG_DIR/access.log" "$NGINX_LOG_DIR/error.log"
 
 cat >/etc/fail2ban/filter.d/pst-auth.conf <<'EOF'
 # Repeated failed backoffice logins / 2FA / password-reset attempts.
+# Fail2Ban strips the timestamp before matching, hence the empty \[\].
 [Definition]
-failregex = ^<HOST> - \[[^\]]+\] "POST /api/auth/(login|2fa/verify|password/forgot|password/reset) HTTP/[0-9.]+" (401|423|429)
+failregex = ^<HOST> - \[\] "POST /api/auth/(login|2fa/verify|password/forgot|password/reset) HTTP/[0-9.]+" (401|423|429)
 ignoreregex =
 EOF
 
 cat >/etc/fail2ban/filter.d/pst-scanner.conf <<'EOF'
 # Vulnerability scanners probing for software we don't run.
 [Definition]
-failregex = ^<HOST> - \[[^\]]+\] "(GET|POST|HEAD) /(wp-login\.php|wp-admin|xmlrpc\.php|\.env|\.git/|phpmyadmin|pma/|vendor/phpunit|cgi-bin/|boaform|HNAP1)[^"]*" (403|404|444)
+failregex = ^<HOST> - \[\] "(GET|POST|HEAD) /(wp-login\.php|wp-admin|xmlrpc\.php|\.env|\.git/|phpmyadmin|pma/|vendor/phpunit|cgi-bin/|boaform|HNAP1)[^"]*" \d{3}
 ignoreregex =
 EOF
 

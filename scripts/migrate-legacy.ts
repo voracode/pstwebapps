@@ -260,7 +260,9 @@ async function importGallery(conn: mysql.Connection) {
         bump("gallery", "skipped");
         continue;
       }
-      if (!DRY) {
+      if (DRY) {
+        mediaId = "dry-run";
+      } else {
         const m = await db.mediaAsset.upsert({
           where: { legacySource_legacyId: { legacySource: `${SOURCE}.gallery`, legacyId } },
           create: { kind: "VIDEO_EMBED", visibility: "PUBLIC", externalUrl: url, mimeType: `video/x-${videoProvider(url)}`, altText: { tet: title }, legacySource: `${SOURCE}.gallery`, legacyId },
