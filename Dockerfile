@@ -46,7 +46,8 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends tini ca-certificates fonts-dejavu-core fontconfig \
  && rm -rf /var/lib/apt/lists/* \
  && groupadd --system --gid 1001 pst \
- && useradd --system --uid 1001 --gid pst --home-dir /app --shell /usr/sbin/nologin pst
+ && useradd --system --uid 1001 --gid pst --home-dir /app --shell /usr/sbin/nologin pst \
+ && mkdir -p /app/.cache/fontconfig && chown -R pst:pst /app/.cache
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
     TZ=Asia/Dili

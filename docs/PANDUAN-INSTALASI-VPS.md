@@ -454,6 +454,30 @@ Catatan:
 - Akun admin lama **tidak** diimpor. Buat ulang akun lewat menu Pengguna.
 - Ikon program lama berupa emoji. Atur ikon baru (nama ikon Lucide, mis. `graduation-cap`) di **Website → Halaman**.
 
+### 9.1 Data contoh (untuk uji coba & presentasi)
+
+Jika situs masih kosong dan Anda ingin melihat tampilannya "terisi" (untuk uji coba, pelatihan tim, atau presentasi internal), Anda bisa memasang **data contoh**:
+
+- 2 slide hero, 5 berita/siaran pers/artikel (4 bahasa), 5 agenda (4 akan datang, 1 selesai dengan daftar hadir), 3 dokumen PDF, 14 sekretariat munisipal, 1 album galeri;
+- 28 anggota, 5 aspirasi, dan 2 pesan kontak, supaya dasbor dan SIM-PST bisa dicoba;
+- bagian **Tentang** dan **Program** hanya diisi jika halaman itu masih kosong.
+
+Semua data ini **jelas bertanda**: setiap judul atau nama diawali `[CONTOH]`, dan gambar/PDF bertuliskan "CONTOH · EXEMPLO". Tidak ada tokoh, nomor telepon, atau alamat karangan. Nomor KTA anggota contoh memakai rentang terpisah (`…-9000xx`), jadi urutan nomor anggota asli tidak terganggu.
+
+Pasang data contoh:
+
+```bash
+cd /opt/pst-portal && docker compose --env-file .env.production run --rm migrate npx tsx scripts/demo-data.ts
+```
+
+Hapus semua data contoh (hanya data yang dibuat skrip ini yang dihapus, beserta file gambarnya):
+
+```bash
+cd /opt/pst-portal && docker compose --env-file .env.production run --rm migrate npx tsx scripts/demo-data.ts --remove
+```
+
+> ⚠️ **Hapus data contoh sebelum situs diumumkan ke publik.** Data contoh bukan informasi resmi PST. Skrip menolak dijalankan dua kali; jalankan `--remove` dulu jika ingin memasang ulang. Data asli yang Anda tambahkan sendiri lewat backoffice tidak ikut terhapus.
+
 ---
 
 ## 10. Data wilayah: suco & aldeia
