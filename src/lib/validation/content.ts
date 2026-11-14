@@ -52,6 +52,8 @@ export const postCreateSchema = z.object({
   isFeatured: z.boolean().default(false),
   pinnedToHero: z.boolean().default(false),
   tags: z.array(z.string().trim().min(1).max(60)).max(15).default([]),
+  /** Publication date chosen by the author; omitted/null = "publish immediately". */
+  publishedAt: z.coerce.date().nullable().optional(),
   translations: translationsArray(postTranslationSchema),
 });
 export type PostCreateInput = z.infer<typeof postCreateSchema>;
@@ -66,6 +68,8 @@ export const postUpdateSchema = z.object({
   isFeatured: z.boolean().optional(),
   pinnedToHero: z.boolean().optional(),
   tags: z.array(z.string().trim().min(1).max(60)).max(15).optional(),
+  /** Past date: shown as published on that date. Future date: scheduled. null: immediately. */
+  publishedAt: z.coerce.date().nullable().optional(),
   translations: z.array(postTranslationSchema).max(4).optional(),
   removeLocales: z.array(localeEnumSchema).max(3).optional(),
 });

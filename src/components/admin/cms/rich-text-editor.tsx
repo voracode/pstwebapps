@@ -7,7 +7,12 @@ import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Youtube from "@tiptap/extension-youtube";
 import Placeholder from "@tiptap/extension-placeholder";
+import TextAlign from "@tiptap/extension-text-align";
 import {
+  AlignCenter,
+  AlignJustify,
+  AlignLeft,
+  AlignRight,
   Bold,
   Heading2,
   Heading3,
@@ -74,6 +79,8 @@ export function RichTextEditor({
       Image.configure({ inline: false, allowBase64: false }),
       Youtube.configure({ nocookie: true, modestBranding: true, width: 640, height: 360 }),
       Placeholder.configure({ placeholder: placeholder ?? "" }),
+      // Rendered as style="text-align: …" (allowed by the sanitiser and the CSP).
+      TextAlign.configure({ types: ["heading", "paragraph"], alignments: ["left", "center", "right", "justify"] }),
     ],
     content: initialContent ?? "",
     editorProps: {
@@ -127,6 +134,9 @@ function Toolbar({ editor }: { editor: Editor }) {
       ordered: e.isActive("orderedList"),
       quote: e.isActive("blockquote"),
       link: e.isActive("link"),
+      alignCenter: e.isActive({ textAlign: "center" }),
+      alignRight: e.isActive({ textAlign: "right" }),
+      alignJustify: e.isActive({ textAlign: "justify" }),
       canUndo: e.can().undo(),
       canRedo: e.can().redo(),
     }),
@@ -196,6 +206,11 @@ function Toolbar({ editor }: { editor: Editor }) {
         {btn(t("italic"), s.italic, () => editor.chain().focus().toggleItalic().run(), Italic)}
         {btn(t("underline"), s.underline, () => editor.chain().focus().toggleUnderline().run(), UnderlineIcon)}
         {btn(t("strike"), s.strike, () => editor.chain().focus().toggleStrike().run(), Strikethrough)}
+        {sep}
+        {btn(t("alignLeft"), !s.alignCenter && !s.alignRight && !s.alignJustify, () => editor.chain().focus().unsetTextAlign().run(), AlignLeft)}
+        {btn(t("alignCenter"), s.alignCenter, () => editor.chain().focus().setTextAlign("center").run(), AlignCenter)}
+        {btn(t("alignRight"), s.alignRight, () => editor.chain().focus().setTextAlign("right").run(), AlignRight)}
+        {btn(t("alignJustify"), s.alignJustify, () => editor.chain().focus().setTextAlign("justify").run(), AlignJustify)}
         {sep}
         {btn(t("bulletList"), s.bullet, () => editor.chain().focus().toggleBulletList().run(), List)}
         {btn(t("orderedList"), s.ordered, () => editor.chain().focus().toggleOrderedList().run(), ListOrdered)}

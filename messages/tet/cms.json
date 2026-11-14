@@ -74,7 +74,11 @@
     "linkHint": "https://…, mailto:, tel: ka dalan internu hanesan /tet/news. Husik mamuk atu hasai link.",
     "youtubeUrl": "Link YouTube",
     "invalidLink": "Uza enderesu kompletu https://, mailto:, tel: ka dalan ne'ebé hahú ho /.",
-    "invalidYoutube": "Ne'e la'ós link YouTube válidu."
+    "invalidYoutube": "Ne'e la'ós link YouTube válidu.",
+    "alignLeft": "Alinha karuk",
+    "alignCenter": "Alinha klaran",
+    "alignRight": "Alinha loos",
+    "alignJustify": "Justifika"
   },
   "posts": {
     "title": "Notísia no artigu",
@@ -157,7 +161,19 @@
     "delete": "Hamoos publikasaun",
     "deleteTitle": "Hamoos publikasaun ne'e?",
     "deleteDescription": "Sei lakon husi website no backoffice. Asaun ne'e sei rejista iha log auditoria.",
-    "deleted": "Publikasaun hamoos ona"
+    "deleted": "Publikasaun hamoos ona",
+    "date": {
+      "label": "Data publikasaun",
+      "publish": "Publika",
+      "immediately": "kedas",
+      "backdated": "Publika ho data",
+      "edit": "Edita",
+      "ok": "OK",
+      "setImmediately": "Publika kedas",
+      "invalid": "Hili data no oras ida ne'ebé loos.",
+      "hint": "Data pasadu: notísia sei hatudu ho data ne'e. Data futuru: sei publika automátiku iha oras ne'e.",
+      "futureLive": "Notísia ne'e sei sai husi website to'o data ne'e."
+    }
   },
   "documents": {
     "title": "Dokumentu",

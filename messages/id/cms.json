@@ -74,7 +74,11 @@
     "linkHint": "https://…, mailto:, tel: atau jalur internal seperti /id/news. Kosongkan untuk menghapus tautan.",
     "youtubeUrl": "Tautan YouTube",
     "invalidLink": "Gunakan alamat https:// lengkap, mailto:, tel: atau jalur yang diawali /.",
-    "invalidYoutube": "Ini bukan tautan YouTube yang valid."
+    "invalidYoutube": "Ini bukan tautan YouTube yang valid.",
+    "alignLeft": "Rata kiri",
+    "alignCenter": "Rata tengah",
+    "alignRight": "Rata kanan",
+    "alignJustify": "Rata kiri-kanan"
   },
   "posts": {
     "title": "Berita & artikel",
@@ -157,7 +161,19 @@
     "delete": "Hapus tulisan",
     "deleteTitle": "Hapus tulisan ini?",
     "deleteDescription": "Tulisan hilang dari situs web dan backoffice. Penghapusan dicatat di log audit.",
-    "deleted": "Tulisan dihapus"
+    "deleted": "Tulisan dihapus",
+    "date": {
+      "label": "Tanggal terbit",
+      "publish": "Terbit",
+      "immediately": "segera",
+      "backdated": "Terbit dengan tanggal",
+      "edit": "Ubah",
+      "ok": "OK",
+      "setImmediately": "Terbitkan segera",
+      "invalid": "Pilih tanggal dan jam yang valid.",
+      "hint": "Tanggal lampau: berita tampil dengan tanggal itu. Tanggal mendatang: terbit otomatis pada waktu tersebut.",
+      "futureLive": "Berita akan disembunyikan dari situs sampai tanggal tersebut."
+    }
   },
   "documents": {
     "title": "Dokumen",

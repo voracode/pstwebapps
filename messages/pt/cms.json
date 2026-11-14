@@ -74,7 +74,11 @@
     "linkHint": "https://…, mailto:, tel: ou um caminho interno como /pt/news. Deixe vazio para remover a ligação.",
     "youtubeUrl": "Ligação do YouTube",
     "invalidLink": "Use um endereço https:// completo, mailto:, tel: ou um caminho que comece por /.",
-    "invalidYoutube": "Esta não é uma ligação válida do YouTube."
+    "invalidYoutube": "Esta não é uma ligação válida do YouTube.",
+    "alignLeft": "Alinhar à esquerda",
+    "alignCenter": "Centrar",
+    "alignRight": "Alinhar à direita",
+    "alignJustify": "Justificar"
   },
   "posts": {
     "title": "Notícias e artigos",
@@ -157,7 +161,19 @@
     "delete": "Eliminar publicação",
     "deleteTitle": "Eliminar esta publicação?",
     "deleteDescription": "Desaparece do website e do backoffice. A eliminação fica registada no registo de auditoria.",
-    "deleted": "Publicação eliminada"
+    "deleted": "Publicação eliminada",
+    "date": {
+      "label": "Data de publicação",
+      "publish": "Publicar",
+      "immediately": "imediatamente",
+      "backdated": "Publicar com a data",
+      "edit": "Editar",
+      "ok": "OK",
+      "setImmediately": "Publicar imediatamente",
+      "invalid": "Escolha uma data e hora válidas.",
+      "hint": "Data passada: a publicação aparece com essa data. Data futura: é publicada automaticamente nessa hora.",
+      "futureLive": "A publicação sai do website até essa data."
+    }
   },
   "documents": {
     "title": "Documentos",

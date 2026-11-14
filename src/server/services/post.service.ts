@@ -2,9 +2,10 @@ import { db } from "@/lib/db";
 import { redis } from "@/lib/redis";
 import { env } from "@/env";
 import { audit, type AuditActor } from "@/lib/audit";
-import { ApiError, badRequest, notFound } from "@/lib/http";
+import { ApiError, badRequest, forbidden, notFound } from "@/lib/http";
 import type { RequestContext } from "@/lib/request";
 import { blindIndex } from "@/lib/security/crypto";
+import { can } from "@/lib/security/rbac";
 import type { AuthSession } from "@/lib/security/session";
 import { readingMinutes, sanitizeRichText } from "@/lib/sanitize";
 import { pickTranslation } from "@/lib/i18n/pick";
@@ -127,6 +128,7 @@ export async function createPost(auth: AuthSession, input: PostCreateInput, ctx:
       byline: input.byline,
       isFeatured: input.isFeatured,
       pinnedToHero: input.pinnedToHero,
+      publishedAt: input.publishedAt ?? null,
       authorId: auth.user.id,
       translations: { create: translations },
       tags: { connectOrCreate: tagConnect(input.tags) },
@@ -145,6 +147,7 @@ export async function updatePost(auth: AuthSession, id: string, input: PostUpdat
   const remaining = existing.translations.filter((t) => !input.removeLocales?.includes(t.locale)).length +
     (input.translations ?? []).filter((t) => !existing.translations.some((e) => e.locale === t.locale)).length;
   if (remaining < 1) throw badRequest("A post must keep at least one language");
+  const dateData = publicationDateChange(auth, existing, input.publishedAt);
 
   await db.$transaction(async (tx) => {
     if (input.removeLocales?.length) {
@@ -169,13 +172,49 @@ export async function updatePost(auth: AuthSession, id: string, input: PostUpdat
         byline: input.byline,
         isFeatured: input.isFeatured,
         pinnedToHero: input.pinnedToHero,
+        ...dateData,
         ...(input.tags ? { tags: { set: [], connectOrCreate: tagConnect(input.tags) } } : {}),
       },
     });
   });
 
-  await audit({ action: "post.updated", actor: actorOf(auth), entityType: "Post", entityId: id, metadata: { fields: Object.keys(input) }, ctx });
+  await audit({ action: "post.updated", actor: actorOf(auth), entityType: "Post", entityId: id, metadata: { fields: Object.keys(input), ...(Object.keys(dateData).length ? { publication: dateData } : {}) }, ctx });
   return getPostAdmin(id);
+}
+
+/**
+ * Publication date chosen in the editor (WordPress-style "Publish immediately
+ * / on <date>"). `publishedAt` doubles as the planned date while a post is a
+ * draft; null means "immediately".
+ *  - draft / in review / archived: stored as the planned date.
+ *  - published: a past date re-dates the post (lists are ordered by it); a
+ *    future date takes it off the site and schedules it for that moment.
+ *  - scheduled: moves the schedule.
+ * Changing the date of a live or scheduled post needs publish rights.
+ */
+function publicationDateChange(
+  auth: AuthSession,
+  post: { status: PublishStatus; publishedAt: Date | null; scheduledAt: Date | null },
+  date: Date | null | undefined,
+): { status?: PublishStatus; scheduledAt?: Date; publishedAt?: Date | null } {
+  if (date === undefined) return {};
+  const current = post.status === "SCHEDULED" ? post.scheduledAt : post.publishedAt;
+  if ((current?.getTime() ?? null) === (date?.getTime() ?? null)) return {};
+  if (date && Number.isNaN(date.getTime())) throw badRequest("Invalid publication date");
+
+  const live = post.status === "PUBLISHED" || post.status === "SCHEDULED";
+  if (live && !can(auth.user.role, "post:publish")) throw forbidden("Not allowed to change the publication date");
+
+  if (post.status === "PUBLISHED") {
+    if (!date) throw badRequest("A published post needs a publication date");
+    return date > new Date() ? { status: "SCHEDULED", scheduledAt: date, publishedAt: date } : { publishedAt: date };
+  }
+  if (post.status === "SCHEDULED") {
+    if (!date) throw badRequest("Choose a date, or use Publish now");
+    // A past date is picked up by the worker on its next run (within a minute).
+    return { scheduledAt: date, publishedAt: date };
+  }
+  return { publishedAt: date };
 }
 
 const WORKFLOW_AUDIT_ACTION = {
@@ -196,17 +235,32 @@ export async function postWorkflow(
   if (!post) throw notFound("Post");
 
   let data: Prisma.PostUpdateInput;
+  let scheduledFor: Date | null = null;
   switch (action.action) {
     case "submit_review":
       data = { status: "IN_REVIEW" };
       break;
     case "publish":
       if (!post.translations.some((t) => t.contentHtml)) throw badRequest("Add content before publishing");
-      data = { status: "PUBLISHED", publishedAt: post.publishedAt ?? new Date(), scheduledAt: null, reviewedBy: { connect: { id: auth.user.id } } };
+      if (post.status !== "SCHEDULED" && post.publishedAt && post.publishedAt > new Date()) {
+        // The author chose a future date: publishing means scheduling it.
+        data = { status: "SCHEDULED", scheduledAt: post.publishedAt, reviewedBy: { connect: { id: auth.user.id } } };
+        scheduledFor = post.publishedAt;
+        break;
+      }
+      // "Publish now" on a scheduled post uses the current time; otherwise the
+      // chosen (past) date, or now when none was chosen.
+      data = {
+        status: "PUBLISHED",
+        publishedAt: post.status === "SCHEDULED" || !post.publishedAt || post.publishedAt > new Date() ? new Date() : post.publishedAt,
+        scheduledAt: null,
+        reviewedBy: { connect: { id: auth.user.id } },
+      };
       break;
     case "schedule":
       if (action.scheduledAt <= new Date()) throw badRequest("scheduledAt must be in the future");
-      data = { status: "SCHEDULED", scheduledAt: action.scheduledAt, reviewedBy: { connect: { id: auth.user.id } } };
+      data = { status: "SCHEDULED", scheduledAt: action.scheduledAt, publishedAt: action.scheduledAt, reviewedBy: { connect: { id: auth.user.id } } };
+      scheduledFor = action.scheduledAt;
       break;
     case "unpublish":
       data = { status: "DRAFT", scheduledAt: null };
@@ -217,11 +271,11 @@ export async function postWorkflow(
   }
   await db.post.update({ where: { id }, data });
   await audit({
-    action: WORKFLOW_AUDIT_ACTION[action.action],
+    action: scheduledFor ? WORKFLOW_AUDIT_ACTION.schedule : WORKFLOW_AUDIT_ACTION[action.action],
     actor: actorOf(auth),
     entityType: "Post",
     entityId: id,
-    metadata: action.action === "schedule" ? { scheduledAt: action.scheduledAt } : undefined,
+    metadata: scheduledFor ? { scheduledAt: scheduledFor } : undefined,
     ctx,
   });
   return getPostAdmin(id);

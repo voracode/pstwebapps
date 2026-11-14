@@ -11,7 +11,7 @@ import { TranslationTabs, type EditLocale } from "@/components/admin/translation
 import { Button } from "@/components/ui/button";
 import { Field, Input, Label, NativeSelect, Textarea } from "@/components/ui/form-controls";
 import { Alert, Badge, Card, CardContent, CardHeader, CardTitle } from "@/components/ui/primitives";
-import { ConfirmDialog, Dialog, DialogContent, Switch } from "@/components/ui/overlays";
+import { ConfirmDialog, Switch } from "@/components/ui/overlays";
 import { formatDateTime } from "@/lib/format";
 import { byLocale, fromRows, mapFieldErrors, pickRow, toDiliInput, fromDiliInput, translationPayload, type ByLocale } from "./form-helpers";
 import { MediaField } from "./media-picker";
@@ -117,9 +117,16 @@ export function PostEditor({
   const [dirty, setDirty] = useState(false);
   const [busy, setBusy] = useState<null | "save" | WorkflowAction | "delete">(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [scheduleOpen, setScheduleOpen] = useState(false);
-  const [scheduleAt, setScheduleAt] = useState(toDiliInput(post?.scheduledAt ?? null));
-  const [scheduleError, setScheduleError] = useState<string | null>(null);
+  // Publication date (WordPress-style "Publish immediately / on <date>").
+  // pubDate: null = unchanged since load, "" = immediately, else Dili "YYYY-MM-DDTHH:mm".
+  const plannedDate = post ? (post.status === "SCHEDULED" ? post.scheduledAt : post.publishedAt) : null;
+  const [pubDate, setPubDate] = useState<string | null>(null);
+  const [dateOpen, setDateOpen] = useState(false);
+  const [dateDraft, setDateDraft] = useState("");
+  const [dateError, setDateError] = useState<string | null>(null);
+  const dateValue = pubDate ?? toDiliInput(plannedDate);
+  const dateIso = dateValue ? fromDiliInput(dateValue) : null;
+  const dateIsFuture = !!dateIso && new Date(dateIso) > new Date();
   const [deleteOpen, setDeleteOpen] = useState(false);
 
   useEffect(() => {
@@ -175,6 +182,7 @@ export function PostEditor({
       isFeatured,
       pinnedToHero,
       tags: tagList,
+      ...(pubDate !== null ? { publishedAt: pubDate ? fromDiliInput(pubDate) : null } : {}),
       translations,
       ...(post ? { removeLocales } : {}),
     };
@@ -183,6 +191,7 @@ export function PostEditor({
       if (post) {
         await api.patch(`/api/admin/posts/${post.id}`, body);
         setDirty(false);
+        setPubDate(null);
         router.refresh();
         return post.id;
       }
@@ -212,9 +221,9 @@ export function PostEditor({
         const ok = await save();
         if (!ok) return;
       }
-      await api.post(`/api/admin/posts/${post.id}/workflow`, action === "schedule" ? { action, scheduledAt } : { action });
-      toast.success(t(`posts.workflowDone.${action}`));
-      setScheduleOpen(false);
+      const res = await api.post<{ status: string }>(`/api/admin/posts/${post.id}/workflow`, action === "schedule" ? { action, scheduledAt } : { action });
+      // Publishing a post dated in the future schedules it.
+      toast.success(t(`posts.workflowDone.${action === "publish" && res?.status === "SCHEDULED" ? "schedule" : action}`));
       router.refresh();
     } catch (err) {
       if (err instanceof ApiClientError && err.status === 403) toast.error(t("posts.noPublishPermission"));
@@ -224,14 +233,24 @@ export function PostEditor({
     }
   };
 
-  const onSchedule = () => {
-    const iso = fromDiliInput(scheduleAt);
-    if (!iso || new Date(iso) <= new Date()) {
-      setScheduleError(t("posts.scheduleFuture"));
+  const openDate = () => {
+    setDateDraft(dateValue || toDiliInput(new Date()));
+    setDateError(null);
+    setDateOpen(true);
+  };
+  const applyDate = () => {
+    if (!dateDraft || Number.isNaN(new Date(fromDiliInput(dateDraft) ?? "").getTime())) {
+      setDateError(t("posts.date.invalid"));
       return;
     }
-    setScheduleError(null);
-    workflow("schedule", iso);
+    setPubDate(dateDraft);
+    setDateOpen(false);
+    touch();
+  };
+  const dateImmediately = () => {
+    setPubDate("");
+    setDateOpen(false);
+    touch();
   };
 
   const onDelete = async () => {
@@ -255,7 +274,12 @@ export function PostEditor({
 
   const canSubmitReview = !!post && permissions.write && status === "DRAFT";
   const canPublish = !!post && permissions.publish && status !== "PUBLISHED";
-  const canSchedule = !!post && permissions.publish && (status === "DRAFT" || status === "IN_REVIEW" || status === "SCHEDULED");
+  const isLive = status === "PUBLISHED" || status === "SCHEDULED";
+  const canEditDate = !readOnly && (!isLive || permissions.publish);
+  const dateLabel =
+    status === "PUBLISHED" ? t("posts.publishedAt") : !dateValue ? t("posts.date.publish") : dateIsFuture ? t("posts.scheduledFor") : t("posts.date.backdated");
+  const dateText = dateIso ? formatDateTime(dateIso, locale) : t("posts.date.immediately");
+  const draftIsFuture = !!dateDraft && new Date(fromDiliInput(dateDraft) ?? "") > new Date();
   const canUnpublish = !!post && permissions.publish && status !== "DRAFT";
   const canArchive = !!post && permissions.publish && status !== "ARCHIVED";
 
@@ -329,20 +353,52 @@ export function PostEditor({
               <PublishStatusBadge status={status} label={tc(`enums.publishStatus.${status}`)} />
               {dirty && <Badge variant="warning">{t("posts.unsaved")}</Badge>}
             </div>
+
+            <div className="rounded-lg border border-border bg-muted/40 p-3 text-sm">
+              <div className="flex items-start gap-2">
+                <CalendarClock className="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden />
+                <p className="min-w-0 flex-1">
+                  <span className="text-muted-foreground">{dateLabel}: </span>
+                  <span className="font-semibold text-foreground">{dateText}</span>
+                  {canEditDate && !dateOpen && (
+                    <button type="button" onClick={openDate} className="ml-2 font-semibold text-primary hover:underline">
+                      {t("posts.date.edit")}
+                    </button>
+                  )}
+                </p>
+              </div>
+              {dateOpen && (
+                <div className="mt-3 space-y-2">
+                  <Input
+                    type="datetime-local"
+                    aria-label={t("posts.date.label")}
+                    value={dateDraft}
+                    onChange={(e) => setDateDraft(e.target.value)}
+                    aria-invalid={!!dateError}
+                  />
+                  {dateError && <p className="text-xs font-medium text-destructive">{dateError}</p>}
+                  <p className="text-xs text-muted-foreground">
+                    {t("posts.timezoneHint")} {t("posts.date.hint")}
+                    {status === "PUBLISHED" && draftIsFuture ? ` ${t("posts.date.futureLive")}` : ""}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <Button type="button" size="sm" onClick={applyDate}>
+                      {t("posts.date.ok")}
+                    </Button>
+                    {!isLive && (
+                      <Button type="button" size="sm" variant="outline" onClick={dateImmediately}>
+                        {t("posts.date.setImmediately")}
+                      </Button>
+                    )}
+                    <Button type="button" size="sm" variant="ghost" onClick={() => setDateOpen(false)}>
+                      {tc("actions.cancel")}
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
             {post && (
               <dl className="space-y-1 text-xs text-muted-foreground">
-                {post.status === "SCHEDULED" && post.scheduledAt && (
-                  <div>
-                    <dt className="inline">{t("posts.scheduledFor")}: </dt>
-                    <dd className="inline font-medium text-foreground">{formatDateTime(post.scheduledAt, locale)}</dd>
-                  </div>
-                )}
-                {post.publishedAt && (
-                  <div>
-                    <dt className="inline">{t("posts.publishedAt")}: </dt>
-                    <dd className="inline">{formatDateTime(post.publishedAt, locale)}</dd>
-                  </div>
-                )}
                 <div>
                   <dt className="inline">{t("posts.updated")}: </dt>
                   <dd className="inline">{formatDateTime(post.updatedAt, locale)}</dd>
@@ -378,21 +434,8 @@ export function PostEditor({
               )}
               {canPublish && (
                 <Button variant="gold" onClick={() => workflow("publish")} loading={busy === "publish"} disabled={!!busy}>
-                  <Upload aria-hidden />
-                  {status === "SCHEDULED" ? t("posts.actions.publishNow") : t("posts.actions.publish")}
-                </Button>
-              )}
-              {canSchedule && (
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setScheduleError(null);
-                    setScheduleOpen(true);
-                  }}
-                  disabled={!!busy}
-                >
-                  <CalendarClock aria-hidden />
-                  {status === "SCHEDULED" ? t("posts.actions.reschedule") : t("posts.actions.schedule")}
+                  {status !== "SCHEDULED" && dateIsFuture ? <CalendarClock aria-hidden /> : <Upload aria-hidden />}
+                  {status === "SCHEDULED" ? t("posts.actions.publishNow") : dateIsFuture ? t("posts.actions.schedule") : t("posts.actions.publish")}
                 </Button>
               )}
               {canUnpublish && (
@@ -550,31 +593,6 @@ export function PostEditor({
           </Button>
         )}
       </div>
-
-      <Dialog open={scheduleOpen} onOpenChange={setScheduleOpen}>
-        <DialogContent title={t("posts.scheduleTitle")} description={t("posts.scheduleDescription")}>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              onSchedule();
-            }}
-            className="space-y-4"
-          >
-            <Field label={t("posts.scheduleAt")} htmlFor="schedule-at" hint={t("posts.timezoneHint")} error={scheduleError} required>
-              <Input type="datetime-local" value={scheduleAt} min={toDiliInput(new Date())} onChange={(e) => setScheduleAt(e.target.value)} required />
-            </Field>
-            <div className="flex justify-end gap-2">
-              <Button type="button" variant="outline" onClick={() => setScheduleOpen(false)}>
-                {tc("actions.cancel")}
-              </Button>
-              <Button type="submit" loading={busy === "schedule"}>
-                <CalendarClock aria-hidden />
-                {t("posts.actions.schedule")}
-              </Button>
-            </div>
-          </form>
-        </DialogContent>
-      </Dialog>
 
       <ConfirmDialog
         open={deleteOpen}

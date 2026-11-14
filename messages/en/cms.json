@@ -74,7 +74,11 @@
     "linkHint": "https://…, mailto:, tel: or an internal path such as /tet/news. Leave empty to remove the link.",
     "youtubeUrl": "YouTube link",
     "invalidLink": "Use a full https:// address, mailto:, tel: or a path starting with /.",
-    "invalidYoutube": "This is not a valid YouTube link."
+    "invalidYoutube": "This is not a valid YouTube link.",
+    "alignLeft": "Align left",
+    "alignCenter": "Align center",
+    "alignRight": "Align right",
+    "alignJustify": "Justify"
   },
   "posts": {
     "title": "News & articles",
@@ -157,7 +161,19 @@
     "delete": "Delete post",
     "deleteTitle": "Delete this post?",
     "deleteDescription": "It disappears from the website and the backoffice. The deletion is recorded in the audit log.",
-    "deleted": "Post deleted"
+    "deleted": "Post deleted",
+    "date": {
+      "label": "Publish date",
+      "publish": "Publish",
+      "immediately": "immediately",
+      "backdated": "Publish with date",
+      "edit": "Edit",
+      "ok": "OK",
+      "setImmediately": "Publish immediately",
+      "invalid": "Choose a valid date and time.",
+      "hint": "Past date: the post shows that date. Future date: it is published automatically at that time.",
+      "futureLive": "The post will be hidden from the site until then."
+    }
   },
   "documents": {
     "title": "Documents",
