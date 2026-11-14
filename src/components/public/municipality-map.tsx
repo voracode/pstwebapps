@@ -3,6 +3,7 @@
 import "leaflet/dist/leaflet.css";
 import { CircleMarker, MapContainer, Popup, TileLayer, Tooltip } from "react-leaflet";
 import { Link } from "@/i18n/navigation";
+import { usePublicConfig } from "./runtime-config";
 
 export interface MapPoint {
   slug: string;
@@ -14,10 +15,6 @@ export interface MapPoint {
   subtitle?: string;
 }
 
-const TILE_URL = process.env.NEXT_PUBLIC_MAP_TILE_URL || "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
-const ATTRIBUTION =
-  process.env.NEXT_PUBLIC_MAP_ATTRIBUTION || '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-
 /** Timor-Leste incl. Oe-Cusse and Ataúro. */
 const BOUNDS: [[number, number], [number, number]] = [
   [-9.55, 124.0],
@@ -25,6 +22,8 @@ const BOUNDS: [[number, number], [number, number]] = [
 ];
 
 export default function MunicipalityMap({ points, label }: { points: MapPoint[]; label: string }) {
+  // Tile provider is configurable at runtime (NEXT_PUBLIC_MAP_TILE_URL / _ATTRIBUTION).
+  const { mapTileUrl, mapAttribution } = usePublicConfig();
   return (
     <MapContainer
       bounds={BOUNDS}
@@ -37,7 +36,7 @@ export default function MunicipalityMap({ points, label }: { points: MapPoint[];
       className="size-full"
       aria-label={label}
     >
-      <TileLayer url={TILE_URL} attribution={ATTRIBUTION} />
+      <TileLayer url={mapTileUrl} attribution={mapAttribution} />
       {points.map((p) => (
         <CircleMarker
           key={p.slug}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { usePublicConfig } from "./runtime-config";
 
 declare global {
   interface Window {
@@ -13,10 +14,7 @@ declare global {
   }
 }
 
-const SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
 const SCRIPT_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-
-export const turnstileEnabled = !!SITE_KEY;
 
 let scriptPromise: Promise<void> | null = null;
 function loadScript(): Promise<void> {
@@ -40,7 +38,8 @@ function loadScript(): Promise<void> {
 
 /**
  * Cloudflare Turnstile widget. Renders nothing when
- * NEXT_PUBLIC_TURNSTILE_SITE_KEY is not configured. Change `resetKey` to get
+ * NEXT_PUBLIC_TURNSTILE_SITE_KEY is not configured (read at runtime via
+ * PublicConfigProvider, so changing it needs only a restart, not a rebuild). Change `resetKey` to get
  * a fresh token after a failed submission.
  */
 export function Turnstile({ onToken, resetKey }: { onToken: (token: string | null) => void; resetKey?: number }) {
@@ -48,6 +47,7 @@ export function Turnstile({ onToken, resetKey }: { onToken: (token: string | nul
   const idRef = useRef<string | null>(null);
   const locale = useLocale();
   const t = useTranslations("public.common");
+  const SITE_KEY = usePublicConfig().turnstileSiteKey;
   const cb = useRef(onToken);
   cb.current = onToken;
 
@@ -71,7 +71,7 @@ export function Turnstile({ onToken, resetKey }: { onToken: (token: string | nul
       if (idRef.current && window.turnstile) window.turnstile.remove(idRef.current);
       idRef.current = null;
     };
-  }, [locale]);
+  }, [locale, SITE_KEY]);
 
   useEffect(() => {
     if (resetKey && idRef.current && window.turnstile) {
