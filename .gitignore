@@ -18,11 +18,14 @@ src/generated/
 *.pem
 *.key
 
-# runtime data (certificates, backups, logs, uploads)
-data/
-storage/
-uploads/
-backups/
+# runtime data (certificates, backups, logs, uploads) — anchored to the repo
+# root with a leading "/", so source folders like src/lib/storage/ and
+# prisma/data/ are NOT ignored.
+/data/
+/storage/
+/uploads/
+/backups/
+/legacy/
 *.sql
 # …but database migrations are source code and must be versioned.
 !prisma/migrations/**/migration.sql
