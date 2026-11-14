@@ -170,6 +170,7 @@ services:
       - ./data/letsencrypt:/etc/letsencrypt:ro
       - ./data/certbot-www:/var/www/certbot:ro
       - ./data/nginx-logs:/var/log/nginx/pst
+      - ./data/nginx-dynamic:/etc/nginx/dynamic:ro
       - storage:/srv/storage:ro
       - nginx-cache:/var/cache/nginx
     depends_on:

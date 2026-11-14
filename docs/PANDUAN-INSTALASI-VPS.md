@@ -389,6 +389,55 @@ NEXT_PUBLIC_MAP_ATTRIBUTION="© Penyedia"
 
 > Jika domain tile diganti, tambahkan juga domain tersebut ke `img-src` pada `nginx/snippets/security-headers.conf`, lalu jalankan ulang skrip.
 
+### 8.7 Memakai Cloudflare (proxy & SSL)
+
+Portal bisa ditempatkan di belakang Cloudflare (awan oranye / *Proxied*). Pengunjung terhubung ke Cloudflare, lalu Cloudflare meneruskan ke server Anda.
+
+**1. Pengaturan di dasbor Cloudflare**
+
+- **DNS:** record `A` untuk domain (dan `www`) mengarah ke IP VPS, status **Proxied** (awan oranye).
+- **SSL/TLS → Overview:** pilih **Full (strict)**.
+  - ❌ **Jangan pakai _Flexible_.** Koneksi Cloudflare → server menjadi tidak terenkripsi, dan karena Nginx selalu mengalihkan HTTP ke HTTPS, situs akan terjebak dalam *redirect loop* (halaman terus memuat ulang).
+- **SSL/TLS → Edge Certificates:** aktifkan **Always Use HTTPS**.
+
+**2. Aktifkan mode Cloudflare di server**
+
+```bash
+cd /opt/pst-portal && sudo CLOUDFLARE=1 DOMAIN=pst.tl CERTBOT_EMAIL=admin@pst.tl bash deploy-ubuntu-26.04.sh
+```
+
+Yang dilakukan mode ini:
+- Nginx membaca IP asli pengunjung dari header `CF-Connecting-IP`, **hanya** untuk koneksi dari rentang IP resmi Cloudflare. Header palsu dari sumber lain diabaikan. Dengan begitu pembatasan percobaan login, log, log audit dan Fail2Ban melihat IP pengunjung yang sebenarnya.
+- Daftar IP Cloudflare diperbarui otomatis setiap minggu. Cek jadwalnya:
+
+  ```bash
+  systemctl list-timers pst-cloudflare-refresh
+  ```
+
+- **Fail2Ban memblokir di Nginx** (halaman 403), bukan di firewall, karena di belakang Cloudflare blokir firewall tidak bisa menghentikan pengunjung. Blokir SSH tetap di firewall (UFW).
+- Pilihan ini diingat di `.env.production`, jadi menjalankan ulang skrip tidak mematikannya. Untuk mematikan: jalankan skrip dengan `CLOUDFLARE=0`.
+
+**3. (Opsional) Kunci server hanya untuk Cloudflare**
+
+```bash
+cd /opt/pst-portal && sudo CLOUDFLARE=1 CLOUDFLARE_LOCK=1 DOMAIN=pst.tl CERTBOT_EMAIL=admin@pst.tl bash deploy-ubuntu-26.04.sh
+```
+
+Firewall hanya menerima port 80/443 dari IP Cloudflare, sehingga server tidak bisa diakses langsung lewat IP-nya. HTTP/3 (UDP 443) ditutup karena Cloudflare tidak memakainya ke server.
+
+> ⚠️ Pakai `CLOUDFLARE_LOCK=1` **hanya jika semua record DNS situs sudah Proxied**. Perpanjangan sertifikat Let's Encrypt tetap berjalan karena validasinya juga lewat Cloudflare. Port SSH tidak terpengaruh. Untuk membuka kembali: jalankan skrip dengan `CLOUDFLARE_LOCK=0`.
+
+**4. Sertifikat di server: dua pilihan**
+
+- **Let's Encrypt** (bawaan, otomatis diperpanjang): cukup perintah di atas.
+- **Cloudflare Origin Certificate** (berlaku hingga 15 tahun, tanpa perpanjangan). Buat di **SSL/TLS → Origin Server → Create Certificate**, simpan sertifikat dan kunci privat ke server, lalu:
+
+  ```bash
+  cd /opt/pst-portal && sudo CLOUDFLARE=1 DOMAIN=pst.tl ORIGIN_CERT=/root/origin.pem ORIGIN_KEY=/root/origin.key bash deploy-ubuntu-26.04.sh
+  ```
+
+  `CERTBOT_EMAIL` tidak diperlukan. Skrip memeriksa bahwa kunci cocok dengan sertifikat, lalu memasangnya. Setelah itu hapus `/root/origin.key`. Sertifikat ini hanya dipercaya Cloudflare, jadi situs hanya bisa dibuka lewat Cloudflare (awan oranye wajib).
+
 ---
 
 ## 9. Mengimpor konten situs lama
@@ -787,6 +836,8 @@ Log penting:
 | Volume Docker `pst_pgdata` | Data PostgreSQL |
 | Volume Docker `pst_storage` | Foto, dokumen, kartu KTA (`public/` disajikan Nginx; `private/` hanya lewat tautan bertanda tangan) |
 | `/etc/fail2ban/jail.d/pst.local` | Konfigurasi Fail2Ban |
+| `/opt/pst-portal/data/nginx-dynamic/` | Aturan Nginx yang dikelola server: daftar IP Cloudflare dan blokir Fail2Ban (mode Cloudflare) |
+| `/usr/local/sbin/pst-cloudflare-refresh` | Pembaru daftar IP Cloudflare (dijalankan mingguan oleh timer systemd) |
 | `/var/log/pst-deploy.log` | Log instalasi |
 
 ### Variabel yang dibuat otomatis (jangan diubah tanpa alasan)
@@ -804,6 +855,7 @@ Log penting:
 | Backup | `BACKUP_ENCRYPTION_PUBLIC_KEY`, `BACKUP_SCHEDULE`, `BACKUP_KEEP_*` |
 | Anti-bot | `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` |
 | Peta | `NEXT_PUBLIC_MAP_TILE_URL`, `NEXT_PUBLIC_MAP_ATTRIBUTION` |
+| Cloudflare | `CLOUDFLARE`, `CLOUDFLARE_LOCK` (diatur lewat skrip, lihat 8.7); `ORIGIN_CERT`/`ORIGIN_KEY` hanya opsi skrip, tidak disimpan |
 | Keamanan sesi | `SESSION_TTL_HOURS`, `SESSION_IDLE_TIMEOUT_MINUTES`, `LOGIN_MAX_ATTEMPTS`, `LOGIN_LOCKOUT_MINUTES`, `PASSWORD_MAX_AGE_DAYS`, `TWO_FACTOR_REQUIRED_ROLES` |
 
 Penjelasan setiap variabel ada di `.env.example`. Detail teknis arsitektur ada di [`docs/ARCHITECTURE.md`](ARCHITECTURE.md).

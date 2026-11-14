@@ -31,4 +31,4 @@ COPY maintenance.html /usr/share/nginx/html/maintenance.html
 COPY 90-reload-loop.sh /docker-entrypoint.d/90-reload-loop.sh
 RUN rm -f /etc/nginx/conf.d/default.conf \
  && chmod 755 /docker-entrypoint.d/90-reload-loop.sh \
- && mkdir -p /var/log/nginx/pst /var/www/certbot
+ && mkdir -p /var/log/nginx/pst /var/www/certbot /etc/nginx/dynamic

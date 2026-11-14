@@ -36,6 +36,16 @@
 #    HARDEN_SSH        1 = disable SSH password + root password login
 #                          (only if an authorized_keys file exists)
 #    SEED_SUPER_ADMIN_PASSWORD  optional; otherwise a one-time password is generated
+#
+#  Cloudflare (orange-cloud proxy in front of the server; SSL mode "Full (strict)")
+#    CLOUDFLARE        1 = nginx takes the visitor IP from CF-Connecting-IP (only
+#                          from Cloudflare's ranges, refreshed weekly) and
+#                          Fail2Ban bans in nginx instead of the firewall.
+#                          Remembered in .env.production; CLOUDFLARE=0 turns it off.
+#    CLOUDFLARE_LOCK   1 = UFW accepts 80/443 only from Cloudflare (the server
+#                          can no longer be reached directly). Remembered too.
+#    ORIGIN_CERT / ORIGIN_KEY  paths to a Cloudflare Origin Certificate and its
+#                          key: installed instead of Let's Encrypt (no CERTBOT_EMAIL)
 # =============================================================================
 
 set -Eeuo pipefail
@@ -54,6 +64,19 @@ SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ENV_FILE="$APP_DIR/.env.production"
 COMPOSE=(docker compose --project-directory "$APP_DIR" --env-file "$ENV_FILE")
 LOG_FILE="/var/log/pst-deploy.log"
+
+# Choices remembered from a previous run (stored in the env file in step 7).
+prev_env() {
+  if [[ -f "$ENV_FILE" ]]; then
+    { grep -E "^$1=" "$ENV_FILE" || true; } | tail -1 | cut -d= -f2- | tr -d '"'
+  fi
+}
+CLOUDFLARE="${CLOUDFLARE:-$(prev_env CLOUDFLARE)}";           CLOUDFLARE="${CLOUDFLARE:-0}"
+CLOUDFLARE_LOCK="${CLOUDFLARE_LOCK:-$(prev_env CLOUDFLARE_LOCK)}"; CLOUDFLARE_LOCK="${CLOUDFLARE_LOCK:-0}"
+ORIGIN_CERT="${ORIGIN_CERT:-}"
+ORIGIN_KEY="${ORIGIN_KEY:-}"
+DYN_DIR="$APP_DIR/data/nginx-dynamic"
+CF_STATE="/var/lib/pst/cloudflare-ufw.list"
 
 RED=$'\033[0;31m'; GOLD=$'\033[1;33m'; GREEN=$'\033[0;32m'; DIM=$'\033[2m'; NC=$'\033[0m'
 log()  { echo -e "${GOLD}[PST]${NC} $*"; }
@@ -78,7 +101,17 @@ step "1/10 Preflight"
 [[ $EUID -eq 0 ]] || die "run as root (sudo)"
 [[ -n "$DOMAIN" ]] || die "DOMAIN is required, e.g. DOMAIN=pst.tl"
 [[ "$DOMAIN" =~ ^[A-Za-z0-9.-]+$ ]] || die "invalid DOMAIN: $DOMAIN"
-[[ "$SKIP_CERTBOT" == "1" || -n "$CERTBOT_EMAIL" ]] || die "CERTBOT_EMAIL is required (or SKIP_CERTBOT=1)"
+[[ "$CLOUDFLARE" == "0" || "$CLOUDFLARE" == "1" ]] || die "CLOUDFLARE must be 0 or 1"
+[[ "$CLOUDFLARE_LOCK" == "0" || "$CLOUDFLARE_LOCK" == "1" ]] || die "CLOUDFLARE_LOCK must be 0 or 1"
+[[ "$CLOUDFLARE_LOCK" == "0" || "$CLOUDFLARE" == "1" ]] || die "CLOUDFLARE_LOCK=1 needs CLOUDFLARE=1"
+if [[ -n "$ORIGIN_CERT$ORIGIN_KEY" ]]; then
+  [[ -f "$ORIGIN_CERT" && -f "$ORIGIN_KEY" ]] || die "ORIGIN_CERT and ORIGIN_KEY must both point to existing files"
+  openssl x509 -in "$ORIGIN_CERT" -noout >/dev/null 2>&1 || die "ORIGIN_CERT is not a PEM certificate"
+  [[ "$(openssl x509 -in "$ORIGIN_CERT" -noout -pubkey 2>/dev/null)" == "$(openssl pkey -in "$ORIGIN_KEY" -pubout 2>/dev/null)" ]] \
+    || die "ORIGIN_KEY does not match ORIGIN_CERT"
+  SKIP_CERTBOT=1
+fi
+[[ "$SKIP_CERTBOT" == "1" || -n "$CERTBOT_EMAIL" ]] || die "CERTBOT_EMAIL is required (or SKIP_CERTBOT=1 / ORIGIN_CERT)"
 [[ -f "$SOURCE_DIR/docker-compose.yml" && -f "$SOURCE_DIR/Dockerfile" ]] || die "run this script from the project directory"
 
 # shellcheck disable=SC1091
@@ -243,11 +276,115 @@ step "5/10 Firewall (UFW)"
 ufw default deny incoming >/dev/null
 ufw default allow outgoing >/dev/null
 ufw limit "${SSH_PORT}/tcp" comment 'SSH (rate limited)' >/dev/null
-ufw allow 80/tcp  comment 'HTTP (ACME + redirect)' >/dev/null
-ufw allow 443/tcp comment 'HTTPS' >/dev/null
-ufw allow 443/udp comment 'HTTP/3 (QUIC)' >/dev/null
-ufw --force enable >/dev/null
-ok "UFW active: ${SSH_PORT}/tcp, 80/tcp, 443/tcp, 443/udp"
+
+# ---- Cloudflare IP ranges (nginx real IP; UFW allow-list when locked) -------
+# One refresher, used now and weekly by a systemd timer. It keeps the current
+# list if Cloudflare's answer looks wrong, so a network hiccup never empties it.
+mkdir -p "$DYN_DIR" /var/lib/pst
+cat >/usr/local/sbin/pst-cloudflare-refresh <<EOF
+#!/usr/bin/env bash
+# Installed by deploy-ubuntu-26.04.sh — refreshes Cloudflare's IP ranges.
+set -Eeuo pipefail
+APP_DIR="$APP_DIR"
+DYN_DIR="$DYN_DIR"
+CF_STATE="$CF_STATE"
+LOCK="\$(grep -E '^CLOUDFLARE_LOCK=' "\$APP_DIR/.env.production" 2>/dev/null | tail -1 | cut -d= -f2 | tr -d '"' || true)"
+[[ "\${PST_CF_LOCK:-}" != "" ]] && LOCK="\$PST_CF_LOCK"
+tmp="\$(mktemp)"; trap 'rm -f "\$tmp" "\$tmp.conf" "\$tmp.old"' EXIT
+for v in 4 6; do curl -fsS --max-time 20 "https://www.cloudflare.com/ips-v\$v" || true; echo; done \\
+  | tr -d '\r' | grep -E '^[0-9a-fA-F:.]+/[0-9]{1,3}\$' | sort -u >"\$tmp" || true
+n4=\$(grep -c '\.' "\$tmp" || true); n6=\$(grep -c ':' "\$tmp" || true)
+if (( n4 < 5 || n6 < 3 )); then
+  echo "Cloudflare IP list looks wrong (\$n4 IPv4, \$n6 IPv6) — keeping the current one" >&2
+  exit 1
+fi
+{
+  echo "# Cloudflare ranges — generated \$(date -Is) by pst-cloudflare-refresh. Do not edit."
+  while read -r c; do echo "set_real_ip_from \$c;"; done <"\$tmp"
+  echo "real_ip_header CF-Connecting-IP;"
+} >"\$tmp.conf"
+install -m 644 "\$tmp.conf" "\$DYN_DIR/realip-cloudflare.conf"
+
+if [[ "\$LOCK" == "1" ]]; then
+  # Add new ranges first, then drop stale ones: no window without access.
+  while read -r c; do
+    ufw allow proto tcp from "\$c" to any port 80,443 comment 'Cloudflare' >/dev/null
+  done <"\$tmp"
+  touch "\$CF_STATE"
+  comm -23 <(sort -u "\$CF_STATE") "\$tmp" >"\$tmp.old" || true
+  while read -r c; do
+    ufw delete allow proto tcp from "\$c" to any port 80,443 >/dev/null 2>&1 || true
+  done <"\$tmp.old"
+  cp "\$tmp" "\$CF_STATE"
+fi
+
+docker compose --project-directory "\$APP_DIR" --env-file "\$APP_DIR/.env.production" exec -T nginx \\
+  sh -c 'nginx -t -q && nginx -s reload' >/dev/null 2>&1 || true
+echo "Cloudflare ranges: \$n4 IPv4, \$n6 IPv6\$( [[ "\$LOCK" == 1 ]] && echo ' (UFW locked to Cloudflare)')"
+EOF
+chmod 750 /usr/local/sbin/pst-cloudflare-refresh
+
+# Remove the UFW Cloudflare allow-list recorded in CF_STATE.
+cf_ufw_unlock() {
+  if [[ -f "$CF_STATE" ]]; then
+    while read -r c; do
+      ufw delete allow proto tcp from "$c" to any port 80,443 >/dev/null 2>&1 || true
+    done <"$CF_STATE"
+    rm -f "$CF_STATE"
+  fi
+}
+
+if [[ "$CLOUDFLARE" == "1" ]]; then
+  PST_CF_LOCK="$CLOUDFLARE_LOCK" /usr/local/sbin/pst-cloudflare-refresh \
+    || { [[ -f "$DYN_DIR/realip-cloudflare.conf" ]] || die "could not download Cloudflare's IP ranges (https://www.cloudflare.com/ips-v4)"; }
+  cat >/etc/systemd/system/pst-cloudflare-refresh.service <<'EOF'
+[Unit]
+Description=PST portal: refresh Cloudflare IP ranges
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/pst-cloudflare-refresh
+EOF
+  cat >/etc/systemd/system/pst-cloudflare-refresh.timer <<'EOF'
+[Unit]
+Description=PST portal: weekly Cloudflare IP range refresh
+
+[Timer]
+OnCalendar=Mon *-*-* 04:17:00
+RandomizedDelaySec=1h
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOF
+  systemctl daemon-reload
+  systemctl enable --now pst-cloudflare-refresh.timer >/dev/null 2>&1
+else
+  rm -f "$DYN_DIR/realip-cloudflare.conf"
+  systemctl disable --now pst-cloudflare-refresh.timer >/dev/null 2>&1 || true
+  rm -f /etc/systemd/system/pst-cloudflare-refresh.{service,timer}
+  systemctl daemon-reload
+fi
+
+if [[ "$CLOUDFLARE_LOCK" == "1" ]]; then
+  [[ -s "$CF_STATE" ]] || die "CLOUDFLARE_LOCK: no Cloudflare ranges in UFW — web ports left unchanged"
+  # Cloudflare's ranges were allowed by the refresher above; now close the
+  # public web ports (Cloudflare does not use QUIC towards the origin).
+  ufw delete allow 80/tcp  >/dev/null 2>&1 || true
+  ufw delete allow 443/tcp >/dev/null 2>&1 || true
+  ufw delete allow 443/udp >/dev/null 2>&1 || true
+  ufw --force enable >/dev/null
+  ok "UFW active: ${SSH_PORT}/tcp; 80,443/tcp only from Cloudflare ($(wc -l <"$CF_STATE") ranges)"
+else
+  ufw allow 80/tcp  comment 'HTTP (ACME + redirect)' >/dev/null
+  ufw allow 443/tcp comment 'HTTPS' >/dev/null
+  ufw allow 443/udp comment 'HTTP/3 (QUIC)' >/dev/null
+  cf_ufw_unlock
+  ufw --force enable >/dev/null
+  ok "UFW active: ${SSH_PORT}/tcp, 80/tcp, 443/tcp, 443/udp$( [[ "$CLOUDFLARE" == 1 ]] && echo ' · Cloudflare real IP on' || true)"
+fi
 
 # =============================================================================
 step "6/10 Fail2Ban"
@@ -271,10 +408,34 @@ failregex = ^<HOST> - \[\] "(GET|POST|HEAD) /(wp-login\.php|wp-admin|xmlrpc\.php
 ignoreregex =
 EOF
 
+# Behind Cloudflare every web request reaches the server from a Cloudflare
+# address, so a firewall ban cannot stop a visitor. Web jails then ban inside
+# nginx (one deny file per jail, emptied when the jail starts so bans that
+# expired while Fail2Ban was down never linger). SSH always bans in UFW.
+cat >/etc/fail2ban/action.d/pst-nginx-deny.conf <<EOF
+[Definition]
+actionstart = mkdir -p <dir>; : > <file>; <nginx_reload>
+actionstop  = : > <file>; <nginx_reload>
+actioncheck =
+actionban   = grep -qxF 'deny <ip>;' <file> || echo 'deny <ip>;' >> <file>; <nginx_reload>
+actionunban = grep -vxF 'deny <ip>;' <file> > <file>.tmp; cat <file>.tmp > <file>; rm -f <file>.tmp; <nginx_reload>
+
+[Init]
+dir    = ${DYN_DIR}
+file   = <dir>/deny-<name>.conf
+nginx_reload = docker compose --project-directory ${APP_DIR} --env-file ${ENV_FILE} exec -T nginx nginx -s reload >/dev/null 2>&1 || true
+EOF
+if [[ "$CLOUDFLARE" == "1" ]]; then
+  WEB_BANACTION="pst-nginx-deny"
+else
+  WEB_BANACTION="ufw"
+  rm -f "$DYN_DIR"/deny-*.conf
+fi
+
 cat >/etc/fail2ban/jail.d/pst.local <<EOF
 [DEFAULT]
-banaction = ufw
-banaction_allports = ufw
+banaction = ${WEB_BANACTION}
+banaction_allports = ${WEB_BANACTION}
 bantime  = 1h
 findtime = 10m
 maxretry = 5
@@ -286,6 +447,7 @@ ignoreip = 127.0.0.1/8 ::1
 enabled  = true
 port     = ${SSH_PORT}
 backend  = systemd
+banaction = ufw
 
 [pst-nginx-limit-req]
 enabled  = true
@@ -423,6 +585,8 @@ set_env STORAGE_DRIVER local
 set_env STORAGE_LOCAL_PATH /app/storage
 set_env STORAGE_PUBLIC_BASE_URL "https://$DOMAIN/media"
 set_env TRUST_PROXY true
+set_env CLOUDFLARE "$CLOUDFLARE"
+set_env CLOUDFLARE_LOCK "$CLOUDFLARE_LOCK"
 set_env SESSION_COOKIE_NAME "__Host-pst_session"
 [[ -n "$CERTBOT_EMAIL" ]] && set_env CERTBOT_EMAIL "$CERTBOT_EMAIL"
 set_env POSTGRES_USER "$POSTGRES_USER_V"
@@ -464,6 +628,18 @@ step "9/10 TLS certificate"
 # =============================================================================
 LE_LIVE="$APP_DIR/data/letsencrypt/live/$DOMAIN"
 is_real_cert() { [[ -f "$LE_LIVE/fullchain.pem" ]] && ! openssl x509 -in "$LE_LIVE/fullchain.pem" -noout -issuer | grep -q "PST bootstrap"; }
+
+if [[ -n "$ORIGIN_CERT" ]]; then
+  # Cloudflare Origin Certificate (trusted by Cloudflare only, up to 15 years).
+  # Stored where nginx expects it; any Let's Encrypt renewal for the domain is
+  # dropped so certbot never overwrites it.
+  rm -f "$APP_DIR/data/letsencrypt/renewal/$DOMAIN.conf"
+  mkdir -p "$LE_LIVE"
+  rm -f "$LE_LIVE/fullchain.pem" "$LE_LIVE/privkey.pem" "$LE_LIVE/cert.pem" "$LE_LIVE/chain.pem"
+  install -m 644 "$ORIGIN_CERT" "$LE_LIVE/fullchain.pem"
+  install -m 600 "$ORIGIN_KEY" "$LE_LIVE/privkey.pem"
+  ok "Cloudflare Origin Certificate installed (valid until $(openssl x509 -in "$LE_LIVE/fullchain.pem" -noout -enddate | cut -d= -f2))"
+fi
 
 if ! [[ -f "$LE_LIVE/fullchain.pem" ]]; then
   # Self-signed placeholder so nginx can start and answer the ACME challenge.
