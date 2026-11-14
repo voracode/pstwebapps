@@ -98,11 +98,37 @@ ok "Ubuntu ${VERSION_ID} ${ARCH}, ${MEM_MB} MB RAM, ${DISK_GB} GB free"
 ALIASES="$(echo "$DOMAIN_ALIASES" | tr ',' ' ' | xargs -n1 2>/dev/null | grep -vx "$DOMAIN" | xargs || true)"
 SERVER_NAMES="$DOMAIN${ALIASES:+ $ALIASES}"
 
+# SSH port detection. A wrong port here would lock you out once UFW is
+# enabled, so the sources are tried from most to least reliable. Every probe
+# tolerates failure (set -e + pipefail): on Ubuntu 26.04 sshd is socket-
+# activated and `sshd -T` fails when /run/sshd doesn't exist yet.
+detect_ssh_port() {
+  local p=""
+  # 1. The SSH session running this script: "client_ip client_port server_ip server_port".
+  if [[ -n "${SSH_CONNECTION:-}" ]]; then
+    p="$(awk '{print $4}' <<<"$SSH_CONNECTION")"
+  fi
+  # 2. systemd socket activation (Ubuntu default): Listen=[::]:22 (Stream)
+  if [[ -z "$p" ]]; then
+    p="$({ systemctl show -p Listen ssh.socket 2>/dev/null || true; } | grep -oE ':[0-9]+ \(Stream\)' | head -1 | tr -dc '0-9' || true)"
+  fi
+  # 3. Effective sshd configuration.
+  if [[ -z "$p" ]]; then
+    p="$({ sshd -T 2>/dev/null || true; } | awk '/^port /{print $2; exit}' || true)"
+  fi
+  # 4. Port directives in the config files.
+  if [[ -z "$p" ]]; then
+    p="$({ grep -hiE '^[[:space:]]*Port[[:space:]]+[0-9]+' /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null || true; } | awk '{print $2; exit}' || true)"
+  fi
+  [[ "$p" =~ ^[0-9]+$ ]] || p=22
+  echo "$p"
+}
+
 if [[ -z "${SSH_PORT:-}" ]]; then
-  SSH_PORT="$(sshd -T 2>/dev/null | awk '/^port /{print $2; exit}')"
-  SSH_PORT="${SSH_PORT:-22}"
+  SSH_PORT="$(detect_ssh_port)"
 fi
-ok "SSH port ${SSH_PORT} will stay open"
+[[ "$SSH_PORT" =~ ^[0-9]+$ ]] || die "invalid SSH_PORT: $SSH_PORT"
+ok "SSH port ${SSH_PORT} will stay open (override with SSH_PORT=…)"
 
 # =============================================================================
 step "2/10 System packages & updates"
