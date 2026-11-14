@@ -1,0 +1,42 @@
+{
+  "title": "Audit log",
+  "description": "Tamper-evident record of every security event and change.",
+  "timezone": "Times in Timor-Leste time (UTC+9)",
+  "time": "Time",
+  "action": "Action",
+  "severity": "Severity",
+  "actor": "Actor",
+  "entity": "Entity",
+  "ip": "IP address",
+  "details": "Details",
+  "toggleDetails": "Show or hide details of entry {id}",
+  "system": "System",
+  "userAgent": "Browser",
+  "requestId": "Request ID",
+  "hash": "Hash",
+  "metadata": "Metadata",
+  "severities": {
+    "INFO": "Info",
+    "WARNING": "Warning",
+    "CRITICAL": "Critical"
+  },
+  "filters": {
+    "action": "Action (prefix)",
+    "actorEmail": "Actor e-mail",
+    "entityType": "Entity type",
+    "entityId": "Entity ID",
+    "from": "From",
+    "to": "To",
+    "ipInvalid": "Enter a valid IPv4 or IPv6 address."
+  },
+  "verify": {
+    "description": "Each entry is chained to the previous one with a SHA-256 hash. Verification recomputes the whole chain to detect edited or deleted entries.",
+    "button": "Verify integrity",
+    "running": "Verifying…",
+    "okTitle": "Chain intact",
+    "ok": "{count, plural, one {{formatted} entry verified} other {{formatted} entries verified}} — no tampering detected.",
+    "brokenTitle": "Integrity problem detected",
+    "broken": "The chain breaks at entry #{id} (after {checked} valid entries).",
+    "brokenHint": "Administrators have been alerted. Do not modify the database; contact the system owner."
+  }
+}

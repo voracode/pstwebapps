@@ -1,0 +1,32 @@
+# Keep the build context small and free of secrets.
+.git
+.github
+node_modules
+.next
+out
+src/generated
+storage
+data
+backups
+legacy
+coverage
+*.log
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.rar
+*.zip
+*.sql
+# …but database migrations are source code and must be versioned.
+!prisma/migrations/**/migration.sql
+*.sql.gz
+*.dump
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+.vscode
+.idea
+.claude

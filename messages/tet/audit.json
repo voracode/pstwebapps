@@ -1,0 +1,42 @@
+{
+  "title": "Log auditoria",
+  "description": "Rejistu ne'ebé hatudu se iha manipulasaun, ba eventu seguransa no mudansa hotu.",
+  "timezone": "Oras Timor-Leste (UTC+9)",
+  "time": "Oras",
+  "action": "Asaun",
+  "severity": "Gravidade",
+  "actor": "Autór",
+  "entity": "Entidade",
+  "ip": "Enderesu IP",
+  "details": "Detalle",
+  "toggleDetails": "Hatudu ka subar detalle rejistu {id}",
+  "system": "Sistema",
+  "userAgent": "Navegadór",
+  "requestId": "ID pedidu",
+  "hash": "Hash",
+  "metadata": "Metadadus",
+  "severities": {
+    "INFO": "Informasaun",
+    "WARNING": "Avizu",
+    "CRITICAL": "Krítiku"
+  },
+  "filters": {
+    "action": "Asaun (prefiksu)",
+    "actorEmail": "E-mail autór",
+    "entityType": "Tipu entidade",
+    "entityId": "ID entidade",
+    "from": "Husi",
+    "to": "To'o",
+    "ipInvalid": "Hatama enderesu IPv4 ka IPv6 válidu."
+  },
+  "verify": {
+    "description": "Rejistu ida-idak ligadu ho rejistu molok ho hash SHA-256. Verifikasaun kalkula fali kadeia tomak atu deteta rejistu ne'ebé edita ka hamoos.",
+    "button": "Verifika integridade",
+    "running": "Verifika hela…",
+    "okTitle": "Kadeia integru",
+    "ok": "{formatted} rejistu verifika ona — la deteta manipulasaun.",
+    "brokenTitle": "Deteta problema integridade",
+    "broken": "Kadeia kotu iha rejistu #{id} (depois rejistu válidu {checked}).",
+    "brokenHint": "Administradór sira simu ona alerta. Labele muda baze dadus; kontaktu responsável sistema."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "title": "Registo de auditoria",
+  "description": "Registo inviolável de todos os eventos de segurança e alterações.",
+  "timezone": "Horas de Timor-Leste (UTC+9)",
+  "time": "Hora",
+  "action": "Ação",
+  "severity": "Gravidade",
+  "actor": "Autor",
+  "entity": "Entidade",
+  "ip": "Endereço IP",
+  "details": "Detalhes",
+  "toggleDetails": "Mostrar ou ocultar os detalhes do registo {id}",
+  "system": "Sistema",
+  "userAgent": "Navegador",
+  "requestId": "ID do pedido",
+  "hash": "Hash",
+  "metadata": "Metadados",
+  "severities": {
+    "INFO": "Informação",
+    "WARNING": "Aviso",
+    "CRITICAL": "Crítico"
+  },
+  "filters": {
+    "action": "Ação (prefixo)",
+    "actorEmail": "E-mail do autor",
+    "entityType": "Tipo de entidade",
+    "entityId": "ID da entidade",
+    "from": "De",
+    "to": "Até",
+    "ipInvalid": "Indique um endereço IPv4 ou IPv6 válido."
+  },
+  "verify": {
+    "description": "Cada registo está encadeado ao anterior com um hash SHA-256. A verificação recalcula toda a cadeia para detetar registos editados ou eliminados.",
+    "button": "Verificar integridade",
+    "running": "A verificar…",
+    "okTitle": "Cadeia íntegra",
+    "ok": "{count, plural, one {{formatted} registo verificado} other {{formatted} registos verificados}} — nenhuma adulteração detetada.",
+    "brokenTitle": "Problema de integridade detetado",
+    "broken": "A cadeia quebra no registo n.º {id} (após {checked} registos válidos).",
+    "brokenHint": "Os administradores foram alertados. Não altere a base de dados; contacte o responsável pelo sistema."
+  }
+}

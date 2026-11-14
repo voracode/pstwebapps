@@ -1,0 +1,58 @@
+{
+  "title": "Dasbor",
+  "scopeNational": "Data nasional — semua munisipalitas",
+  "scopeMunicipality": "Hanya data munisipalitas {name}",
+  "kpi": {
+    "total": "Total anggota",
+    "verified": "Terverifikasi",
+    "pending": "Menunggu",
+    "aspirationsOpen": "Aspirasi terbuka",
+    "last30": "+{count} dalam 30 hari terakhir",
+    "share": "{pct}% dari total",
+    "oldest": "Terlama: {when}",
+    "noneWaiting": "Tidak ada yang menunggu",
+    "aspirationsNew": "{count} baru"
+  },
+  "quick": {
+    "reviewPending": "Tinjau {count} pendaftaran tertunda",
+    "newAspirations": "{count} aspirasi baru"
+  },
+  "charts": {
+    "registrations": "Pendaftaran baru — 30 hari terakhir",
+    "registrationsHint": "Semua pendaftaran per hari (online, lapangan, dan backoffice)",
+    "registrationsSeries": "Pendaftaran",
+    "noRegistrations": "Tidak ada pendaftaran dalam 30 hari terakhir.",
+    "gender": "Jenis kelamin",
+    "verifiedOnly": "Hanya anggota terverifikasi",
+    "noVerified": "Belum ada anggota terverifikasi.",
+    "municipality": "Anggota per munisipalitas",
+    "municipalityHint": "Terverifikasi, menunggu, dan lainnya",
+    "noMembers": "Belum ada anggota terdaftar.",
+    "otherStatus": "Ditolak / ditangguhkan",
+    "age": "Kelompok usia",
+    "membersSeries": "Anggota",
+    "aspirations": "Aspirasi per status",
+    "noAspirations": "Belum ada aspirasi yang diterima.",
+    "ticketsSeries": "Tiket"
+  },
+  "topPosts": {
+    "title": "Tulisan terpopuler",
+    "hint": "30 hari terakhir",
+    "empty": "Belum ada tayangan.",
+    "views": "{count} tayangan"
+  },
+  "health": {
+    "title": "Kesehatan sistem",
+    "ok": "Normal",
+    "degraded": "Terganggu",
+    "uptime": "Berjalan selama {hours} jam",
+    "checks": {
+      "database": "Basis data",
+      "redis": "Redis (cache)",
+      "queue": "Antrean notifikasi",
+      "notifications": "Pengiriman notifikasi"
+    }
+  },
+  "emptyTitle": "Selamat datang di SIM-PST",
+  "emptyDescription": "Belum ada data. Statistik akan muncul setelah anggota dan aspirasi pertama masuk."
+}

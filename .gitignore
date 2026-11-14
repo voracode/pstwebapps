@@ -18,11 +18,14 @@ src/generated/
 *.pem
 *.key
 
-# runtime data
+# runtime data (certificates, backups, logs, uploads)
+data/
 storage/
 uploads/
 backups/
 *.sql
+# …but database migrations are source code and must be versioned.
+!prisma/migrations/**/migration.sql
 *.sql.gz
 *.dump
 

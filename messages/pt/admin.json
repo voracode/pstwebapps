@@ -1,0 +1,48 @@
+{
+  "title": "Backoffice PST",
+  "nav": {
+    "dashboard": "Painel",
+    "members": "Militantes",
+    "events": "Eventos",
+    "aspirations": "Aspirações",
+    "messages": "Mensagens",
+    "posts": "Notícias e Artigos",
+    "media": "Biblioteca de Média",
+    "documents": "Documentos",
+    "leadership": "Estrutura e Liderança",
+    "site": "Website",
+    "users": "Utilizadores",
+    "audit": "Registo de Auditoria",
+    "account": "A minha conta",
+    "viewSite": "Ver website"
+  },
+  "groups": {
+    "sim": "SIM-PST",
+    "content": "Conteúdo",
+    "system": "Sistema"
+  },
+  "theme": {
+    "light": "Modo claro",
+    "dark": "Modo escuro"
+  },
+  "scopeMunicipality": "Âmbito: {name}",
+  "scopeNational": "Âmbito nacional",
+  "account": {
+    "title": "A minha conta",
+    "profile": "Perfil",
+    "security": "Segurança",
+    "twoFactorOn": "Verificação em dois passos ativa",
+    "twoFactorOff": "Verificação em dois passos inativa",
+    "regenerateCodes": "Gerar novos códigos de recuperação",
+    "regenerateHelp": "Os códigos antigos deixarão de funcionar.",
+    "disable2fa": "Desativar verificação em dois passos",
+    "enable2fa": "Ativar verificação em dois passos",
+    "sessionExpires": "A sessão termina às {time}",
+    "name": "Nome",
+    "email": "E-mail",
+    "role": "Função",
+    "municipality": "Município",
+    "lastLogin": "Último acesso",
+    "passwordChanged": "Palavra-passe alterada em"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "title": "Utilizadores",
+  "description": "Contas do backoffice, funções e segurança de acesso.",
+  "searchPlaceholder": "Nome ou e-mail…",
+  "new": "Novo utilizador",
+  "edit": "Editar utilizador",
+  "user": "Utilizador",
+  "role": "Função",
+  "status": "Estado",
+  "security": "2FA",
+  "lastLogin": "Último acesso",
+  "actions": "Ações",
+  "you": "você",
+  "never": "Nunca",
+  "locked": "Bloqueado",
+  "pendingSetup": "Configuração pendente",
+  "twoFactorOn": "2FA ativo",
+  "twoFactorOff": "2FA inativo",
+  "statuses": {
+    "ACTIVE": "Ativo",
+    "DISABLED": "Desativado"
+  },
+  "actionLabels": {
+    "reset_password": "Redefinir palavra-passe",
+    "reset_2fa": "Redefinir 2FA",
+    "unlock": "Desbloquear",
+    "disable": "Desativar",
+    "enable": "Ativar"
+  },
+  "done": {
+    "reset_password": "Palavra-passe redefinida — foi emitida uma nova ligação",
+    "reset_2fa": "Autenticação de dois fatores redefinida",
+    "unlock": "Conta desbloqueada",
+    "disable": "Conta desativada",
+    "enable": "Conta ativada",
+    "delete": "Utilizador eliminado"
+  },
+  "confirm": {
+    "reset_password": {
+      "title": "Redefinir a palavra-passe de {name}?",
+      "description": "Todas as sessões de {email} terminam e é emitida uma nova ligação de palavra-passe (válida 48 horas)."
+    },
+    "reset_2fa": {
+      "title": "Redefinir o 2FA de {name}?",
+      "description": "{email} terá a sessão terminada e terá de registar uma nova aplicação autenticadora. Faça-o só depois de verificar a identidade da pessoa."
+    },
+    "unlock": {
+      "title": "Desbloquear {name}?",
+      "description": "Repõe o contador de tentativas falhadas de {email} para que possa voltar a entrar."
+    },
+    "disable": {
+      "title": "Desativar {name}?",
+      "description": "{email} terá todas as sessões terminadas e deixará de poder entrar. Pode reativar a conta mais tarde."
+    },
+    "enable": {
+      "title": "Ativar {name}?",
+      "description": "{email} poderá voltar a entrar."
+    },
+    "delete": {
+      "title": "Eliminar {name}?",
+      "description": "A conta {email} é encerrada definitivamente e as sessões terminam. O registo de auditoria é mantido."
+    }
+  },
+  "created": "Utilizador criado — o convite foi enviado por e-mail",
+  "createdNoMail": "Utilizador criado — partilhe a ligação de convite",
+  "link": {
+    "inviteTitle": "Ligação de convite",
+    "resetTitle": "Ligação de redefinição de palavra-passe",
+    "description": "O e-mail não está configurado; envie esta ligação a {email} pessoalmente.",
+    "warningTitle": "Partilhe de forma segura",
+    "warning": "Quem tiver esta ligação pode definir a palavra-passe desta conta. Envie-a apenas diretamente à pessoa (em mão ou por canal privado) — nunca num grupo de conversa.",
+    "label": "Ligação",
+    "expires": "A ligação funciona uma única vez e expira após 48 horas."
+  },
+  "form": {
+    "inviteHint": "A pessoa recebe uma ligação para escolher a sua palavra-passe.",
+    "email": "E-mail",
+    "name": "Nome completo",
+    "phone": "Telefone",
+    "telegram": "ID de conversa do Telegram",
+    "telegramHint": "Opcional — para alertas de segurança e atividade.",
+    "telegramInvalid": "O ID de conversa do Telegram contém apenas dígitos.",
+    "municipalityRequired": "Um coordenador municipal precisa de um município.",
+    "emailTaken": "Este e-mail já está a ser usado.",
+    "ownRole": "Não pode alterar a sua própria função.",
+    "roleChangeWarning": "Alterar a função ou o município termina as sessões ativas do utilizador.",
+    "createAndInvite": "Criar e convidar"
+  },
+  "roleHints": {
+    "SUPER_ADMIN": "Acesso total, incluindo utilizadores e definições. 2FA obrigatório.",
+    "NATIONAL_SECRETARY": "Tudo exceto utilizadores e definições. 2FA obrigatório.",
+    "MUNICIPAL_COORDINATOR": "Militantes, cartões KTA, eventos e aspirações de um município.",
+    "MEDIA_EDITOR": "Notícias, documentos, média, eventos e liderança.",
+    "AUDITOR": "Acesso só de leitura e registo de auditoria. 2FA obrigatório."
+  }
+}

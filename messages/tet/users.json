@@ -1,0 +1,96 @@
+{
+  "title": "Utilizadór",
+  "description": "Konta backoffice, funsaun no seguransa asesu.",
+  "searchPlaceholder": "Naran ka e-mail…",
+  "new": "Utilizadór foun",
+  "edit": "Edita utilizadór",
+  "user": "Utilizadór",
+  "role": "Funsaun",
+  "status": "Estadu",
+  "security": "2FA",
+  "lastLogin": "Login ikus",
+  "actions": "Asaun sira",
+  "you": "ita",
+  "never": "Nunka",
+  "locked": "Xavi ona",
+  "pendingSetup": "Seidauk konfigura",
+  "twoFactorOn": "2FA ativu",
+  "twoFactorOff": "2FA la ativu",
+  "statuses": {
+    "ACTIVE": "Ativu",
+    "DISABLED": "Desativa"
+  },
+  "actionLabels": {
+    "reset_password": "Reset password",
+    "reset_2fa": "Reset 2FA",
+    "unlock": "Loke xavi",
+    "disable": "Desativa",
+    "enable": "Ativa"
+  },
+  "done": {
+    "reset_password": "Password reset ona — link foun emite ona",
+    "reset_2fa": "Verifikasaun pasu rua reset ona",
+    "unlock": "Konta loke ona",
+    "disable": "Konta desativa ona",
+    "enable": "Konta ativa ona",
+    "delete": "Utilizadór hamoos ona"
+  },
+  "confirm": {
+    "reset_password": {
+      "title": "Reset password {name} nian?",
+      "description": "Sesaun hotu {email} nian sei remata no link password foun sei emite (válidu oras 48)."
+    },
+    "reset_2fa": {
+      "title": "Reset 2FA ba {name}?",
+      "description": "{email} sei sai husi sistema no tenke rejista fali aplikasaun autentikadór foun. Halo ne'e de'it depois verifika ema nia identidade."
+    },
+    "unlock": {
+      "title": "Loke xavi {name}?",
+      "description": "Hamoos kontadór login falla {email} nian atu nia bele tama fali."
+    },
+    "disable": {
+      "title": "Desativa {name}?",
+      "description": "{email} sei sai husi fatin hotu no labele tama tan. Ita bele ativa fali konta depois."
+    },
+    "enable": {
+      "title": "Ativa {name}?",
+      "description": "{email} sei bele tama fali."
+    },
+    "delete": {
+      "title": "Hamoos {name}?",
+      "description": "Konta {email} sei taka ba nafatin no sesaun sira remata. Rejistu auditoria sei rai nafatin."
+    }
+  },
+  "created": "Utilizadór kria ona — konvite haruka ona liuhusi e-mail",
+  "createdNoMail": "Utilizadór kria ona — fahe link konvite",
+  "link": {
+    "inviteTitle": "Link konvite",
+    "resetTitle": "Link reset password",
+    "description": "E-mail seidauk konfigura, entaun haruka rasik link ne'e ba {email}.",
+    "warningTitle": "Fahe ho seguru",
+    "warning": "Ema ne'ebé iha link ne'e bele define password ba konta ne'e. Haruka de'it diretamente ba ema ne'e (hasoru malu ka liuhusi kanál privadu) — nunka iha grupu chat.",
+    "label": "Link",
+    "expires": "Link ne'e funsiona dala ida de'it no remata depois oras 48."
+  },
+  "form": {
+    "inviteHint": "Ema ne'e sei simu link ida atu hili nia password rasik.",
+    "email": "E-mail",
+    "name": "Naran kompletu",
+    "phone": "Telefone",
+    "telegram": "ID chat Telegram",
+    "telegramHint": "Opsionál — ba alerta seguransa no atividade.",
+    "telegramInvalid": "ID chat Telegram iha númeru de'it.",
+    "municipalityRequired": "Koordenadór munisipál presiza munisípiu.",
+    "emailTaken": "E-mail ne'e uza ona.",
+    "ownRole": "Ita labele muda Ita-nia funsaun rasik.",
+    "roleChangeWarning": "Muda funsaun ka munisípiu sei remata sesaun ativu utilizadór nian.",
+    "createAndInvite": "Kria no konvida"
+  },
+  "roleHints": {
+    "SUPER_ADMIN": "Asesu kompletu, inklui utilizadór no konfigurasaun. Presiza 2FA.",
+    "NATIONAL_SECRETARY": "Hotu, exetu utilizadór no konfigurasaun. Presiza 2FA.",
+    "MUNICIPAL_COORDINATOR": "Militante, kartaun KTA, eventu no aspirasaun husi munisípiu ida.",
+    "MEDIA_EDITOR": "Notísia, dokumentu, média, eventu no lideransa.",
+    "AUDITOR": "Lee de'it no log auditoria. Presiza 2FA."
+  }
+}

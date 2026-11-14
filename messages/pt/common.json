@@ -1,0 +1,216 @@
+{
+  "langName": {
+    "tet": "Tetun",
+    "pt": "Português",
+    "id": "Indonésio",
+    "en": "Inglês"
+  },
+  "language": "Idioma",
+  "actions": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Criar",
+    "add": "Adicionar",
+    "search": "Pesquisar",
+    "filter": "Filtrar",
+    "clear": "Limpar",
+    "export": "Exportar",
+    "import": "Importar",
+    "back": "Voltar",
+    "next": "Seguinte",
+    "previous": "Anterior",
+    "close": "Fechar",
+    "confirm": "Confirmar",
+    "submit": "Enviar",
+    "download": "Descarregar",
+    "upload": "Carregar",
+    "view": "Ver",
+    "viewAll": "Ver tudo",
+    "readMore": "Ler mais",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "print": "Imprimir",
+    "retry": "Tentar novamente",
+    "logout": "Sair",
+    "open": "Abrir",
+    "share": "Partilhar"
+  },
+  "states": {
+    "loading": "A carregar…",
+    "saving": "A guardar…",
+    "saved": "Guardado",
+    "empty": "Sem dados",
+    "noResults": "Sem resultados",
+    "optional": "opcional",
+    "required": "obrigatório",
+    "yes": "Sim",
+    "no": "Não",
+    "all": "Todos"
+  },
+  "geo": {
+    "municipality": "Município",
+    "adminPost": "Posto Administrativo",
+    "suco": "Suco",
+    "aldeia": "Aldeia",
+    "select": "— Selecione —",
+    "any": "Todos"
+  },
+  "translations": {
+    "languages": "Idiomas",
+    "filled": "preenchido",
+    "missing": "em falta",
+    "hint": "Tétum é a língua principal. Os restantes idiomas são opcionais — se vazios, mostra-se o Tétum."
+  },
+  "pagination": {
+    "page": "Página {page} de {total}",
+    "total": "{count} resultados"
+  },
+  "errors": {
+    "generic": "Ocorreu um erro. Tente novamente.",
+    "network": "Sem ligação ao servidor. Verifique a sua internet.",
+    "rateLimited": "Demasiados pedidos. Aguarde e tente novamente.",
+    "forbidden": "Não tem permissão.",
+    "notFound": "Não encontrado.",
+    "validation": "Verifique os dados introduzidos.",
+    "notFoundTitle": "Página não encontrada",
+    "notFoundBody": "A página que procura não existe ou foi movida.",
+    "goHome": "Voltar à página inicial"
+  },
+  "enums": {
+    "memberStatus": {
+      "PENDING": "Pendente",
+      "VERIFIED": "Verificado",
+      "REJECTED": "Rejeitado",
+      "SUSPENDED": "Suspenso"
+    },
+    "memberRank": {
+      "SYMPATHIZER": "Simpatizante",
+      "MILITANT": "Militante",
+      "CADRE": "Quadro"
+    },
+    "gender": {
+      "MALE": "Masculino",
+      "FEMALE": "Feminino"
+    },
+    "idDocumentType": {
+      "BILHETE_IDENTIDADE": "Bilhete de Identidade (BI)",
+      "CARTAO_ELEITORAL": "Cartão de Eleitor",
+      "PASSPORT": "Passaporte",
+      "OTHER": "Outro"
+    },
+    "educationLevel": {
+      "NONE": "Sem escolaridade",
+      "PRIMARY": "Ensino primário",
+      "PRE_SECONDARY": "Pré-secundário",
+      "SECONDARY": "Secundário",
+      "VOCATIONAL": "Profissional",
+      "DIPLOMA": "Diploma",
+      "BACHELOR": "Licenciatura",
+      "MASTER": "Mestrado",
+      "DOCTORATE": "Doutoramento"
+    },
+    "postType": {
+      "NEWS": "Notícia",
+      "PRESS_RELEASE": "Comunicado de Imprensa",
+      "ARTICLE": "Artigo",
+      "STATEMENT": "Declaração Política"
+    },
+    "publishStatus": {
+      "DRAFT": "Rascunho",
+      "IN_REVIEW": "Em revisão",
+      "SCHEDULED": "Agendado",
+      "PUBLISHED": "Publicado",
+      "ARCHIVED": "Arquivado"
+    },
+    "documentType": {
+      "STATUTE": "Estatuto",
+      "POLITICAL_PROGRAM": "Programa Político",
+      "MANIFESTO": "Manifesto",
+      "BULLETIN": "Boletim",
+      "LEGISLATION": "Legislação",
+      "RESOLUTION": "Resolução",
+      "REPORT": "Relatório",
+      "OTHER": "Outro"
+    },
+    "eventType": {
+      "CONGRESS": "Congresso",
+      "RALLY": "Comício",
+      "COMMUNITY_DISCUSSION": "Debate Comunitário",
+      "POLITICAL_EDUCATION": "Formação Política",
+      "MEETING": "Reunião",
+      "OTHER": "Outro"
+    },
+    "eventStatus": {
+      "DRAFT": "Rascunho",
+      "SCHEDULED": "Agendado",
+      "ONGOING": "A decorrer",
+      "COMPLETED": "Concluído",
+      "POSTPONED": "Adiado",
+      "CANCELLED": "Cancelado"
+    },
+    "leadershipLevel": {
+      "PRESIDENCY": "Presidência",
+      "POLITICAL_COMMISSION": "Comissão Política",
+      "CENTRAL_COMMITTEE": "Comité Central",
+      "NATIONAL_SECRETARIAT": "Secretariado Nacional",
+      "MUNICIPAL_COMMITTEE": "Comité Municipal",
+      "WING": "Organização Autónoma"
+    },
+    "aspirationCategory": {
+      "LAND_PROPERTY": "Terra e propriedade",
+      "AGRICULTURE_FISHERIES": "Agricultura e pescas",
+      "LABOUR_EMPLOYMENT": "Trabalho e emprego",
+      "EDUCATION": "Educação",
+      "HEALTH": "Saúde",
+      "INFRASTRUCTURE": "Infraestruturas",
+      "WATER_SANITATION": "Água e saneamento",
+      "ELECTRICITY": "Eletricidade",
+      "SOCIAL_PROTECTION": "Proteção social",
+      "CORRUPTION_GOVERNANCE": "Corrupção e governação",
+      "YOUTH": "Juventude",
+      "WOMEN_GENDER": "Mulheres e género",
+      "VETERANS": "Veteranos",
+      "OTHER": "Outro"
+    },
+    "submitterType": {
+      "CITIZEN": "Cidadão",
+      "WORKER": "Trabalhador",
+      "FARMER": "Agricultor",
+      "FISHER": "Pescador",
+      "STUDENT": "Estudante",
+      "VETERAN": "Veterano",
+      "PARTY_MEMBER": "Militante do PST",
+      "OTHER": "Outro"
+    },
+    "ticketStatus": {
+      "NEW": "Novo",
+      "ACKNOWLEDGED": "Recebido",
+      "IN_REVIEW": "Em análise",
+      "FORWARDED": "Encaminhado",
+      "RESOLVED": "Resolvido",
+      "CLOSED": "Fechado",
+      "SPAM": "Spam"
+    },
+    "ticketPriority": {
+      "LOW": "Baixa",
+      "NORMAL": "Normal",
+      "HIGH": "Alta",
+      "URGENT": "Urgente"
+    },
+    "role": {
+      "SUPER_ADMIN": "Super Administrador",
+      "NATIONAL_SECRETARY": "Secretário Nacional",
+      "MUNICIPAL_COORDINATOR": "Coordenador Municipal",
+      "MEDIA_EDITOR": "Editor de Média",
+      "AUDITOR": "Auditor"
+    },
+    "registrationChannel": {
+      "ONLINE": "Online",
+      "FIELD_IMPORT": "Registo de terreno",
+      "BACKOFFICE": "Backoffice",
+      "LEGACY_MIGRATION": "Sistema antigo"
+    }
+  }
+}

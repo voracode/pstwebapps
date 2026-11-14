@@ -42,14 +42,19 @@ export async function dashboardStats(auth: AuthSession) {
           WHEN age < 65 THEN '55-64'
           ELSE '65+' END AS bucket,
         COUNT(*) AS n
-      FROM (SELECT date_part('year', age(current_date, m.birth_date)) AS age FROM members m
+      FROM (SELECT date_part('year', age((now() AT TIME ZONE 'Asia/Dili')::date, m.birth_date)) AS age FROM members m
             WHERE m.deleted_at IS NULL AND m.status = 'VERIFIED' ${memberScope}) t
       GROUP BY 1 ORDER BY 1`,
 
     db.$queryRaw<{ day: Date; n: bigint }[]>`
-      SELECT d::date AS day, COUNT(m.id) AS n
-      FROM generate_series(current_date - interval '29 days', current_date, interval '1 day') d
-      LEFT JOIN members m ON (m.created_at AT TIME ZONE 'Asia/Dili')::date = d::date AND m.deleted_at IS NULL ${memberScope}
+      -- created_at is a UTC "timestamp without time zone": mark it as UTC, then
+      -- convert to Dili local time. "Today" is also the Dili calendar day.
+      WITH today AS (SELECT (now() AT TIME ZONE 'Asia/Dili')::date AS d)
+      SELECT g::date AS day, COUNT(m.id) AS n
+      FROM today, generate_series(today.d - 29, today.d, interval '1 day') g
+      LEFT JOIN members m
+        ON ((m.created_at AT TIME ZONE 'UTC') AT TIME ZONE 'Asia/Dili')::date = g::date
+       AND m.deleted_at IS NULL ${memberScope}
       GROUP BY 1 ORDER BY 1`,
 
     db.$queryRaw<{ status: string; n: bigint }[]>`
@@ -62,7 +67,7 @@ export async function dashboardStats(auth: AuthSession) {
           JOIN posts p ON p.id = v.post_id AND p.deleted_at IS NULL
           LEFT JOIN post_translations tt ON tt.post_id = p.id AND tt.locale = 'tet'
           LEFT JOIN post_translations tp ON tp.post_id = p.id AND tp.locale = 'pt'
-          WHERE v.day >= current_date - 30
+          WHERE v.day >= (now() AT TIME ZONE 'Asia/Dili')::date - 30
           GROUP BY p.id, tt.title, tp.title ORDER BY views DESC LIMIT 5`
       : Promise.resolve([]),
 

@@ -1,0 +1,116 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Dark mode is class-based (`<html class="dark">`), toggled in the backoffice. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * PST design tokens — from the official emblem.
+ *   Socialist Red  #D91C1F / #DC2626
+ *   Gold           #FACC15 / #F59E0B
+ *   Ink            #0F172A
+ *   White          #FFFFFF / #F8FAFC
+ */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: var(--font-barlow), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --color-pst-red-50: #fef2f2;
+  --color-pst-red-100: #fee2e2;
+  --color-pst-red-200: #fecaca;
+  --color-pst-red-500: #dc2626;
+  --color-pst-red: #d91c1f;
+  --color-pst-red-700: #b91518;
+  --color-pst-red-800: #8f1013;
+  --color-pst-red-900: #6b0c0e;
+
+  --color-pst-gold-100: #fef9c3;
+  --color-pst-gold-300: #fde047;
+  --color-pst-gold: #facc15;
+  --color-pst-gold-600: #f59e0b;
+  --color-pst-gold-700: #b45309;
+
+  --color-pst-ink: #0f172a;
+  --color-pst-ink-800: #1e293b;
+  --color-pst-ink-700: #334155;
+
+  /* Semantic tokens (shadcn-style), light theme. */
+  --color-background: #ffffff;
+  --color-foreground: #0f172a;
+  --color-surface: #f8fafc;
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #64748b;
+  --color-border: #e2e8f0;
+  --color-input: #cbd5e1;
+  --color-ring: #d91c1f;
+  --color-primary: #d91c1f;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #facc15;
+  --color-secondary-foreground: #0f172a;
+  --color-accent: #fef2f2;
+  --color-accent-foreground: #8f1013;
+  --color-destructive: #b91c1c;
+  --color-success: #15803d;
+  --color-warning: #b45309;
+  --color-card: #ffffff;
+  --color-card-foreground: #0f172a;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  --animate-marquee: marquee 40s linear infinite;
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+.dark {
+  --color-background: #0b1120;
+  --color-foreground: #e2e8f0;
+  --color-surface: #0f172a;
+  --color-muted: #1e293b;
+  --color-muted-foreground: #94a3b8;
+  --color-border: #1e293b;
+  --color-input: #334155;
+  --color-accent: #2a0f12;
+  --color-accent-foreground: #fecaca;
+  --color-card: #0f172a;
+  --color-card-foreground: #e2e8f0;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+}
+
+/* Article body rendered from sanitised CMS HTML. */
+@utility prose-pst {
+  @apply prose prose-slate max-w-none prose-headings:font-[family-name:var(--font-display)] prose-a:text-pst-red prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-blockquote:border-pst-gold;
+  & iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; border-radius: 0.5rem; }
+}

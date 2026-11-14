@@ -12,7 +12,7 @@ import { urlFor } from "@/lib/storage";
 import { slugify } from "@/lib/utils/slug";
 import { localeToEnum, type AppLocale } from "@/lib/validation/common";
 import type { PostCreateInput, PostUpdateInput } from "@/lib/validation/content";
-import type { Locale, PostType, Prisma, PublishStatus } from "@/generated/prisma/client";
+import { Prisma, type Locale, type PostType, type PublishStatus } from "@/generated/prisma/client";
 
 const actorOf = (a: AuthSession): AuditActor => ({ id: a.user.id, email: a.user.email, role: a.user.role });
 
@@ -38,12 +38,13 @@ async function translationData(t: TranslationInput, excludePostId?: string) {
     locale: t.locale,
     title: t.title,
     slug: await uniqueSlug(t.locale, t.slug ?? t.title, excludePostId),
-    excerpt: t.excerpt,
-    contentJson: (t.contentJson ?? undefined) as Prisma.InputJsonValue | undefined,
-    contentHtml: html,
-    seoTitle: t.seoTitle,
-    seoDescription: t.seoDescription,
-    readingMinutes: html ? readingMinutes(html) : undefined,
+    // Translations are always sent whole, so an absent optional field means "cleared".
+    excerpt: t.excerpt ?? null,
+    contentJson: (t.contentJson ?? Prisma.DbNull) as Prisma.InputJsonValue | typeof Prisma.DbNull,
+    contentHtml: html ?? null,
+    seoTitle: t.seoTitle ?? null,
+    seoDescription: t.seoDescription ?? null,
+    readingMinutes: html ? readingMinutes(html) : null,
   };
 }
 
@@ -325,7 +326,8 @@ export async function getPostPublic(locale: AppLocale, slug: string) {
 /** Counts one view per post per visitor per day (Redis), flushed by the worker. */
 export async function recordView(postId: string, ip: string | null) {
   try {
-    const day = new Date().toISOString().slice(0, 10);
+    // Dili calendar day (UTC+9, no DST) so daily stats match what admins see.
+    const day = new Date(Date.now() + 9 * 3_600_000).toISOString().slice(0, 10);
     const visitor = blindIndex("view", `${ip ?? "anon"}:${day}`).slice(0, 16);
     const first = await redis().set(`viewed:${postId}:${visitor}`, "1", "EX", 86_400, "NX");
     if (first === "OK") await redis().incr(`views:post:${postId}:${day}`);

@@ -1,0 +1,96 @@
+{
+  "title": "Pengguna",
+  "description": "Akun backoffice, peran, dan keamanan akses.",
+  "searchPlaceholder": "Nama atau email…",
+  "new": "Pengguna baru",
+  "edit": "Edit pengguna",
+  "user": "Pengguna",
+  "role": "Peran",
+  "status": "Status",
+  "security": "2FA",
+  "lastLogin": "Login terakhir",
+  "actions": "Tindakan",
+  "you": "Anda",
+  "never": "Belum pernah",
+  "locked": "Terkunci",
+  "pendingSetup": "Menunggu pengaturan",
+  "twoFactorOn": "2FA aktif",
+  "twoFactorOff": "2FA nonaktif",
+  "statuses": {
+    "ACTIVE": "Aktif",
+    "DISABLED": "Dinonaktifkan"
+  },
+  "actionLabels": {
+    "reset_password": "Atur ulang kata sandi",
+    "reset_2fa": "Atur ulang 2FA",
+    "unlock": "Buka kunci",
+    "disable": "Nonaktifkan",
+    "enable": "Aktifkan"
+  },
+  "done": {
+    "reset_password": "Kata sandi diatur ulang — tautan baru telah dibuat",
+    "reset_2fa": "Autentikasi dua faktor diatur ulang",
+    "unlock": "Akun dibuka kuncinya",
+    "disable": "Akun dinonaktifkan",
+    "enable": "Akun diaktifkan",
+    "delete": "Pengguna dihapus"
+  },
+  "confirm": {
+    "reset_password": {
+      "title": "Atur ulang kata sandi {name}?",
+      "description": "Semua sesi {email} berakhir dan tautan kata sandi baru dibuat (berlaku 48 jam)."
+    },
+    "reset_2fa": {
+      "title": "Atur ulang 2FA untuk {name}?",
+      "description": "{email} akan dikeluarkan dan harus mendaftarkan aplikasi autentikator baru. Lakukan hanya setelah memverifikasi identitas orang tersebut."
+    },
+    "unlock": {
+      "title": "Buka kunci {name}?",
+      "description": "Mengosongkan penghitung login gagal {email} agar dapat masuk kembali."
+    },
+    "disable": {
+      "title": "Nonaktifkan {name}?",
+      "description": "{email} dikeluarkan dari semua perangkat dan tidak dapat masuk lagi. Akun dapat diaktifkan kembali nanti."
+    },
+    "enable": {
+      "title": "Aktifkan {name}?",
+      "description": "{email} akan dapat masuk kembali."
+    },
+    "delete": {
+      "title": "Hapus {name}?",
+      "description": "Akun {email} ditutup permanen dan sesinya berakhir. Jejak audit tetap disimpan."
+    }
+  },
+  "created": "Pengguna dibuat — undangan dikirim lewat email",
+  "createdNoMail": "Pengguna dibuat — bagikan tautan undangan",
+  "link": {
+    "inviteTitle": "Tautan undangan",
+    "resetTitle": "Tautan atur ulang kata sandi",
+    "description": "Email belum dikonfigurasi, jadi kirimkan sendiri tautan ini ke {email}.",
+    "warningTitle": "Bagikan dengan aman",
+    "warning": "Siapa pun yang memiliki tautan ini dapat menetapkan kata sandi akun ini. Kirimkan hanya langsung kepada orangnya (bertatap muka atau lewat saluran pribadi) — jangan pernah di grup obrolan.",
+    "label": "Tautan",
+    "expires": "Tautan hanya dapat dipakai sekali dan kedaluwarsa setelah 48 jam."
+  },
+  "form": {
+    "inviteHint": "Orang tersebut menerima tautan untuk memilih kata sandinya sendiri.",
+    "email": "Email",
+    "name": "Nama lengkap",
+    "phone": "Telepon",
+    "telegram": "ID obrolan Telegram",
+    "telegramHint": "Opsional — untuk peringatan keamanan dan aktivitas.",
+    "telegramInvalid": "ID obrolan Telegram hanya berisi angka.",
+    "municipalityRequired": "Koordinator munisipal memerlukan munisipalitas.",
+    "emailTaken": "Email ini sudah digunakan.",
+    "ownRole": "Anda tidak dapat mengubah peran Anda sendiri.",
+    "roleChangeWarning": "Mengubah peran atau munisipalitas akan mengakhiri sesi aktif pengguna.",
+    "createAndInvite": "Buat & undang"
+  },
+  "roleHints": {
+    "SUPER_ADMIN": "Akses penuh, termasuk pengguna dan pengaturan. Wajib 2FA.",
+    "NATIONAL_SECRETARY": "Semua kecuali pengguna dan pengaturan. Wajib 2FA.",
+    "MUNICIPAL_COORDINATOR": "Anggota, kartu KTA, acara, dan aspirasi satu munisipalitas.",
+    "MEDIA_EDITOR": "Berita, dokumen, media, acara, dan kepemimpinan.",
+    "AUDITOR": "Akses baca saja dan log audit. Wajib 2FA."
+  }
+}

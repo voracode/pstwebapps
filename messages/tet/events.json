@@ -1,0 +1,111 @@
+{
+  "title": "Eventu",
+  "listDescription": "Reuniaun, komísiu no mobilizasaun",
+  "new": "Eventu foun",
+  "edit": "Edita eventu",
+  "detailTitle": "Eventu",
+  "national": "Nasionál",
+  "deleted": "Eventu hamoos ona",
+  "deleteTitle": "Hamoos eventu?",
+  "deleteDescription": "\"{title}\" sei hamoos husi ajenda. Rejistu prezensa {count} sei la mosu tan.",
+  "filters": {
+    "title": "Filtru eventu",
+    "from": "Husi",
+    "to": "To'o"
+  },
+  "fields": {
+    "type": "Tipu",
+    "status": "Estadu",
+    "title": "Títulu",
+    "summary": "Rezumu",
+    "content": "Deskrisaun",
+    "startsAt": "Hahú",
+    "endsAt": "Remata",
+    "place": "Fatin",
+    "venue": "Fatin (eskola, salaun…)",
+    "capacity": "Kapasidade",
+    "expectedTurnout": "Partisipante espera",
+    "isPublic": "Hatudu iha ajenda públiku",
+    "attendance": "Prezensa",
+    "public": "Públiku",
+    "private": "Internu"
+  },
+  "empty": {
+    "title": "Seidauk iha eventu",
+    "description": "Kria eventu dahuluk atu halo check-in ba partisipante."
+  },
+  "form": {
+    "content": "Konteúdu",
+    "details": "Detalle",
+    "titleRequired": "Títulu iha Tetun obrigatóriu (karakter 3 ka liu).",
+    "titleMissing": "Hakerek títulu ba lian ne'e ka hamoos testu.",
+    "required": "Kampu obrigatóriu",
+    "endBeforeStart": "Remata tenke depois hahú.",
+    "contentHint": "Testu simples; liña mamuk fahe parágrafu.",
+    "timezoneHint": "Oras Dili (UTC+9)",
+    "nationalHint": "Husik munisípiu mamuk ba eventu nasionál.",
+    "clearLimitation": "Fatin, suku no kapasidade bele troka maibé la bele hamoos.",
+    "submitCreate": "Kria eventu",
+    "created": "Eventu kria ona"
+  },
+  "summary": {
+    "total": "Prezente",
+    "ofCapacity": "husi {capacity}",
+    "members": "Membru",
+    "guests": "Konvidadu",
+    "byGender": "Mane / Feto",
+    "unknown": "{count} la hatene"
+  },
+  "checkin": {
+    "title": "Check-in",
+    "noPermission": "Ita la iha permisaun atu rejista prezensa.",
+    "closedTitle": "Check-in taka",
+    "closed": "Eventu ho estadu \"{status}\" la simu check-in.",
+    "modes": {
+      "scan": "Eskania QR",
+      "number": "Númeru KTA",
+      "guest": "Konvidadu"
+    },
+    "startCamera": "Loke kámara",
+    "stopCamera": "Taka kámara",
+    "cameraPreview": "Imajen kámara",
+    "scanHint": "Aponta kámara ba kódigu QR iha kartaun KTA.",
+    "noCamera": "La hetan kámara iha dispozitivu ne'e.",
+    "cameraDenied": "Asesu ba kámara la permite. Permite iha definisaun navegador.",
+    "cameraError": "La konsege loke kámara. Uza númeru KTA.",
+    "numberLabel": "Númeru KTA",
+    "numberHint": "Formatu: PST-XX-AAAA-NNNNNN",
+    "numberFormat": "Formatu la loos. Ezemplu: PST-DI-2026-000042",
+    "checkIn": "Rejista prezensa",
+    "guestName": "Naran konvidadu",
+    "guestPhone": "Telefone",
+    "guestGender": "Jéneru",
+    "guestNameRequired": "Hakerek naran konvidadu.",
+    "registerGuest": "Rejista konvidadu",
+    "result": {
+      "ok": "Prezensa rejista ona",
+      "guestOk": "Konvidadu rejista ona",
+      "warnStatus": "Rejista — maibé membru ho estadu {status}",
+      "already": "Rejista tiha ona",
+      "notFound": "Membru la hetan",
+      "notFoundHint": "Kartaun karik revoga ona ka númeru la loos.",
+      "invalidQr": "Kódigu QR la koñesidu",
+      "invalidQrHint": "Ne'e la'ós kartaun KTA PST."
+    }
+  },
+  "attendance": {
+    "title": "Lista prezensa",
+    "empty": "Seidauk iha ema rejista",
+    "emptyHint": "Eskania kartaun KTA ka rejista konvidadu atu hahú.",
+    "name": "Naran",
+    "gender": "Jéneru",
+    "method": "Métodu",
+    "time": "Oras",
+    "guest": "Konvidadu",
+    "methods": {
+      "QR_SCAN": "Eskania QR",
+      "MANUAL": "Manuál",
+      "SELF_CHECKIN": "Check-in rasik"
+    }
+  }
+}

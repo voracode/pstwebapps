@@ -1,0 +1,83 @@
+{
+  "title": "Aspirations",
+  "listDescription": "Voice of the People — citizens' requests and complaints",
+  "detailTitle": "Aspiration",
+  "anonymous": "Anonymous",
+  "attachments": "Attachments",
+  "attachment": "Attachment",
+  "filters": {
+    "title": "Aspiration filters",
+    "searchPlaceholder": "ASP-… number, subject or text",
+    "assignedToMe": "Assigned to me"
+  },
+  "fields": {
+    "status": "Status",
+    "category": "Category",
+    "priority": "Priority",
+    "subject": "Subject",
+    "submitter": "Submitted by",
+    "assignedTo": "Assigned to",
+    "received": "Received",
+    "acknowledged": "Acknowledged",
+    "resolved": "Resolved"
+  },
+  "empty": {
+    "title": "No aspirations yet",
+    "description": "Aspirations sent by citizens through the portal appear here."
+  },
+  "controls": {
+    "title": "Manage",
+    "statusEmailed": "The citizen is e-mailed when the status changes (if an e-mail was given).",
+    "unassigned": "— Unassigned —",
+    "me": "{name} (me)"
+  },
+  "submitter": {
+    "title": "Citizen",
+    "anonymous": "Sent anonymously — no identity data.",
+    "name": "Name",
+    "type": "Type",
+    "phone": "Phone",
+    "email": "E-mail"
+  },
+  "notes": {
+    "title": "Notes and replies",
+    "empty": "No notes yet.",
+    "public": "Public reply",
+    "internal": "Internal",
+    "noteLabel": "Internal note",
+    "replyLabel": "Reply to the citizen",
+    "notePlaceholder": "Note for the team (not visible to the citizen)…",
+    "replyPlaceholder": "Write your reply to the citizen…",
+    "publicToggle": "Public reply to the citizen",
+    "publicHintEmail": "This reply is e-mailed to the citizen and shown on their tracking page.",
+    "publicHintNoEmail": "No e-mail on file: the reply only appears on the tracking page.",
+    "tooShort": "Write something first.",
+    "addNote": "Add note",
+    "sendReply": "Send reply",
+    "noteAdded": "Note added",
+    "replySent": "Reply sent"
+  },
+  "contact": {
+    "title": "Messages",
+    "description": "Messages from the portal contact form",
+    "tabs": {
+      "inbox": "Inbox",
+      "unread": "Unread",
+      "spam": "Spam"
+    },
+    "empty": {
+      "inbox": "No messages.",
+      "unread": "All messages have been read.",
+      "spam": "No spam."
+    },
+    "unread": "Unread",
+    "noSubject": "(no subject)",
+    "readBy": "Read by {name}",
+    "markRead": "Mark as read",
+    "markUnread": "Mark as unread",
+    "markSpam": "Mark as spam",
+    "notSpam": "Not spam",
+    "markedSpam": "Moved to spam",
+    "markedNotSpam": "Moved back to inbox"
+  }
+}

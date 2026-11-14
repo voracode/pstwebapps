@@ -1,0 +1,17 @@
+# Normalise line endings in the repo; shell scripts, configs and Dockerfiles
+# must stay LF even when checked out on Windows, or they break on Ubuntu.
+* text=auto eol=lf
+*.sh text eol=lf
+*.conf text eol=lf
+*.template text eol=lf
+Dockerfile text eol=lf
+*.Dockerfile text eol=lf
+crontab text eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.woff2 binary

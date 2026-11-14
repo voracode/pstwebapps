@@ -1,0 +1,96 @@
+{
+  "title": "Users",
+  "description": "Backoffice accounts, roles and access security.",
+  "searchPlaceholder": "Name or e-mail…",
+  "new": "New user",
+  "edit": "Edit user",
+  "user": "User",
+  "role": "Role",
+  "status": "Status",
+  "security": "2FA",
+  "lastLogin": "Last login",
+  "actions": "Actions",
+  "you": "you",
+  "never": "Never",
+  "locked": "Locked",
+  "pendingSetup": "Setup pending",
+  "twoFactorOn": "2FA on",
+  "twoFactorOff": "2FA off",
+  "statuses": {
+    "ACTIVE": "Active",
+    "DISABLED": "Disabled"
+  },
+  "actionLabels": {
+    "reset_password": "Reset password",
+    "reset_2fa": "Reset 2FA",
+    "unlock": "Unlock",
+    "disable": "Disable",
+    "enable": "Enable"
+  },
+  "done": {
+    "reset_password": "Password reset — a new link was issued",
+    "reset_2fa": "Two-factor authentication reset",
+    "unlock": "Account unlocked",
+    "disable": "Account disabled",
+    "enable": "Account enabled",
+    "delete": "User deleted"
+  },
+  "confirm": {
+    "reset_password": {
+      "title": "Reset the password of {name}?",
+      "description": "All sessions of {email} end and a new password link is issued (valid 48 hours)."
+    },
+    "reset_2fa": {
+      "title": "Reset 2FA for {name}?",
+      "description": "{email} will be logged out and must enrol a new authenticator app. Only do this after verifying the person's identity."
+    },
+    "unlock": {
+      "title": "Unlock {name}?",
+      "description": "Clears the failed login counter of {email} so they can sign in again."
+    },
+    "disable": {
+      "title": "Disable {name}?",
+      "description": "{email} is logged out everywhere and can no longer sign in. You can enable the account again later."
+    },
+    "enable": {
+      "title": "Enable {name}?",
+      "description": "{email} will be able to sign in again."
+    },
+    "delete": {
+      "title": "Delete {name}?",
+      "description": "The account {email} is closed permanently and its sessions end. The audit trail is kept."
+    }
+  },
+  "created": "User created — the invitation was sent by e-mail",
+  "createdNoMail": "User created — share the invitation link",
+  "link": {
+    "inviteTitle": "Invitation link",
+    "resetTitle": "Password reset link",
+    "description": "E-mail is not configured, so send this link to {email} yourself.",
+    "warningTitle": "Share it securely",
+    "warning": "Anyone with this link can set the password for this account. Send it only to the person directly (in person or through a private channel) — never in a group chat.",
+    "label": "Link",
+    "expires": "The link works once and expires after 48 hours."
+  },
+  "form": {
+    "inviteHint": "The person receives a link to choose their own password.",
+    "email": "E-mail",
+    "name": "Full name",
+    "phone": "Phone",
+    "telegram": "Telegram chat ID",
+    "telegramHint": "Optional — for security and activity alerts.",
+    "telegramInvalid": "A Telegram chat ID contains only digits.",
+    "municipalityRequired": "A municipal coordinator needs a município.",
+    "emailTaken": "This e-mail is already in use.",
+    "ownRole": "You cannot change your own role.",
+    "roleChangeWarning": "Changing the role or município ends the user's active sessions.",
+    "createAndInvite": "Create & invite"
+  },
+  "roleHints": {
+    "SUPER_ADMIN": "Full access, including users and settings. 2FA required.",
+    "NATIONAL_SECRETARY": "Everything except users and settings. 2FA required.",
+    "MUNICIPAL_COORDINATOR": "Members, KTA cards, events and aspirations of one município.",
+    "MEDIA_EDITOR": "News, documents, media, events and leadership.",
+    "AUDITOR": "Read-only access and the audit log. 2FA required."
+  }
+}

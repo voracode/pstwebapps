@@ -1,0 +1,216 @@
+{
+  "langName": {
+    "tet": "Tetun",
+    "pt": "Portuguese",
+    "id": "Indonesian",
+    "en": "English"
+  },
+  "language": "Language",
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "add": "Add",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "export": "Export",
+    "import": "Import",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "confirm": "Confirm",
+    "submit": "Submit",
+    "download": "Download",
+    "upload": "Upload",
+    "view": "View",
+    "viewAll": "View all",
+    "readMore": "Read more",
+    "copy": "Copy",
+    "copied": "Copied",
+    "print": "Print",
+    "retry": "Try again",
+    "logout": "Log out",
+    "open": "Open",
+    "share": "Share"
+  },
+  "states": {
+    "loading": "Loading…",
+    "saving": "Saving…",
+    "saved": "Saved",
+    "empty": "Nothing here yet",
+    "noResults": "No results",
+    "optional": "optional",
+    "required": "required",
+    "yes": "Yes",
+    "no": "No",
+    "all": "All"
+  },
+  "geo": {
+    "municipality": "Municipality",
+    "adminPost": "Administrative post",
+    "suco": "Suco (village)",
+    "aldeia": "Aldeia (hamlet)",
+    "select": "— Select —",
+    "any": "Any"
+  },
+  "translations": {
+    "languages": "Languages",
+    "filled": "filled",
+    "missing": "missing",
+    "hint": "Tetum is the primary language. Others are optional — empty ones fall back to Tetum."
+  },
+  "pagination": {
+    "page": "Page {page} of {total}",
+    "total": "{count} results"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "Cannot reach the server. Check your connection.",
+    "rateLimited": "Too many requests. Please wait and try again.",
+    "forbidden": "You don't have permission.",
+    "notFound": "Not found.",
+    "validation": "Please check the highlighted fields.",
+    "notFoundTitle": "Page not found",
+    "notFoundBody": "The page you are looking for doesn't exist or has moved.",
+    "goHome": "Back to home"
+  },
+  "enums": {
+    "memberStatus": {
+      "PENDING": "Pending",
+      "VERIFIED": "Verified",
+      "REJECTED": "Rejected",
+      "SUSPENDED": "Suspended"
+    },
+    "memberRank": {
+      "SYMPATHIZER": "Sympathiser",
+      "MILITANT": "Militant",
+      "CADRE": "Cadre"
+    },
+    "gender": {
+      "MALE": "Male",
+      "FEMALE": "Female"
+    },
+    "idDocumentType": {
+      "BILHETE_IDENTIDADE": "Identity card (BI)",
+      "CARTAO_ELEITORAL": "Voter card",
+      "PASSPORT": "Passport",
+      "OTHER": "Other"
+    },
+    "educationLevel": {
+      "NONE": "No schooling",
+      "PRIMARY": "Primary",
+      "PRE_SECONDARY": "Lower secondary",
+      "SECONDARY": "Secondary",
+      "VOCATIONAL": "Vocational",
+      "DIPLOMA": "Diploma",
+      "BACHELOR": "Bachelor's",
+      "MASTER": "Master's",
+      "DOCTORATE": "Doctorate"
+    },
+    "postType": {
+      "NEWS": "News",
+      "PRESS_RELEASE": "Press release",
+      "ARTICLE": "Article",
+      "STATEMENT": "Political statement"
+    },
+    "publishStatus": {
+      "DRAFT": "Draft",
+      "IN_REVIEW": "In review",
+      "SCHEDULED": "Scheduled",
+      "PUBLISHED": "Published",
+      "ARCHIVED": "Archived"
+    },
+    "documentType": {
+      "STATUTE": "Statute",
+      "POLITICAL_PROGRAM": "Political programme",
+      "MANIFESTO": "Manifesto",
+      "BULLETIN": "Bulletin",
+      "LEGISLATION": "Legislation",
+      "RESOLUTION": "Resolution",
+      "REPORT": "Report",
+      "OTHER": "Other"
+    },
+    "eventType": {
+      "CONGRESS": "Congress",
+      "RALLY": "Rally",
+      "COMMUNITY_DISCUSSION": "Community discussion",
+      "POLITICAL_EDUCATION": "Political education",
+      "MEETING": "Meeting",
+      "OTHER": "Other"
+    },
+    "eventStatus": {
+      "DRAFT": "Draft",
+      "SCHEDULED": "Scheduled",
+      "ONGOING": "Ongoing",
+      "COMPLETED": "Completed",
+      "POSTPONED": "Postponed",
+      "CANCELLED": "Cancelled"
+    },
+    "leadershipLevel": {
+      "PRESIDENCY": "Presidency",
+      "POLITICAL_COMMISSION": "Political Commission",
+      "CENTRAL_COMMITTEE": "Central Committee",
+      "NATIONAL_SECRETARIAT": "National Secretariat",
+      "MUNICIPAL_COMMITTEE": "Municipal Committee",
+      "WING": "Party wing"
+    },
+    "aspirationCategory": {
+      "LAND_PROPERTY": "Land & property",
+      "AGRICULTURE_FISHERIES": "Agriculture & fisheries",
+      "LABOUR_EMPLOYMENT": "Labour & employment",
+      "EDUCATION": "Education",
+      "HEALTH": "Health",
+      "INFRASTRUCTURE": "Infrastructure",
+      "WATER_SANITATION": "Water & sanitation",
+      "ELECTRICITY": "Electricity",
+      "SOCIAL_PROTECTION": "Social protection",
+      "CORRUPTION_GOVERNANCE": "Corruption & governance",
+      "YOUTH": "Youth",
+      "WOMEN_GENDER": "Women & gender",
+      "VETERANS": "Veterans",
+      "OTHER": "Other"
+    },
+    "submitterType": {
+      "CITIZEN": "Citizen",
+      "WORKER": "Worker",
+      "FARMER": "Farmer",
+      "FISHER": "Fisher",
+      "STUDENT": "Student",
+      "VETERAN": "Veteran",
+      "PARTY_MEMBER": "PST member",
+      "OTHER": "Other"
+    },
+    "ticketStatus": {
+      "NEW": "New",
+      "ACKNOWLEDGED": "Acknowledged",
+      "IN_REVIEW": "In review",
+      "FORWARDED": "Forwarded",
+      "RESOLVED": "Resolved",
+      "CLOSED": "Closed",
+      "SPAM": "Spam"
+    },
+    "ticketPriority": {
+      "LOW": "Low",
+      "NORMAL": "Normal",
+      "HIGH": "High",
+      "URGENT": "Urgent"
+    },
+    "role": {
+      "SUPER_ADMIN": "Super admin",
+      "NATIONAL_SECRETARY": "National secretary",
+      "MUNICIPAL_COORDINATOR": "Municipal coordinator",
+      "MEDIA_EDITOR": "Media editor",
+      "AUDITOR": "Auditor"
+    },
+    "registrationChannel": {
+      "ONLINE": "Online",
+      "FIELD_IMPORT": "Field registration",
+      "BACKOFFICE": "Backoffice",
+      "LEGACY_MIGRATION": "Legacy system"
+    }
+  }
+}

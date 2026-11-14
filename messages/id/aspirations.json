@@ -1,0 +1,83 @@
+{
+  "title": "Aspirasi",
+  "listDescription": "Suara Rakyat — permintaan dan keluhan warga",
+  "detailTitle": "Aspirasi",
+  "anonymous": "Anonim",
+  "attachments": "Lampiran",
+  "attachment": "Lampiran",
+  "filters": {
+    "title": "Filter aspirasi",
+    "searchPlaceholder": "Nomor ASP-…, perihal atau teks",
+    "assignedToMe": "Hanya untuk saya"
+  },
+  "fields": {
+    "status": "Status",
+    "category": "Kategori",
+    "priority": "Prioritas",
+    "subject": "Perihal",
+    "submitter": "Pengirim",
+    "assignedTo": "Penanggung jawab",
+    "received": "Diterima",
+    "acknowledged": "Dikonfirmasi",
+    "resolved": "Diselesaikan"
+  },
+  "empty": {
+    "title": "Belum ada aspirasi",
+    "description": "Aspirasi yang dikirim warga melalui portal akan muncul di sini."
+  },
+  "controls": {
+    "title": "Pengelolaan",
+    "statusEmailed": "Warga menerima email saat status berubah (jika ada email).",
+    "unassigned": "— Belum ditugaskan —",
+    "me": "{name} (saya)"
+  },
+  "submitter": {
+    "title": "Warga",
+    "anonymous": "Dikirim secara anonim — tanpa data identitas.",
+    "name": "Nama",
+    "type": "Jenis",
+    "phone": "Telepon",
+    "email": "Email"
+  },
+  "notes": {
+    "title": "Catatan dan balasan",
+    "empty": "Belum ada catatan.",
+    "public": "Balasan publik",
+    "internal": "Internal",
+    "noteLabel": "Catatan internal",
+    "replyLabel": "Balasan untuk warga",
+    "notePlaceholder": "Catatan untuk tim (tidak terlihat oleh warga)…",
+    "replyPlaceholder": "Tulis balasan untuk warga…",
+    "publicToggle": "Balasan publik untuk warga",
+    "publicHintEmail": "Balasan ini dikirim ke warga melalui email dan tampil di halaman pelacakan.",
+    "publicHintNoEmail": "Warga tidak memberikan email: balasan hanya tampil di halaman pelacakan.",
+    "tooShort": "Tulis sebuah teks.",
+    "addNote": "Tambah catatan",
+    "sendReply": "Kirim balasan",
+    "noteAdded": "Catatan ditambahkan",
+    "replySent": "Balasan terkirim"
+  },
+  "contact": {
+    "title": "Pesan",
+    "description": "Pesan dari formulir kontak portal",
+    "tabs": {
+      "inbox": "Kotak masuk",
+      "unread": "Belum dibaca",
+      "spam": "Spam"
+    },
+    "empty": {
+      "inbox": "Tidak ada pesan.",
+      "unread": "Semua pesan sudah dibaca.",
+      "spam": "Tidak ada spam."
+    },
+    "unread": "Belum dibaca",
+    "noSubject": "(tanpa perihal)",
+    "readBy": "Dibaca oleh {name}",
+    "markRead": "Tandai sudah dibaca",
+    "markUnread": "Tandai belum dibaca",
+    "markSpam": "Tandai spam",
+    "notSpam": "Bukan spam",
+    "markedSpam": "Dipindah ke spam",
+    "markedNotSpam": "Dikembalikan ke kotak masuk"
+  }
+}

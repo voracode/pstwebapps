@@ -163,10 +163,12 @@ export async function updateDocument(auth: AuthSession, id: string, input: DocUp
   await db.$transaction(async (tx) => {
     if (removeLocales?.length) await tx.documentTranslation.deleteMany({ where: { documentId: id, locale: { in: removeLocales } } });
     for (const t of translations ?? []) {
+      // Sent whole: a missing description/file means it was removed.
+      const full = { ...t, description: t.description ?? null, fileId: t.fileId ?? null };
       await tx.documentTranslation.upsert({
         where: { documentId_locale: { documentId: id, locale: t.locale } },
-        create: { ...t, documentId: id },
-        update: t,
+        create: { ...full, documentId: id },
+        update: full,
       });
     }
     await tx.document.update({ where: { id }, data: { ...rest, ...(slug ? { slug: await uniqueDocSlug(slug, id) } : {}) } });
@@ -264,10 +266,11 @@ export async function updateLeadership(auth: AuthSession, id: string, input: Lea
   await db.$transaction(async (tx) => {
     if (removeLocales?.length) await tx.leadershipTranslation.deleteMany({ where: { leadershipId: id, locale: { in: removeLocales } } });
     for (const t of translations ?? []) {
+      const full = { ...t, bio: t.bio ?? null };
       await tx.leadershipTranslation.upsert({
         where: { leadershipId_locale: { leadershipId: id, locale: t.locale } },
-        create: { ...t, leadershipId: id },
-        update: t,
+        create: { ...full, leadershipId: id },
+        update: full,
       });
     }
     await tx.leadership.update({ where: { id }, data });

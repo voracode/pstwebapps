@@ -1,0 +1,83 @@
+{
+  "title": "Aspirasaun",
+  "listDescription": "Lian Povu — pedidu no keixa sidadaun sira",
+  "detailTitle": "Aspirasaun",
+  "anonymous": "Anónimu",
+  "attachments": "Anexu",
+  "attachment": "Anexu",
+  "filters": {
+    "title": "Filtru aspirasaun",
+    "searchPlaceholder": "Númeru ASP-…, asuntu ka testu",
+    "assignedToMe": "Fó ba ha'u de'it"
+  },
+  "fields": {
+    "status": "Estadu",
+    "category": "Kategoria",
+    "priority": "Prioridade",
+    "subject": "Asuntu",
+    "submitter": "Haruka husi",
+    "assignedTo": "Responsável",
+    "received": "Simu iha",
+    "acknowledged": "Rekoñese iha",
+    "resolved": "Rezolve iha"
+  },
+  "empty": {
+    "title": "Seidauk iha aspirasaun",
+    "description": "Aspirasaun ne'ebé sidadaun haruka liu husi portál sei mosu iha ne'e."
+  },
+  "controls": {
+    "title": "Jestaun",
+    "statusEmailed": "Sidadaun simu email bainhira estadu muda (se iha email).",
+    "unassigned": "— La iha responsável —",
+    "me": "{name} (ha'u)"
+  },
+  "submitter": {
+    "title": "Sidadaun",
+    "anonymous": "Haruka ho anónimu — la iha dadus identidade.",
+    "name": "Naran",
+    "type": "Tipu",
+    "phone": "Telefone",
+    "email": "Email"
+  },
+  "notes": {
+    "title": "Nota no resposta",
+    "empty": "Seidauk iha nota.",
+    "public": "Resposta públiku",
+    "internal": "Internu",
+    "noteLabel": "Nota internu",
+    "replyLabel": "Resposta ba sidadaun",
+    "notePlaceholder": "Hakerek nota ba ekipa (sidadaun la haree)…",
+    "replyPlaceholder": "Hakerek resposta ba sidadaun…",
+    "publicToggle": "Resposta públiku ba sidadaun",
+    "publicHintEmail": "Resposta ne'e sei haruka ba sidadaun liu husi email no mosu iha pájina akompañamentu.",
+    "publicHintNoEmail": "Sidadaun la fó email: resposta sei mosu de'it iha pájina akompañamentu.",
+    "tooShort": "Hakerek testu ida.",
+    "addNote": "Aumenta nota",
+    "sendReply": "Haruka resposta",
+    "noteAdded": "Nota aumenta ona",
+    "replySent": "Resposta haruka ona"
+  },
+  "contact": {
+    "title": "Mensajen",
+    "description": "Mensajen husi formuláriu kontaktu portál",
+    "tabs": {
+      "inbox": "Kaixa",
+      "unread": "La lee",
+      "spam": "Spam"
+    },
+    "empty": {
+      "inbox": "La iha mensajen.",
+      "unread": "Mensajen hotu lee tiha ona.",
+      "spam": "La iha spam."
+    },
+    "unread": "La lee",
+    "noSubject": "(la iha asuntu)",
+    "readBy": "Lee husi {name}",
+    "markRead": "Marka lee ona",
+    "markUnread": "Marka la lee",
+    "markSpam": "Spam",
+    "notSpam": "La'ós spam",
+    "markedSpam": "Muda ba spam",
+    "markedNotSpam": "Fila ba kaixa"
+  }
+}

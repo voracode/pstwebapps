@@ -1,0 +1,83 @@
+{
+  "title": "Aspirações",
+  "listDescription": "Voz do Povo — pedidos e queixas dos cidadãos",
+  "detailTitle": "Aspiração",
+  "anonymous": "Anónimo",
+  "attachments": "Anexos",
+  "attachment": "Anexo",
+  "filters": {
+    "title": "Filtros de aspirações",
+    "searchPlaceholder": "Número ASP-…, assunto ou texto",
+    "assignedToMe": "Só atribuídas a mim"
+  },
+  "fields": {
+    "status": "Estado",
+    "category": "Categoria",
+    "priority": "Prioridade",
+    "subject": "Assunto",
+    "submitter": "Remetente",
+    "assignedTo": "Responsável",
+    "received": "Recebida",
+    "acknowledged": "Confirmada",
+    "resolved": "Resolvida"
+  },
+  "empty": {
+    "title": "Ainda não há aspirações",
+    "description": "As aspirações enviadas pelos cidadãos no portal aparecem aqui."
+  },
+  "controls": {
+    "title": "Gestão",
+    "statusEmailed": "O cidadão recebe e-mail quando o estado muda (se tiver e-mail).",
+    "unassigned": "— Sem responsável —",
+    "me": "{name} (eu)"
+  },
+  "submitter": {
+    "title": "Cidadão",
+    "anonymous": "Enviado anonimamente — sem dados de identificação.",
+    "name": "Nome",
+    "type": "Tipo",
+    "phone": "Telefone",
+    "email": "E-mail"
+  },
+  "notes": {
+    "title": "Notas e respostas",
+    "empty": "Ainda sem notas.",
+    "public": "Resposta pública",
+    "internal": "Interna",
+    "noteLabel": "Nota interna",
+    "replyLabel": "Resposta ao cidadão",
+    "notePlaceholder": "Nota para a equipa (o cidadão não vê)…",
+    "replyPlaceholder": "Escreva a resposta ao cidadão…",
+    "publicToggle": "Resposta pública ao cidadão",
+    "publicHintEmail": "Esta resposta é enviada por e-mail ao cidadão e aparece na página de acompanhamento.",
+    "publicHintNoEmail": "O cidadão não deixou e-mail: a resposta só aparece na página de acompanhamento.",
+    "tooShort": "Escreva um texto.",
+    "addNote": "Adicionar nota",
+    "sendReply": "Enviar resposta",
+    "noteAdded": "Nota adicionada",
+    "replySent": "Resposta enviada"
+  },
+  "contact": {
+    "title": "Mensagens",
+    "description": "Mensagens do formulário de contacto do portal",
+    "tabs": {
+      "inbox": "Caixa de entrada",
+      "unread": "Não lidas",
+      "spam": "Spam"
+    },
+    "empty": {
+      "inbox": "Sem mensagens.",
+      "unread": "Todas as mensagens foram lidas.",
+      "spam": "Sem spam."
+    },
+    "unread": "Não lida",
+    "noSubject": "(sem assunto)",
+    "readBy": "Lida por {name}",
+    "markRead": "Marcar como lida",
+    "markUnread": "Marcar como não lida",
+    "markSpam": "Marcar spam",
+    "notSpam": "Não é spam",
+    "markedSpam": "Movida para spam",
+    "markedNotSpam": "Devolvida à caixa de entrada"
+  }
+}

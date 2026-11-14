@@ -1,0 +1,111 @@
+{
+  "title": "Events",
+  "listDescription": "Meetings, rallies and mobilisation",
+  "new": "New event",
+  "edit": "Edit event",
+  "detailTitle": "Event",
+  "national": "National",
+  "deleted": "Event deleted",
+  "deleteTitle": "Delete event?",
+  "deleteDescription": "\"{title}\" will be removed from the agenda. Its {count} attendance records will no longer show.",
+  "filters": {
+    "title": "Event filters",
+    "from": "From",
+    "to": "To"
+  },
+  "fields": {
+    "type": "Type",
+    "status": "Status",
+    "title": "Title",
+    "summary": "Summary",
+    "content": "Description",
+    "startsAt": "Starts",
+    "endsAt": "Ends",
+    "place": "Place",
+    "venue": "Venue (school, hall…)",
+    "capacity": "Capacity",
+    "expectedTurnout": "Expected turnout",
+    "isPublic": "Show on the public agenda",
+    "attendance": "Attendance",
+    "public": "Public",
+    "private": "Internal"
+  },
+  "empty": {
+    "title": "No events yet",
+    "description": "Create the first event to start checking people in."
+  },
+  "form": {
+    "content": "Content",
+    "details": "Details",
+    "titleRequired": "A Tetum title is required (at least 3 characters).",
+    "titleMissing": "Add a title for this language or clear its text.",
+    "required": "Required",
+    "endBeforeStart": "End must be after start.",
+    "contentHint": "Plain text; blank lines separate paragraphs.",
+    "timezoneHint": "Dili time (UTC+9)",
+    "nationalHint": "Leave the municipality empty for national events.",
+    "clearLimitation": "Venue, suco and capacity can be changed but not removed.",
+    "submitCreate": "Create event",
+    "created": "Event created"
+  },
+  "summary": {
+    "total": "Checked in",
+    "ofCapacity": "of {capacity}",
+    "members": "Members",
+    "guests": "Guests",
+    "byGender": "Men / Women",
+    "unknown": "{count} unknown"
+  },
+  "checkin": {
+    "title": "Check-in",
+    "noPermission": "You don't have permission to record attendance.",
+    "closedTitle": "Check-in closed",
+    "closed": "Events with status \"{status}\" don't accept check-ins.",
+    "modes": {
+      "scan": "Scan QR",
+      "number": "KTA number",
+      "guest": "Guest"
+    },
+    "startCamera": "Start camera",
+    "stopCamera": "Stop camera",
+    "cameraPreview": "Camera preview",
+    "scanHint": "Point the camera at the QR code on the KTA card.",
+    "noCamera": "No camera found on this device.",
+    "cameraDenied": "Camera access denied. Allow it in the browser settings.",
+    "cameraError": "Could not start the camera. Use the KTA number instead.",
+    "numberLabel": "KTA number",
+    "numberHint": "Format: PST-XX-YYYY-NNNNNN",
+    "numberFormat": "Invalid format. Example: PST-DI-2026-000042",
+    "checkIn": "Check in",
+    "guestName": "Guest name",
+    "guestPhone": "Phone",
+    "guestGender": "Gender",
+    "guestNameRequired": "Enter the guest's name.",
+    "registerGuest": "Register guest",
+    "result": {
+      "ok": "Checked in",
+      "guestOk": "Guest registered",
+      "warnStatus": "Checked in — but member is {status}",
+      "already": "Already checked in",
+      "notFound": "Member not found",
+      "notFoundHint": "The card may be revoked or the number is wrong.",
+      "invalidQr": "QR code not recognised",
+      "invalidQrHint": "This is not a PST KTA card."
+    }
+  },
+  "attendance": {
+    "title": "Attendance list",
+    "empty": "Nobody checked in yet",
+    "emptyHint": "Scan KTA cards or register guests to begin.",
+    "name": "Name",
+    "gender": "Gender",
+    "method": "Method",
+    "time": "Time",
+    "guest": "Guest",
+    "methods": {
+      "QR_SCAN": "QR scan",
+      "MANUAL": "Manual",
+      "SELF_CHECKIN": "Self check-in"
+    }
+  }
+}

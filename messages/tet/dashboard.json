@@ -1,0 +1,58 @@
+{
+  "title": "Painel",
+  "scopeNational": "Dadus nasionál — munisípiu hotu",
+  "scopeMunicipality": "Dadus munisípiu {name} de'it",
+  "kpi": {
+    "total": "Membru hotu",
+    "verified": "Verifikadu",
+    "pending": "Hein hela",
+    "aspirationsOpen": "Aspirasaun loke",
+    "last30": "+{count} iha loron 30 ikus",
+    "share": "{pct}% husi total",
+    "oldest": "Ida ne'ebé tuan liu: {when}",
+    "noneWaiting": "La iha ida mak hein",
+    "aspirationsNew": "{count} foun"
+  },
+  "quick": {
+    "reviewPending": "Revee rejistu {count} ne'ebé hein",
+    "newAspirations": "{count} aspirasaun foun"
+  },
+  "charts": {
+    "registrations": "Rejistu foun — loron 30 ikus",
+    "registrationsHint": "Rejistu hotu loron-loron (online, kampu no backoffice)",
+    "registrationsSeries": "Rejistu",
+    "noRegistrations": "La iha rejistu iha loron 30 ikus.",
+    "gender": "Jéneru",
+    "verifiedOnly": "Membru verifikadu de'it",
+    "noVerified": "Seidauk iha membru verifikadu.",
+    "municipality": "Membru tuir munisípiu",
+    "municipalityHint": "Verifikadu, hein no seluk",
+    "noMembers": "Seidauk iha membru rejistadu.",
+    "otherStatus": "Rejeitadu / suspensu",
+    "age": "Grupu idade",
+    "membersSeries": "Membru",
+    "aspirations": "Aspirasaun tuir estadu",
+    "noAspirations": "Seidauk simu aspirasaun.",
+    "ticketsSeries": "Pedidu"
+  },
+  "topPosts": {
+    "title": "Artigu ne'ebé lee barak liu",
+    "hint": "Loron 30 ikus",
+    "empty": "Seidauk iha vizualizasaun.",
+    "views": "{count} vizualizasaun"
+  },
+  "health": {
+    "title": "Saúde sistema",
+    "ok": "Di'ak",
+    "degraded": "Iha problema",
+    "uptime": "Ativu durante oras {hours}",
+    "checks": {
+      "database": "Baze dadus",
+      "redis": "Redis (cache)",
+      "queue": "Fila notifikasaun",
+      "notifications": "Notifikasaun haruka"
+    }
+  },
+  "emptyTitle": "Bem-vindu ba SIM-PST",
+  "emptyDescription": "Seidauk iha dadus. Estatístika sei mosu bainhira membru no aspirasaun dahuluk to'o."
+}

@@ -1,0 +1,48 @@
+{
+  "title": "PST Backoffice",
+  "nav": {
+    "dashboard": "Dashboard",
+    "members": "Members",
+    "events": "Events",
+    "aspirations": "Aspirations",
+    "messages": "Messages",
+    "posts": "News & articles",
+    "media": "Media library",
+    "documents": "Documents",
+    "leadership": "Leadership & branches",
+    "site": "Website",
+    "users": "Users",
+    "audit": "Audit log",
+    "account": "My account",
+    "viewSite": "View website"
+  },
+  "groups": {
+    "sim": "SIM-PST",
+    "content": "Content",
+    "system": "System"
+  },
+  "theme": {
+    "light": "Light mode",
+    "dark": "Dark mode"
+  },
+  "scopeMunicipality": "Scope: {name}",
+  "scopeNational": "National scope",
+  "account": {
+    "title": "My account",
+    "profile": "Profile",
+    "security": "Security",
+    "twoFactorOn": "Two-step verification is on",
+    "twoFactorOff": "Two-step verification is off",
+    "regenerateCodes": "Generate new recovery codes",
+    "regenerateHelp": "Your old codes will stop working.",
+    "disable2fa": "Turn off two-step verification",
+    "enable2fa": "Turn on two-step verification",
+    "sessionExpires": "Session ends at {time}",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "municipality": "Municipality",
+    "lastLogin": "Last sign-in",
+    "passwordChanged": "Password last changed"
+  }
+}

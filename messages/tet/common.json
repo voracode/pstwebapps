@@ -1,0 +1,216 @@
+{
+  "langName": {
+    "tet": "Tetun",
+    "pt": "Portugés",
+    "id": "Indonézia",
+    "en": "Inglés"
+  },
+  "language": "Lian",
+  "actions": {
+    "save": "Rai",
+    "cancel": "Kansela",
+    "delete": "Hamoos",
+    "edit": "Edita",
+    "create": "Kria",
+    "add": "Aumenta",
+    "search": "Buka",
+    "filter": "Filtra",
+    "clear": "Hamoos filtru",
+    "export": "Esporta",
+    "import": "Importa",
+    "back": "Fila",
+    "next": "Tuir mai",
+    "previous": "Molok",
+    "close": "Taka",
+    "confirm": "Konfirma",
+    "submit": "Haruka",
+    "download": "Download",
+    "upload": "Upload",
+    "view": "Haree",
+    "viewAll": "Haree hotu",
+    "readMore": "Lee tan",
+    "copy": "Kopia",
+    "copied": "Kopia ona",
+    "print": "Imprime",
+    "retry": "Koko fali",
+    "logout": "Sai",
+    "open": "Loke",
+    "share": "Fahe"
+  },
+  "states": {
+    "loading": "Karga hela…",
+    "saving": "Rai hela…",
+    "saved": "Rai ona",
+    "empty": "La iha dadus",
+    "noResults": "La hetan rezultadu",
+    "optional": "opsionál",
+    "required": "obrigatóriu",
+    "yes": "Sin",
+    "no": "Lae",
+    "all": "Hotu"
+  },
+  "geo": {
+    "municipality": "Munisípiu",
+    "adminPost": "Postu Administrativu",
+    "suco": "Suku",
+    "aldeia": "Aldeia",
+    "select": "— Hili —",
+    "any": "Hotu"
+  },
+  "translations": {
+    "languages": "Lian",
+    "filled": "prense ona",
+    "missing": "seidauk",
+    "hint": "Tetun mak lian prinsipál. Lian seluk opsionál — se mamuk, sistema hatudu Tetun."
+  },
+  "pagination": {
+    "page": "Pájina {page} husi {total}",
+    "total": "{count} rezultadu"
+  },
+  "errors": {
+    "generic": "Iha problema ida. Favor koko fali.",
+    "network": "La bele liga ba servidor. Haree ita-nia internet.",
+    "rateLimited": "Pedidu barak liu. Hein uitoan no koko fali.",
+    "forbidden": "Ita la iha autorizasaun.",
+    "notFound": "La hetan.",
+    "validation": "Favor haree filafali dadus sira.",
+    "notFoundTitle": "Pájina la eziste",
+    "notFoundBody": "Pájina ne'ebé ita buka la eziste ka muda ona.",
+    "goHome": "Fila ba pájina inísiu"
+  },
+  "enums": {
+    "memberStatus": {
+      "PENDING": "Pendente",
+      "VERIFIED": "Verifikadu",
+      "REJECTED": "Rejeitadu",
+      "SUSPENDED": "Suspensu"
+    },
+    "memberRank": {
+      "SYMPATHIZER": "Simpatizante",
+      "MILITANT": "Militante",
+      "CADRE": "Kuadru"
+    },
+    "gender": {
+      "MALE": "Mane",
+      "FEMALE": "Feto"
+    },
+    "idDocumentType": {
+      "BILHETE_IDENTIDADE": "Bilhete Identidade (BI)",
+      "CARTAO_ELEITORAL": "Kartaun Eleitorál",
+      "PASSPORT": "Pasaporte",
+      "OTHER": "Seluk"
+    },
+    "educationLevel": {
+      "NONE": "La eskola",
+      "PRIMARY": "Primária",
+      "PRE_SECONDARY": "Pre-sekundária",
+      "SECONDARY": "Sekundária",
+      "VOCATIONAL": "Vokasionál",
+      "DIPLOMA": "Diploma",
+      "BACHELOR": "Lisensiatura",
+      "MASTER": "Mestradu",
+      "DOCTORATE": "Doutoramentu"
+    },
+    "postType": {
+      "NEWS": "Notísia",
+      "PRESS_RELEASE": "Komunikadu Imprensa",
+      "ARTICLE": "Artigu",
+      "STATEMENT": "Deklarasaun Polítika"
+    },
+    "publishStatus": {
+      "DRAFT": "Rascunho",
+      "IN_REVIEW": "Iha revizaun",
+      "SCHEDULED": "Programadu",
+      "PUBLISHED": "Publikadu",
+      "ARCHIVED": "Arkivadu"
+    },
+    "documentType": {
+      "STATUTE": "Estatutu",
+      "POLITICAL_PROGRAM": "Programa Polítiku",
+      "MANIFESTO": "Manifestu",
+      "BULLETIN": "Boletin",
+      "LEGISLATION": "Lejizlasaun",
+      "RESOLUTION": "Rezolusaun",
+      "REPORT": "Relatóriu",
+      "OTHER": "Seluk"
+    },
+    "eventType": {
+      "CONGRESS": "Kongresu",
+      "RALLY": "Komísiu",
+      "COMMUNITY_DISCUSSION": "Diskusaun Komunitária",
+      "POLITICAL_EDUCATION": "Edukasaun Polítika",
+      "MEETING": "Reuniaun",
+      "OTHER": "Seluk"
+    },
+    "eventStatus": {
+      "DRAFT": "Rascunho",
+      "SCHEDULED": "Programadu",
+      "ONGOING": "Hala'o hela",
+      "COMPLETED": "Remata ona",
+      "POSTPONED": "Adiadu",
+      "CANCELLED": "Kanseladu"
+    },
+    "leadershipLevel": {
+      "PRESIDENCY": "Prezidénsia",
+      "POLITICAL_COMMISSION": "Komisaun Polítika",
+      "CENTRAL_COMMITTEE": "Komité Sentrál",
+      "NATIONAL_SECRETARIAT": "Sekretariadu Nasionál",
+      "MUNICIPAL_COMMITTEE": "Komité Munisipál",
+      "WING": "Organizasaun Autónoma"
+    },
+    "aspirationCategory": {
+      "LAND_PROPERTY": "Rai no propriedade",
+      "AGRICULTURE_FISHERIES": "Agrikultura no peskas",
+      "LABOUR_EMPLOYMENT": "Servisu no empregu",
+      "EDUCATION": "Edukasaun",
+      "HEALTH": "Saúde",
+      "INFRASTRUCTURE": "Infraestrutura",
+      "WATER_SANITATION": "Bee no saneamentu",
+      "ELECTRICITY": "Eletrisidade",
+      "SOCIAL_PROTECTION": "Protesaun sosiál",
+      "CORRUPTION_GOVERNANCE": "Korupsaun no governasaun",
+      "YOUTH": "Joventude",
+      "WOMEN_GENDER": "Feto no jéneru",
+      "VETERANS": "Veteranu",
+      "OTHER": "Seluk"
+    },
+    "submitterType": {
+      "CITIZEN": "Sidadaun",
+      "WORKER": "Traballadór",
+      "FARMER": "Agrikultór",
+      "FISHER": "Peskadór",
+      "STUDENT": "Estudante",
+      "VETERAN": "Veteranu",
+      "PARTY_MEMBER": "Militante PST",
+      "OTHER": "Seluk"
+    },
+    "ticketStatus": {
+      "NEW": "Foun",
+      "ACKNOWLEDGED": "Simu ona",
+      "IN_REVIEW": "Iha análize",
+      "FORWARDED": "Haruka ona ba entidade",
+      "RESOLVED": "Rezolve ona",
+      "CLOSED": "Taka ona",
+      "SPAM": "Spam"
+    },
+    "ticketPriority": {
+      "LOW": "Ki'ik",
+      "NORMAL": "Normál",
+      "HIGH": "Aas",
+      "URGENT": "Urjente"
+    },
+    "role": {
+      "SUPER_ADMIN": "Super Administradór",
+      "NATIONAL_SECRETARY": "Sekretáriu Nasionál",
+      "MUNICIPAL_COORDINATOR": "Koordenadór Munisipál",
+      "MEDIA_EDITOR": "Editór Média",
+      "AUDITOR": "Auditór"
+    },
+    "registrationChannel": {
+      "ONLINE": "Online",
+      "FIELD_IMPORT": "Rejistu terrenu",
+      "BACKOFFICE": "Backoffice",
+      "LEGACY_MIGRATION": "Sistema tuan"
+    }
+  }
+}

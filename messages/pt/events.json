@@ -1,0 +1,111 @@
+{
+  "title": "Eventos",
+  "listDescription": "Reuniões, comícios e mobilização",
+  "new": "Novo evento",
+  "edit": "Editar evento",
+  "detailTitle": "Evento",
+  "national": "Nacional",
+  "deleted": "Evento eliminado",
+  "deleteTitle": "Eliminar evento?",
+  "deleteDescription": "\"{title}\" será removido da agenda. Os {count} registos de presença deixam de aparecer.",
+  "filters": {
+    "title": "Filtros de eventos",
+    "from": "De",
+    "to": "Até"
+  },
+  "fields": {
+    "type": "Tipo",
+    "status": "Estado",
+    "title": "Título",
+    "summary": "Resumo",
+    "content": "Descrição",
+    "startsAt": "Início",
+    "endsAt": "Fim",
+    "place": "Local",
+    "venue": "Local (escola, salão…)",
+    "capacity": "Capacidade",
+    "expectedTurnout": "Participação prevista",
+    "isPublic": "Mostrar na agenda pública",
+    "attendance": "Presenças",
+    "public": "Público",
+    "private": "Interno"
+  },
+  "empty": {
+    "title": "Ainda não há eventos",
+    "description": "Crie o primeiro evento para registar presenças."
+  },
+  "form": {
+    "content": "Conteúdo",
+    "details": "Detalhes",
+    "titleRequired": "O título em tétum é obrigatório (mín. 3 caracteres).",
+    "titleMissing": "Indique um título para esta língua ou apague o texto.",
+    "required": "Campo obrigatório",
+    "endBeforeStart": "O fim deve ser depois do início.",
+    "contentHint": "Texto simples; linhas em branco separam parágrafos.",
+    "timezoneHint": "Hora de Díli (UTC+9)",
+    "nationalHint": "Deixe o município vazio para eventos nacionais.",
+    "clearLimitation": "Local, suco e capacidade podem ser alterados mas não removidos.",
+    "submitCreate": "Criar evento",
+    "created": "Evento criado"
+  },
+  "summary": {
+    "total": "Presentes",
+    "ofCapacity": "de {capacity}",
+    "members": "Membros",
+    "guests": "Convidados",
+    "byGender": "Homens / Mulheres",
+    "unknown": "{count} sem indicação"
+  },
+  "checkin": {
+    "title": "Registo de presença",
+    "noPermission": "Não tem permissão para registar presenças.",
+    "closedTitle": "Registo fechado",
+    "closed": "Eventos no estado \"{status}\" não aceitam registos.",
+    "modes": {
+      "scan": "Ler QR",
+      "number": "Número KTA",
+      "guest": "Convidado"
+    },
+    "startCamera": "Ligar câmara",
+    "stopCamera": "Desligar câmara",
+    "cameraPreview": "Imagem da câmara",
+    "scanHint": "Aponte a câmara ao código QR do cartão KTA.",
+    "noCamera": "Nenhuma câmara encontrada neste dispositivo.",
+    "cameraDenied": "Acesso à câmara negado. Autorize nas definições do navegador.",
+    "cameraError": "Não foi possível ligar a câmara. Use o número KTA.",
+    "numberLabel": "Número KTA",
+    "numberHint": "Formato: PST-XX-AAAA-NNNNNN",
+    "numberFormat": "Formato inválido. Exemplo: PST-DI-2026-000042",
+    "checkIn": "Registar presença",
+    "guestName": "Nome do convidado",
+    "guestPhone": "Telefone",
+    "guestGender": "Género",
+    "guestNameRequired": "Indique o nome do convidado.",
+    "registerGuest": "Registar convidado",
+    "result": {
+      "ok": "Presença registada",
+      "guestOk": "Convidado registado",
+      "warnStatus": "Registado — mas o membro está {status}",
+      "already": "Já registado",
+      "notFound": "Membro não encontrado",
+      "notFoundHint": "O cartão pode ter sido revogado ou o número está errado.",
+      "invalidQr": "Código QR não reconhecido",
+      "invalidQrHint": "Não é um cartão KTA do PST."
+    }
+  },
+  "attendance": {
+    "title": "Lista de presenças",
+    "empty": "Ainda sem presenças",
+    "emptyHint": "Leia cartões KTA ou registe convidados para começar.",
+    "name": "Nome",
+    "gender": "Género",
+    "method": "Método",
+    "time": "Hora",
+    "guest": "Convidado",
+    "methods": {
+      "QR_SCAN": "Leitura QR",
+      "MANUAL": "Manual",
+      "SELF_CHECKIN": "Auto-registo"
+    }
+  }
+}

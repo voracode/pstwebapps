@@ -1,0 +1,23 @@
+# =============================================================================
+#  Local / staging override — run the full production stack on a laptop or a
+#  machine where host networking isn't available (Docker Desktop):
+#
+#    docker compose -f docker-compose.yml -f docker-compose.local.yml \
+#      --env-file .env.production up -d --build
+#
+#  → https://localhost:8443  (self-signed certificate in data/letsencrypt/live/localhost)
+#  Certbot is disabled; Nginx runs on the bridge network with published ports.
+# =============================================================================
+services:
+  nginx:
+    network_mode: !reset null
+    networks: [backend]
+    ports:
+      - "8080:80"
+      - "8443:443/tcp"
+      - "8443:443/udp"
+    environment:
+      NGINX_UPSTREAM: app:3000
+
+  certbot:
+    profiles: ["certbot"]

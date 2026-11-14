@@ -1,0 +1,42 @@
+{
+  "title": "Log audit",
+  "description": "Catatan anti-rusak atas setiap peristiwa keamanan dan perubahan.",
+  "timezone": "Waktu Timor-Leste (UTC+9)",
+  "time": "Waktu",
+  "action": "Tindakan",
+  "severity": "Tingkat",
+  "actor": "Pelaku",
+  "entity": "Entitas",
+  "ip": "Alamat IP",
+  "details": "Detail",
+  "toggleDetails": "Tampilkan atau sembunyikan detail entri {id}",
+  "system": "Sistem",
+  "userAgent": "Peramban",
+  "requestId": "ID permintaan",
+  "hash": "Hash",
+  "metadata": "Metadata",
+  "severities": {
+    "INFO": "Info",
+    "WARNING": "Peringatan",
+    "CRITICAL": "Kritis"
+  },
+  "filters": {
+    "action": "Tindakan (awalan)",
+    "actorEmail": "Email pelaku",
+    "entityType": "Jenis entitas",
+    "entityId": "ID entitas",
+    "from": "Dari",
+    "to": "Sampai",
+    "ipInvalid": "Masukkan alamat IPv4 atau IPv6 yang valid."
+  },
+  "verify": {
+    "description": "Setiap entri dirantai ke entri sebelumnya dengan hash SHA-256. Verifikasi menghitung ulang seluruh rantai untuk mendeteksi entri yang diubah atau dihapus.",
+    "button": "Verifikasi integritas",
+    "running": "Memverifikasi…",
+    "okTitle": "Rantai utuh",
+    "ok": "{formatted} entri terverifikasi — tidak ada manipulasi terdeteksi.",
+    "brokenTitle": "Masalah integritas terdeteksi",
+    "broken": "Rantai terputus pada entri #{id} (setelah {checked} entri valid).",
+    "brokenHint": "Administrator telah diberi peringatan. Jangan ubah basis data; hubungi penanggung jawab sistem."
+  }
+}

@@ -1,0 +1,208 @@
+// Generates messages/<locale>/{common,auth,admin}.json from one source so the
+// four languages always have identical keys.   node scripts/i18n/shared-messages.mjs
+import { writeFileSync, mkdirSync } from "node:fs";
+
+const L = ["tet", "pt", "id", "en"];
+/** t(tet, pt, id, en) */
+const t = (tet, pt, id, en) => ({ tet, pt, id, en });
+
+const common = {
+  langName: { tet: t("Tetun", "Tetun", "Tetun", "Tetun"), pt: t("Portugés", "Português", "Portugis", "Portuguese"), id: t("Indonézia", "Indonésio", "Indonesia", "Indonesian"), en: t("Inglés", "Inglês", "Inggris", "English") },
+  language: t("Lian", "Idioma", "Bahasa", "Language"),
+  actions: {
+    save: t("Rai", "Guardar", "Simpan", "Save"),
+    cancel: t("Kansela", "Cancelar", "Batal", "Cancel"),
+    delete: t("Hamoos", "Eliminar", "Hapus", "Delete"),
+    edit: t("Edita", "Editar", "Ubah", "Edit"),
+    create: t("Kria", "Criar", "Buat", "Create"),
+    add: t("Aumenta", "Adicionar", "Tambah", "Add"),
+    search: t("Buka", "Pesquisar", "Cari", "Search"),
+    filter: t("Filtra", "Filtrar", "Saring", "Filter"),
+    clear: t("Hamoos filtru", "Limpar", "Bersihkan", "Clear"),
+    export: t("Esporta", "Exportar", "Ekspor", "Export"),
+    import: t("Importa", "Importar", "Impor", "Import"),
+    back: t("Fila", "Voltar", "Kembali", "Back"),
+    next: t("Tuir mai", "Seguinte", "Berikutnya", "Next"),
+    previous: t("Molok", "Anterior", "Sebelumnya", "Previous"),
+    close: t("Taka", "Fechar", "Tutup", "Close"),
+    confirm: t("Konfirma", "Confirmar", "Konfirmasi", "Confirm"),
+    submit: t("Haruka", "Enviar", "Kirim", "Submit"),
+    download: t("Download", "Descarregar", "Unduh", "Download"),
+    upload: t("Upload", "Carregar", "Unggah", "Upload"),
+    view: t("Haree", "Ver", "Lihat", "View"),
+    viewAll: t("Haree hotu", "Ver tudo", "Lihat semua", "View all"),
+    readMore: t("Lee tan", "Ler mais", "Baca selengkapnya", "Read more"),
+    copy: t("Kopia", "Copiar", "Salin", "Copy"),
+    copied: t("Kopia ona", "Copiado", "Disalin", "Copied"),
+    print: t("Imprime", "Imprimir", "Cetak", "Print"),
+    retry: t("Koko fali", "Tentar novamente", "Coba lagi", "Try again"),
+    logout: t("Sai", "Sair", "Keluar", "Log out"),
+    open: t("Loke", "Abrir", "Buka", "Open"),
+    share: t("Fahe", "Partilhar", "Bagikan", "Share"),
+  },
+  states: {
+    loading: t("Karga hela…", "A carregar…", "Memuat…", "Loading…"),
+    saving: t("Rai hela…", "A guardar…", "Menyimpan…", "Saving…"),
+    saved: t("Rai ona", "Guardado", "Tersimpan", "Saved"),
+    empty: t("La iha dadus", "Sem dados", "Tidak ada data", "Nothing here yet"),
+    noResults: t("La hetan rezultadu", "Sem resultados", "Tidak ada hasil", "No results"),
+    optional: t("opsionál", "opcional", "opsional", "optional"),
+    required: t("obrigatóriu", "obrigatório", "wajib", "required"),
+    yes: t("Sin", "Sim", "Ya", "Yes"),
+    no: t("Lae", "Não", "Tidak", "No"),
+    all: t("Hotu", "Todos", "Semua", "All"),
+  },
+  geo: {
+    municipality: t("Munisípiu", "Município", "Munisipio", "Municipality"),
+    adminPost: t("Postu Administrativu", "Posto Administrativo", "Pos Administratif", "Administrative post"),
+    suco: t("Suku", "Suco", "Suco (desa)", "Suco (village)"),
+    aldeia: t("Aldeia", "Aldeia", "Aldeia (dusun)", "Aldeia (hamlet)"),
+    select: t("— Hili —", "— Selecione —", "— Pilih —", "— Select —"),
+    any: t("Hotu", "Todos", "Semua", "Any"),
+  },
+  translations: {
+    languages: t("Lian", "Idiomas", "Bahasa", "Languages"),
+    filled: t("prense ona", "preenchido", "terisi", "filled"),
+    missing: t("seidauk", "em falta", "belum", "missing"),
+    hint: t("Tetun mak lian prinsipál. Lian seluk opsionál — se mamuk, sistema hatudu Tetun.", "Tétum é a língua principal. Os restantes idiomas são opcionais — se vazios, mostra-se o Tétum.", "Tetun adalah bahasa utama. Bahasa lain opsional — jika kosong, Tetun yang ditampilkan.", "Tetum is the primary language. Others are optional — empty ones fall back to Tetum."),
+  },
+  pagination: {
+    page: t("Pájina {page} husi {total}", "Página {page} de {total}", "Halaman {page} dari {total}", "Page {page} of {total}"),
+    total: t("{count} rezultadu", "{count} resultados", "{count} hasil", "{count} results"),
+  },
+  errors: {
+    generic: t("Iha problema ida. Favor koko fali.", "Ocorreu um erro. Tente novamente.", "Terjadi kesalahan. Silakan coba lagi.", "Something went wrong. Please try again."),
+    network: t("La bele liga ba servidor. Haree ita-nia internet.", "Sem ligação ao servidor. Verifique a sua internet.", "Tidak dapat terhubung ke server. Periksa internet Anda.", "Cannot reach the server. Check your connection."),
+    rateLimited: t("Pedidu barak liu. Hein uitoan no koko fali.", "Demasiados pedidos. Aguarde e tente novamente.", "Terlalu banyak permintaan. Tunggu sebentar lalu coba lagi.", "Too many requests. Please wait and try again."),
+    forbidden: t("Ita la iha autorizasaun.", "Não tem permissão.", "Anda tidak memiliki izin.", "You don't have permission."),
+    notFound: t("La hetan.", "Não encontrado.", "Tidak ditemukan.", "Not found."),
+    validation: t("Favor haree filafali dadus sira.", "Verifique os dados introduzidos.", "Periksa kembali data yang diisi.", "Please check the highlighted fields."),
+    notFoundTitle: t("Pájina la eziste", "Página não encontrada", "Halaman tidak ditemukan", "Page not found"),
+    notFoundBody: t("Pájina ne'ebé ita buka la eziste ka muda ona.", "A página que procura não existe ou foi movida.", "Halaman yang Anda cari tidak ada atau telah dipindahkan.", "The page you are looking for doesn't exist or has moved."),
+    goHome: t("Fila ba pájina inísiu", "Voltar à página inicial", "Kembali ke beranda", "Back to home"),
+  },
+  enums: {
+    memberStatus: { PENDING: t("Pendente", "Pendente", "Menunggu", "Pending"), VERIFIED: t("Verifikadu", "Verificado", "Terverifikasi", "Verified"), REJECTED: t("Rejeitadu", "Rejeitado", "Ditolak", "Rejected"), SUSPENDED: t("Suspensu", "Suspenso", "Ditangguhkan", "Suspended") },
+    memberRank: { SYMPATHIZER: t("Simpatizante", "Simpatizante", "Simpatisan", "Sympathiser"), MILITANT: t("Militante", "Militante", "Militan", "Militant"), CADRE: t("Kuadru", "Quadro", "Kader", "Cadre") },
+    gender: { MALE: t("Mane", "Masculino", "Laki-laki", "Male"), FEMALE: t("Feto", "Feminino", "Perempuan", "Female") },
+    idDocumentType: { BILHETE_IDENTIDADE: t("Bilhete Identidade (BI)", "Bilhete de Identidade (BI)", "Kartu Identitas (BI)", "Identity card (BI)"), CARTAO_ELEITORAL: t("Kartaun Eleitorál", "Cartão de Eleitor", "Kartu Pemilih", "Voter card"), PASSPORT: t("Pasaporte", "Passaporte", "Paspor", "Passport"), OTHER: t("Seluk", "Outro", "Lainnya", "Other") },
+    educationLevel: { NONE: t("La eskola", "Sem escolaridade", "Tidak sekolah", "No schooling"), PRIMARY: t("Primária", "Ensino primário", "SD", "Primary"), PRE_SECONDARY: t("Pre-sekundária", "Pré-secundário", "SMP", "Lower secondary"), SECONDARY: t("Sekundária", "Secundário", "SMA", "Secondary"), VOCATIONAL: t("Vokasionál", "Profissional", "Kejuruan", "Vocational"), DIPLOMA: t("Diploma", "Diploma", "Diploma", "Diploma"), BACHELOR: t("Lisensiatura", "Licenciatura", "Sarjana (S1)", "Bachelor's"), MASTER: t("Mestradu", "Mestrado", "Magister (S2)", "Master's"), DOCTORATE: t("Doutoramentu", "Doutoramento", "Doktor (S3)", "Doctorate") },
+    postType: { NEWS: t("Notísia", "Notícia", "Berita", "News"), PRESS_RELEASE: t("Komunikadu Imprensa", "Comunicado de Imprensa", "Siaran Pers", "Press release"), ARTICLE: t("Artigu", "Artigo", "Artikel", "Article"), STATEMENT: t("Deklarasaun Polítika", "Declaração Política", "Pernyataan Politik", "Political statement") },
+    publishStatus: { DRAFT: t("Rascunho", "Rascunho", "Draf", "Draft"), IN_REVIEW: t("Iha revizaun", "Em revisão", "Ditinjau", "In review"), SCHEDULED: t("Programadu", "Agendado", "Terjadwal", "Scheduled"), PUBLISHED: t("Publikadu", "Publicado", "Terbit", "Published"), ARCHIVED: t("Arkivadu", "Arquivado", "Diarsipkan", "Archived") },
+    documentType: { STATUTE: t("Estatutu", "Estatuto", "Anggaran Dasar", "Statute"), POLITICAL_PROGRAM: t("Programa Polítiku", "Programa Político", "Program Politik", "Political programme"), MANIFESTO: t("Manifestu", "Manifesto", "Manifesto", "Manifesto"), BULLETIN: t("Boletin", "Boletim", "Buletin", "Bulletin"), LEGISLATION: t("Lejizlasaun", "Legislação", "Peraturan", "Legislation"), RESOLUTION: t("Rezolusaun", "Resolução", "Resolusi", "Resolution"), REPORT: t("Relatóriu", "Relatório", "Laporan", "Report"), OTHER: t("Seluk", "Outro", "Lainnya", "Other") },
+    eventType: { CONGRESS: t("Kongresu", "Congresso", "Kongres", "Congress"), RALLY: t("Komísiu", "Comício", "Rapat Akbar", "Rally"), COMMUNITY_DISCUSSION: t("Diskusaun Komunitária", "Debate Comunitário", "Diskusi Komunitas", "Community discussion"), POLITICAL_EDUCATION: t("Edukasaun Polítika", "Formação Política", "Pendidikan Politik", "Political education"), MEETING: t("Reuniaun", "Reunião", "Rapat", "Meeting"), OTHER: t("Seluk", "Outro", "Lainnya", "Other") },
+    eventStatus: { DRAFT: t("Rascunho", "Rascunho", "Draf", "Draft"), SCHEDULED: t("Programadu", "Agendado", "Terjadwal", "Scheduled"), ONGOING: t("Hala'o hela", "A decorrer", "Berlangsung", "Ongoing"), COMPLETED: t("Remata ona", "Concluído", "Selesai", "Completed"), POSTPONED: t("Adiadu", "Adiado", "Ditunda", "Postponed"), CANCELLED: t("Kanseladu", "Cancelado", "Dibatalkan", "Cancelled") },
+    leadershipLevel: { PRESIDENCY: t("Prezidénsia", "Presidência", "Kepresidenan", "Presidency"), POLITICAL_COMMISSION: t("Komisaun Polítika", "Comissão Política", "Komisi Politik", "Political Commission"), CENTRAL_COMMITTEE: t("Komité Sentrál", "Comité Central", "Komite Sentral", "Central Committee"), NATIONAL_SECRETARIAT: t("Sekretariadu Nasionál", "Secretariado Nacional", "Sekretariat Nasional", "National Secretariat"), MUNICIPAL_COMMITTEE: t("Komité Munisipál", "Comité Municipal", "Komite Munisipal", "Municipal Committee"), WING: t("Organizasaun Autónoma", "Organização Autónoma", "Organisasi Sayap", "Party wing") },
+    aspirationCategory: { LAND_PROPERTY: t("Rai no propriedade", "Terra e propriedade", "Tanah & properti", "Land & property"), AGRICULTURE_FISHERIES: t("Agrikultura no peskas", "Agricultura e pescas", "Pertanian & perikanan", "Agriculture & fisheries"), LABOUR_EMPLOYMENT: t("Servisu no empregu", "Trabalho e emprego", "Ketenagakerjaan", "Labour & employment"), EDUCATION: t("Edukasaun", "Educação", "Pendidikan", "Education"), HEALTH: t("Saúde", "Saúde", "Kesehatan", "Health"), INFRASTRUCTURE: t("Infraestrutura", "Infraestruturas", "Infrastruktur", "Infrastructure"), WATER_SANITATION: t("Bee no saneamentu", "Água e saneamento", "Air & sanitasi", "Water & sanitation"), ELECTRICITY: t("Eletrisidade", "Eletricidade", "Listrik", "Electricity"), SOCIAL_PROTECTION: t("Protesaun sosiál", "Proteção social", "Perlindungan sosial", "Social protection"), CORRUPTION_GOVERNANCE: t("Korupsaun no governasaun", "Corrupção e governação", "Korupsi & tata kelola", "Corruption & governance"), YOUTH: t("Joventude", "Juventude", "Pemuda", "Youth"), WOMEN_GENDER: t("Feto no jéneru", "Mulheres e género", "Perempuan & gender", "Women & gender"), VETERANS: t("Veteranu", "Veteranos", "Veteran", "Veterans"), OTHER: t("Seluk", "Outro", "Lainnya", "Other") },
+    submitterType: { CITIZEN: t("Sidadaun", "Cidadão", "Warga", "Citizen"), WORKER: t("Traballadór", "Trabalhador", "Pekerja", "Worker"), FARMER: t("Agrikultór", "Agricultor", "Petani", "Farmer"), FISHER: t("Peskadór", "Pescador", "Nelayan", "Fisher"), STUDENT: t("Estudante", "Estudante", "Pelajar", "Student"), VETERAN: t("Veteranu", "Veterano", "Veteran", "Veteran"), PARTY_MEMBER: t("Militante PST", "Militante do PST", "Anggota PST", "PST member"), OTHER: t("Seluk", "Outro", "Lainnya", "Other") },
+    ticketStatus: { NEW: t("Foun", "Novo", "Baru", "New"), ACKNOWLEDGED: t("Simu ona", "Recebido", "Diterima", "Acknowledged"), IN_REVIEW: t("Iha análize", "Em análise", "Ditinjau", "In review"), FORWARDED: t("Haruka ona ba entidade", "Encaminhado", "Diteruskan", "Forwarded"), RESOLVED: t("Rezolve ona", "Resolvido", "Selesai", "Resolved"), CLOSED: t("Taka ona", "Fechado", "Ditutup", "Closed"), SPAM: t("Spam", "Spam", "Spam", "Spam") },
+    ticketPriority: { LOW: t("Ki'ik", "Baixa", "Rendah", "Low"), NORMAL: t("Normál", "Normal", "Normal", "Normal"), HIGH: t("Aas", "Alta", "Tinggi", "High"), URGENT: t("Urjente", "Urgente", "Mendesak", "Urgent") },
+    role: { SUPER_ADMIN: t("Super Administradór", "Super Administrador", "Super Admin", "Super admin"), NATIONAL_SECRETARY: t("Sekretáriu Nasionál", "Secretário Nacional", "Sekretaris Nasional", "National secretary"), MUNICIPAL_COORDINATOR: t("Koordenadór Munisipál", "Coordenador Municipal", "Koordinator Munisipal", "Municipal coordinator"), MEDIA_EDITOR: t("Editór Média", "Editor de Média", "Editor Media", "Media editor"), AUDITOR: t("Auditór", "Auditor", "Auditor", "Auditor") },
+    registrationChannel: { ONLINE: t("Online", "Online", "Daring", "Online"), FIELD_IMPORT: t("Rejistu terrenu", "Registo de terreno", "Pendataan lapangan", "Field registration"), BACKOFFICE: t("Backoffice", "Backoffice", "Backoffice", "Backoffice"), LEGACY_MIGRATION: t("Sistema tuan", "Sistema antigo", "Sistem lama", "Legacy system") },
+  },
+};
+
+const auth = {
+  loginTitle: t("Tama ba Backoffice", "Entrar no Backoffice", "Masuk ke Backoffice", "Sign in to the backoffice"),
+  loginSubtitle: t("Asesu ba ekipa PST de'it", "Acesso reservado à equipa do PST", "Khusus tim PST", "For PST staff only"),
+  email: t("E-mail", "E-mail", "Email", "Email"),
+  password: t("Password", "Palavra-passe", "Kata sandi", "Password"),
+  signIn: t("Tama", "Entrar", "Masuk", "Sign in"),
+  forgot: t("Haluha password?", "Esqueceu a palavra-passe?", "Lupa kata sandi?", "Forgot password?"),
+  invalidCredentials: t("E-mail ka password la loos.", "E-mail ou palavra-passe incorretos.", "Email atau kata sandi salah.", "Incorrect email or password."),
+  locked: t("Konta blokeadu temporariamente to'o {time}.", "Conta bloqueada temporariamente até às {time}.", "Akun dikunci sementara hingga {time}.", "Account temporarily locked until {time}."),
+  twoFactorTitle: t("Verifikasaun pasu rua", "Verificação em dois passos", "Verifikasi dua langkah", "Two-step verification"),
+  twoFactorHelp: t("Hatama kódigu 6 númeru husi ita-nia aplikasaun autentikadór.", "Introduza o código de 6 dígitos da sua aplicação autenticadora.", "Masukkan kode 6 digit dari aplikasi autentikator Anda.", "Enter the 6-digit code from your authenticator app."),
+  code: t("Kódigu", "Código", "Kode", "Code"),
+  verify: t("Verifika", "Verificar", "Verifikasi", "Verify"),
+  useRecovery: t("Uza kódigu rekuperasaun", "Usar código de recuperação", "Gunakan kode pemulihan", "Use a recovery code"),
+  useAuthenticator: t("Uza aplikasaun autentikadór", "Usar aplicação autenticadora", "Gunakan aplikasi autentikator", "Use authenticator app"),
+  recoveryCode: t("Kódigu rekuperasaun", "Código de recuperação", "Kode pemulihan", "Recovery code"),
+  invalidCode: t("Kódigu la loos ka uza ona.", "Código inválido ou já utilizado.", "Kode salah atau sudah dipakai.", "Invalid or already-used code."),
+  changePasswordTitle: t("Troka password", "Alterar palavra-passe", "Ganti kata sandi", "Change your password"),
+  changePasswordForced: t("Ba seguransa, ita tenke troka password molok kontinua.", "Por segurança, tem de alterar a palavra-passe antes de continuar.", "Demi keamanan, Anda harus mengganti kata sandi sebelum melanjutkan.", "For security, you must change your password before continuing."),
+  currentPassword: t("Password atuál", "Palavra-passe atual", "Kata sandi saat ini", "Current password"),
+  newPassword: t("Password foun", "Nova palavra-passe", "Kata sandi baru", "New password"),
+  confirmPassword: t("Konfirma password foun", "Confirmar nova palavra-passe", "Konfirmasi kata sandi baru", "Confirm new password"),
+  passwordsDontMatch: t("Password la hanesan.", "As palavras-passe não coincidem.", "Kata sandi tidak sama.", "Passwords don't match."),
+  passwordRules: t("Pelumenus karakter 12, ho letra boot, letra ki'ik, númeru ka símbolu — ka fraze ho karakter 20+.", "Mínimo 12 caracteres com maiúsculas, minúsculas, números ou símbolos — ou uma frase com 20+ caracteres.", "Minimal 12 karakter dengan huruf besar, huruf kecil, angka atau simbol — atau frasa 20+ karakter.", "At least 12 characters mixing upper/lower case, digits or symbols — or a passphrase of 20+ characters."),
+  passwordChanged: t("Password troka ona.", "Palavra-passe alterada.", "Kata sandi berhasil diganti.", "Password changed."),
+  setup2faTitle: t("Ativa verifikasaun pasu rua", "Ativar verificação em dois passos", "Aktifkan verifikasi dua langkah", "Set up two-step verification"),
+  setup2faRequired: t("Ita-nia funsaun obriga verifikasaun pasu rua.", "A sua função exige verificação em dois passos.", "Peran Anda mewajibkan verifikasi dua langkah.", "Your role requires two-step verification."),
+  setup2faStep1: t("Scan kódigu QR ho Google Authenticator, Microsoft Authenticator ka Aegis.", "Leia o código QR com Google Authenticator, Microsoft Authenticator ou Aegis.", "Pindai kode QR dengan Google Authenticator, Microsoft Authenticator atau Aegis.", "Scan the QR code with Google Authenticator, Microsoft Authenticator or Aegis."),
+  setup2faManual: t("La bele scan? Hatama kódigu ne'e:", "Não consegue ler? Introduza este código:", "Tidak bisa memindai? Masukkan kode ini:", "Can't scan? Enter this key:"),
+  setup2faStep2: t("Hatama kódigu 6 númeru ne'ebé aplikasaun hatudu.", "Introduza o código de 6 dígitos mostrado pela aplicação.", "Masukkan kode 6 digit yang ditampilkan aplikasi.", "Enter the 6-digit code the app shows."),
+  activate: t("Ativa", "Ativar", "Aktifkan", "Activate"),
+  recoveryCodesTitle: t("Kódigu rekuperasaun", "Códigos de recuperação", "Kode pemulihan", "Recovery codes"),
+  recoveryCodesHelp: t("Rai kódigu sira ne'e iha fatin seguru (offline). Kada kódigu uza dala ida de'it. Ida-ne'e mak dala ikus ita haree sira.", "Guarde estes códigos num local seguro (offline). Cada código só pode ser usado uma vez. Esta é a única vez que os verá.", "Simpan kode-kode ini di tempat aman (offline). Setiap kode hanya bisa dipakai sekali. Ini terakhir kali Anda melihatnya.", "Store these codes somewhere safe and offline. Each works once. This is the only time they are shown."),
+  recoverySaved: t("Ha'u rai ona kódigu sira — kontinua", "Já guardei os códigos — continuar", "Saya sudah menyimpan kode — lanjutkan", "I've saved the codes — continue"),
+  forgotTitle: t("Rekupera password", "Recuperar palavra-passe", "Pulihkan kata sandi", "Reset your password"),
+  forgotHelp: t("Hatama ita-nia e-mail. Se konta eziste, ami sei haruka link ida.", "Introduza o seu e-mail. Se a conta existir, enviaremos uma ligação.", "Masukkan email Anda. Jika akun ada, kami akan mengirim tautan.", "Enter your email. If an account exists, we'll send a reset link."),
+  sendLink: t("Haruka link", "Enviar ligação", "Kirim tautan", "Send link"),
+  linkSent: t("Se konta eziste, link haruka ona. Haree ita-nia e-mail.", "Se a conta existir, a ligação foi enviada. Verifique o seu e-mail.", "Jika akun ada, tautan sudah dikirim. Periksa email Anda.", "If the account exists, a link is on its way. Check your inbox."),
+  resetTitle: t("Define password foun", "Definir nova palavra-passe", "Atur kata sandi baru", "Set a new password"),
+  resetDone: t("Password define ona. Ita bele tama agora.", "Palavra-passe definida. Já pode entrar.", "Kata sandi sudah diatur. Silakan masuk.", "Password set. You can sign in now."),
+  invalidLink: t("Link ne'e la válidu ka expira ona.", "Esta ligação é inválida ou expirou.", "Tautan tidak valid atau sudah kedaluwarsa.", "This link is invalid or has expired."),
+  backToLogin: t("Fila ba login", "Voltar ao login", "Kembali ke halaman masuk", "Back to sign in"),
+  securityNotice: t("Asesu hotu rejista iha log auditoria.", "Todos os acessos são registados no registo de auditoria.", "Semua akses dicatat dalam log audit.", "All access is recorded in the audit log."),
+};
+
+const admin = {
+  title: t("Backoffice PST", "Backoffice PST", "Backoffice PST", "PST Backoffice"),
+  nav: {
+    dashboard: t("Painel", "Painel", "Dasbor", "Dashboard"),
+    members: t("Militante", "Militantes", "Anggota", "Members"),
+    events: t("Eventu", "Eventos", "Acara", "Events"),
+    aspirations: t("Aspirasaun", "Aspirações", "Aspirasi", "Aspirations"),
+    messages: t("Mensajen", "Mensagens", "Pesan", "Messages"),
+    posts: t("Notísia no Artigu", "Notícias e Artigos", "Berita & Artikel", "News & articles"),
+    media: t("Biblioteka Média", "Biblioteca de Média", "Pustaka Media", "Media library"),
+    documents: t("Dokumentu", "Documentos", "Dokumen", "Documents"),
+    leadership: t("Estrutura no Lideransa", "Estrutura e Liderança", "Struktur & Kepemimpinan", "Leadership & branches"),
+    site: t("Website", "Website", "Situs web", "Website"),
+    users: t("Utilizadór", "Utilizadores", "Pengguna", "Users"),
+    audit: t("Log Auditoria", "Registo de Auditoria", "Log Audit", "Audit log"),
+    account: t("Ha'u-nia konta", "A minha conta", "Akun saya", "My account"),
+    viewSite: t("Haree website", "Ver website", "Lihat situs", "View website"),
+  },
+  groups: {
+    sim: t("SIM-PST", "SIM-PST", "SIM-PST", "SIM-PST"),
+    content: t("Konteúdu", "Conteúdo", "Konten", "Content"),
+    system: t("Sistema", "Sistema", "Sistem", "System"),
+  },
+  theme: { light: t("Modu naroman", "Modo claro", "Mode terang", "Light mode"), dark: t("Modu nakukun", "Modo escuro", "Mode gelap", "Dark mode") },
+  scopeMunicipality: t("Ámbitu: {name}", "Âmbito: {name}", "Cakupan: {name}", "Scope: {name}"),
+  scopeNational: t("Ámbitu nasionál", "Âmbito nacional", "Cakupan nasional", "National scope"),
+  account: {
+    title: t("Ha'u-nia konta", "A minha conta", "Akun saya", "My account"),
+    profile: t("Perfil", "Perfil", "Profil", "Profile"),
+    security: t("Seguransa", "Segurança", "Keamanan", "Security"),
+    twoFactorOn: t("Verifikasaun pasu rua ativu", "Verificação em dois passos ativa", "Verifikasi dua langkah aktif", "Two-step verification is on"),
+    twoFactorOff: t("Verifikasaun pasu rua la ativu", "Verificação em dois passos inativa", "Verifikasi dua langkah tidak aktif", "Two-step verification is off"),
+    regenerateCodes: t("Kria kódigu rekuperasaun foun", "Gerar novos códigos de recuperação", "Buat kode pemulihan baru", "Generate new recovery codes"),
+    regenerateHelp: t("Kódigu tuan sira sei la funsiona tan.", "Os códigos antigos deixarão de funcionar.", "Kode lama tidak akan berlaku lagi.", "Your old codes will stop working."),
+    disable2fa: t("Desativa verifikasaun pasu rua", "Desativar verificação em dois passos", "Nonaktifkan verifikasi dua langkah", "Turn off two-step verification"),
+    enable2fa: t("Ativa verifikasaun pasu rua", "Ativar verificação em dois passos", "Aktifkan verifikasi dua langkah", "Turn on two-step verification"),
+    sessionExpires: t("Sesaun remata iha {time}", "A sessão termina às {time}", "Sesi berakhir pukul {time}", "Session ends at {time}"),
+    name: t("Naran", "Nome", "Nama", "Name"),
+    email: t("E-mail", "E-mail", "Email", "Email"),
+    role: t("Funsaun", "Função", "Peran", "Role"),
+    municipality: t("Munisípiu", "Município", "Munisipio", "Municipality"),
+    lastLogin: t("Login ikus", "Último acesso", "Login terakhir", "Last sign-in"),
+    passwordChanged: t("Password troka ikus", "Palavra-passe alterada em", "Kata sandi diganti", "Password last changed"),
+  },
+};
+
+function pick(node, lang) {
+  if (node && typeof node === "object" && "tet" in node && "en" in node && typeof node.tet === "string") return node[lang];
+  if (node && typeof node === "object") return Object.fromEntries(Object.entries(node).map(([k, v]) => [k, pick(v, lang)]));
+  return node;
+}
+
+for (const lang of L) {
+  mkdirSync(`messages/${lang}`, { recursive: true });
+  for (const [ns, src] of Object.entries({ common, auth, admin })) {
+    writeFileSync(`messages/${lang}/${ns}.json`, JSON.stringify(pick(src, lang), null, 2) + "\n");
+  }
+}
+console.log("shared messages written for", L.join(", "));

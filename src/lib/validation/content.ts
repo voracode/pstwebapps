@@ -1,6 +1,19 @@
 import { z } from "zod";
 import { localeEnumSchema, optionalText, slugSchema } from "./common";
 
+/** Update field that can be cleared: "" or null → null, absent → unchanged. */
+const clearableText = (max: number) =>
+  z
+    .string()
+    .trim()
+    .max(max)
+    .nullable()
+    .optional()
+    .transform((v) => (v === undefined ? undefined : v || null));
+
+/** Date that may be explicitly null (cleared); z.coerce alone would turn null into 1970. */
+const nullableDate = z.union([z.null(), z.coerce.date()]).optional();
+
 export const POST_TYPES = ["NEWS", "PRESS_RELEASE", "ARTICLE", "STATEMENT"] as const;
 export const PUBLISH_STATUSES = ["DRAFT", "IN_REVIEW", "SCHEDULED", "PUBLISHED", "ARCHIVED"] as const;
 export const DOCUMENT_TYPES = ["STATUTE", "POLITICAL_PROGRAM", "MANIFESTO", "BULLETIN", "LEGISLATION", "RESOLUTION", "REPORT", "OTHER"] as const;
@@ -88,6 +101,7 @@ export const documentUpdateSchema = documentCreateSchema
   .omit({ translations: true })
   .partial()
   .extend({
+    versionLabel: clearableText(40),
     translations: z.array(documentTranslationSchema).max(4).optional(),
     removeLocales: z.array(localeEnumSchema).max(3).optional(),
   });
@@ -125,6 +139,11 @@ export const eventUpdateSchema = z
   .partial()
   .extend({
     endsAt: z.coerce.date().nullable().optional(),
+    municipalityId: z.number().int().positive().nullable().optional(),
+    sucoId: z.number().int().positive().nullable().optional(),
+    venue: z.string().trim().max(200).nullable().optional(),
+    capacity: z.number().int().positive().nullable().optional(),
+    expectedTurnout: z.number().int().positive().nullable().optional(),
     translations: z.array(eventTranslationSchema).max(4).optional(),
     removeLocales: z.array(localeEnumSchema).max(3).optional(),
   });
@@ -156,8 +175,8 @@ export const leadershipCreateSchema = z.object({
   email: optionalText(160),
   isCoordinator: z.boolean().default(false),
   sortOrder: z.number().int().min(0).max(10_000).default(0),
-  termStart: z.coerce.date().optional(),
-  termEnd: z.coerce.date().optional(),
+  termStart: nullableDate,
+  termEnd: nullableDate,
   isActive: z.boolean().default(true),
   translations: translationsArray(leadershipTranslationSchema),
 });
@@ -169,6 +188,8 @@ export const leadershipUpdateSchema = leadershipCreateSchema
     municipalityId: z.number().int().positive().nullable().optional(),
     memberId: z.string().cuid().nullable().optional(),
     photoId: z.string().cuid().nullable().optional(),
+    phone: clearableText(32),
+    email: clearableText(160),
     translations: z.array(leadershipTranslationSchema).max(4).optional(),
     removeLocales: z.array(localeEnumSchema).max(3).optional(),
   });

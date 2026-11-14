@@ -1,0 +1,58 @@
+{
+  "title": "Dashboard",
+  "scopeNational": "National data — all municipalities",
+  "scopeMunicipality": "Data for {name} municipality only",
+  "kpi": {
+    "total": "Total members",
+    "verified": "Verified",
+    "pending": "Pending",
+    "aspirationsOpen": "Open aspirations",
+    "last30": "+{count} in the last 30 days",
+    "share": "{pct}% of total",
+    "oldest": "Oldest: {when}",
+    "noneWaiting": "Nobody waiting",
+    "aspirationsNew": "{count} new"
+  },
+  "quick": {
+    "reviewPending": "Review {count} pending registrations",
+    "newAspirations": "{count} new aspirations"
+  },
+  "charts": {
+    "registrations": "New registrations — last 30 days",
+    "registrationsHint": "All registrations per day (online, field and backoffice)",
+    "registrationsSeries": "Registrations",
+    "noRegistrations": "No registrations in the last 30 days.",
+    "gender": "Gender",
+    "verifiedOnly": "Verified members only",
+    "noVerified": "No verified members yet.",
+    "municipality": "Members by municipality",
+    "municipalityHint": "Verified, pending and other",
+    "noMembers": "No members registered yet.",
+    "otherStatus": "Rejected / suspended",
+    "age": "Age groups",
+    "membersSeries": "Members",
+    "aspirations": "Aspirations by status",
+    "noAspirations": "No aspirations received yet.",
+    "ticketsSeries": "Tickets"
+  },
+  "topPosts": {
+    "title": "Most read posts",
+    "hint": "Last 30 days",
+    "empty": "No views yet.",
+    "views": "{count} views"
+  },
+  "health": {
+    "title": "System health",
+    "ok": "Operational",
+    "degraded": "Degraded",
+    "uptime": "Up for {hours} h",
+    "checks": {
+      "database": "Database",
+      "redis": "Redis (cache)",
+      "queue": "Notification queue",
+      "notifications": "Notification delivery"
+    }
+  },
+  "emptyTitle": "Welcome to SIM-PST",
+  "emptyDescription": "No data yet. Statistics appear once the first members and aspirations come in."
+}

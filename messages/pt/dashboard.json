@@ -1,0 +1,58 @@
+{
+  "title": "Painel",
+  "scopeNational": "Dados nacionais — todos os municípios",
+  "scopeMunicipality": "Apenas dados do município de {name}",
+  "kpi": {
+    "total": "Total de membros",
+    "verified": "Verificados",
+    "pending": "Pendentes",
+    "aspirationsOpen": "Aspirações abertas",
+    "last30": "+{count} nos últimos 30 dias",
+    "share": "{pct}% do total",
+    "oldest": "Mais antigo: {when}",
+    "noneWaiting": "Nenhum em espera",
+    "aspirationsNew": "{count} novas"
+  },
+  "quick": {
+    "reviewPending": "Rever {count} registos pendentes",
+    "newAspirations": "{count} aspirações novas"
+  },
+  "charts": {
+    "registrations": "Novos registos — últimos 30 dias",
+    "registrationsHint": "Todos os registos por dia (online, terreno e backoffice)",
+    "registrationsSeries": "Registos",
+    "noRegistrations": "Sem registos nos últimos 30 dias.",
+    "gender": "Género",
+    "verifiedOnly": "Apenas membros verificados",
+    "noVerified": "Ainda não há membros verificados.",
+    "municipality": "Membros por município",
+    "municipalityHint": "Verificados, pendentes e outros",
+    "noMembers": "Ainda não há membros registados.",
+    "otherStatus": "Rejeitados / suspensos",
+    "age": "Faixas etárias",
+    "membersSeries": "Membros",
+    "aspirations": "Aspirações por estado",
+    "noAspirations": "Ainda não foram recebidas aspirações.",
+    "ticketsSeries": "Pedidos"
+  },
+  "topPosts": {
+    "title": "Publicações mais lidas",
+    "hint": "Últimos 30 dias",
+    "empty": "Ainda sem visualizações.",
+    "views": "{count} visualizações"
+  },
+  "health": {
+    "title": "Saúde do sistema",
+    "ok": "Operacional",
+    "degraded": "Degradado",
+    "uptime": "Em funcionamento há {hours} h",
+    "checks": {
+      "database": "Base de dados",
+      "redis": "Redis (cache)",
+      "queue": "Fila de notificações",
+      "notifications": "Envio de notificações"
+    }
+  },
+  "emptyTitle": "Bem-vindo ao SIM-PST",
+  "emptyDescription": "Ainda não há dados. As estatísticas aparecem quando chegarem os primeiros membros e aspirações."
+}

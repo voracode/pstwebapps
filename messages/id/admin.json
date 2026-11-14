@@ -1,0 +1,48 @@
+{
+  "title": "Backoffice PST",
+  "nav": {
+    "dashboard": "Dasbor",
+    "members": "Anggota",
+    "events": "Acara",
+    "aspirations": "Aspirasi",
+    "messages": "Pesan",
+    "posts": "Berita & Artikel",
+    "media": "Pustaka Media",
+    "documents": "Dokumen",
+    "leadership": "Struktur & Kepemimpinan",
+    "site": "Situs web",
+    "users": "Pengguna",
+    "audit": "Log Audit",
+    "account": "Akun saya",
+    "viewSite": "Lihat situs"
+  },
+  "groups": {
+    "sim": "SIM-PST",
+    "content": "Konten",
+    "system": "Sistem"
+  },
+  "theme": {
+    "light": "Mode terang",
+    "dark": "Mode gelap"
+  },
+  "scopeMunicipality": "Cakupan: {name}",
+  "scopeNational": "Cakupan nasional",
+  "account": {
+    "title": "Akun saya",
+    "profile": "Profil",
+    "security": "Keamanan",
+    "twoFactorOn": "Verifikasi dua langkah aktif",
+    "twoFactorOff": "Verifikasi dua langkah tidak aktif",
+    "regenerateCodes": "Buat kode pemulihan baru",
+    "regenerateHelp": "Kode lama tidak akan berlaku lagi.",
+    "disable2fa": "Nonaktifkan verifikasi dua langkah",
+    "enable2fa": "Aktifkan verifikasi dua langkah",
+    "sessionExpires": "Sesi berakhir pukul {time}",
+    "name": "Nama",
+    "email": "Email",
+    "role": "Peran",
+    "municipality": "Munisipio",
+    "lastLogin": "Login terakhir",
+    "passwordChanged": "Kata sandi diganti"
+  }
+}

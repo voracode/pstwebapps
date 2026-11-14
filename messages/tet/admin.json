@@ -1,0 +1,48 @@
+{
+  "title": "Backoffice PST",
+  "nav": {
+    "dashboard": "Painel",
+    "members": "Militante",
+    "events": "Eventu",
+    "aspirations": "Aspirasaun",
+    "messages": "Mensajen",
+    "posts": "Notísia no Artigu",
+    "media": "Biblioteka Média",
+    "documents": "Dokumentu",
+    "leadership": "Estrutura no Lideransa",
+    "site": "Website",
+    "users": "Utilizadór",
+    "audit": "Log Auditoria",
+    "account": "Ha'u-nia konta",
+    "viewSite": "Haree website"
+  },
+  "groups": {
+    "sim": "SIM-PST",
+    "content": "Konteúdu",
+    "system": "Sistema"
+  },
+  "theme": {
+    "light": "Modu naroman",
+    "dark": "Modu nakukun"
+  },
+  "scopeMunicipality": "Ámbitu: {name}",
+  "scopeNational": "Ámbitu nasionál",
+  "account": {
+    "title": "Ha'u-nia konta",
+    "profile": "Perfil",
+    "security": "Seguransa",
+    "twoFactorOn": "Verifikasaun pasu rua ativu",
+    "twoFactorOff": "Verifikasaun pasu rua la ativu",
+    "regenerateCodes": "Kria kódigu rekuperasaun foun",
+    "regenerateHelp": "Kódigu tuan sira sei la funsiona tan.",
+    "disable2fa": "Desativa verifikasaun pasu rua",
+    "enable2fa": "Ativa verifikasaun pasu rua",
+    "sessionExpires": "Sesaun remata iha {time}",
+    "name": "Naran",
+    "email": "E-mail",
+    "role": "Funsaun",
+    "municipality": "Munisípiu",
+    "lastLogin": "Login ikus",
+    "passwordChanged": "Password troka ikus"
+  }
+}

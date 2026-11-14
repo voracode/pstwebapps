@@ -1,0 +1,111 @@
+{
+  "title": "Acara",
+  "listDescription": "Rapat, kampanye, dan mobilisasi",
+  "new": "Acara baru",
+  "edit": "Ubah acara",
+  "detailTitle": "Acara",
+  "national": "Nasional",
+  "deleted": "Acara dihapus",
+  "deleteTitle": "Hapus acara?",
+  "deleteDescription": "\"{title}\" akan dihapus dari agenda. {count} catatan kehadiran tidak akan tampil lagi.",
+  "filters": {
+    "title": "Filter acara",
+    "from": "Dari",
+    "to": "Sampai"
+  },
+  "fields": {
+    "type": "Jenis",
+    "status": "Status",
+    "title": "Judul",
+    "summary": "Ringkasan",
+    "content": "Deskripsi",
+    "startsAt": "Mulai",
+    "endsAt": "Selesai",
+    "place": "Lokasi",
+    "venue": "Tempat (sekolah, aula…)",
+    "capacity": "Kapasitas",
+    "expectedTurnout": "Perkiraan peserta",
+    "isPublic": "Tampilkan di agenda publik",
+    "attendance": "Kehadiran",
+    "public": "Publik",
+    "private": "Internal"
+  },
+  "empty": {
+    "title": "Belum ada acara",
+    "description": "Buat acara pertama untuk mencatat kehadiran."
+  },
+  "form": {
+    "content": "Konten",
+    "details": "Rincian",
+    "titleRequired": "Judul dalam bahasa Tetun wajib (min. 3 karakter).",
+    "titleMissing": "Isi judul untuk bahasa ini atau hapus teksnya.",
+    "required": "Wajib diisi",
+    "endBeforeStart": "Selesai harus setelah mulai.",
+    "contentHint": "Teks biasa; baris kosong memisahkan paragraf.",
+    "timezoneHint": "Waktu Dili (UTC+9)",
+    "nationalHint": "Kosongkan munisipalitas untuk acara nasional.",
+    "clearLimitation": "Tempat, suco, dan kapasitas dapat diubah tetapi tidak dapat dihapus.",
+    "submitCreate": "Buat acara",
+    "created": "Acara dibuat"
+  },
+  "summary": {
+    "total": "Hadir",
+    "ofCapacity": "dari {capacity}",
+    "members": "Anggota",
+    "guests": "Tamu",
+    "byGender": "Pria / Wanita",
+    "unknown": "{count} tidak diketahui"
+  },
+  "checkin": {
+    "title": "Check-in",
+    "noPermission": "Anda tidak berwenang mencatat kehadiran.",
+    "closedTitle": "Check-in ditutup",
+    "closed": "Acara berstatus \"{status}\" tidak menerima check-in.",
+    "modes": {
+      "scan": "Pindai QR",
+      "number": "Nomor KTA",
+      "guest": "Tamu"
+    },
+    "startCamera": "Nyalakan kamera",
+    "stopCamera": "Matikan kamera",
+    "cameraPreview": "Tampilan kamera",
+    "scanHint": "Arahkan kamera ke kode QR pada kartu KTA.",
+    "noCamera": "Tidak ada kamera di perangkat ini.",
+    "cameraDenied": "Akses kamera ditolak. Izinkan di pengaturan peramban.",
+    "cameraError": "Kamera tidak dapat dinyalakan. Gunakan nomor KTA.",
+    "numberLabel": "Nomor KTA",
+    "numberHint": "Format: PST-XX-TTTT-NNNNNN",
+    "numberFormat": "Format tidak valid. Contoh: PST-DI-2026-000042",
+    "checkIn": "Catat kehadiran",
+    "guestName": "Nama tamu",
+    "guestPhone": "Telepon",
+    "guestGender": "Jenis kelamin",
+    "guestNameRequired": "Isi nama tamu.",
+    "registerGuest": "Catat tamu",
+    "result": {
+      "ok": "Kehadiran tercatat",
+      "guestOk": "Tamu tercatat",
+      "warnStatus": "Tercatat — tetapi status anggota {status}",
+      "already": "Sudah check-in",
+      "notFound": "Anggota tidak ditemukan",
+      "notFoundHint": "Kartu mungkin sudah dicabut atau nomornya salah.",
+      "invalidQr": "Kode QR tidak dikenali",
+      "invalidQrHint": "Ini bukan kartu KTA PST."
+    }
+  },
+  "attendance": {
+    "title": "Daftar hadir",
+    "empty": "Belum ada yang hadir",
+    "emptyHint": "Pindai kartu KTA atau catat tamu untuk memulai.",
+    "name": "Nama",
+    "gender": "Kelamin",
+    "method": "Metode",
+    "time": "Jam",
+    "guest": "Tamu",
+    "methods": {
+      "QR_SCAN": "Pindai QR",
+      "MANUAL": "Manual",
+      "SELF_CHECKIN": "Check-in mandiri"
+    }
+  }
+}
