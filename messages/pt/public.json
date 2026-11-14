@@ -139,7 +139,16 @@
     "shareOn": "Partilhar no {network}",
     "copyLink": "Copiar ligação",
     "back": "Voltar às notícias",
-    "more": "Mais notícias"
+    "more": "Mais notícias",
+    "shareThis": "Partilhar esta notícia",
+    "latest": "Últimas notícias",
+    "prev": "Notícia anterior",
+    "next": "Notícia seguinte",
+    "postNav": "Navegação entre notícias",
+    "author": "Autor",
+    "authorRole": "Autor & colaborador",
+    "authorBio": "Notícias e informação oficial do Partido Socialista de Timor, preparadas pela equipa de comunicação do PST.",
+    "searchNews": "Pesquisar notícias"
   },
   "press": {
     "title": "Comunicados de Imprensa",

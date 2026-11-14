@@ -139,7 +139,16 @@
     "shareOn": "Share on {network}",
     "copyLink": "Copy link",
     "back": "Back to news",
-    "more": "More news"
+    "more": "More news",
+    "shareThis": "Share this story",
+    "latest": "Latest news",
+    "prev": "Previous story",
+    "next": "Next story",
+    "postNav": "Story navigation",
+    "author": "Author",
+    "authorRole": "Author & contributor",
+    "authorBio": "News and official information from the Socialist Party of Timor, prepared by the PST communications team.",
+    "searchNews": "Search news"
   },
   "press": {
     "title": "Press releases",

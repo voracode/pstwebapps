@@ -139,7 +139,16 @@
     "shareOn": "Fahe iha {network}",
     "copyLink": "Kopia link",
     "back": "Fila ba notísia",
-    "more": "Notísia seluk"
+    "more": "Notísia seluk",
+    "shareThis": "Fahe notísia ne'e",
+    "latest": "Notísia foun",
+    "prev": "Notísia anteriór",
+    "next": "Notísia tuirmai",
+    "postNav": "Navegasaun notísia",
+    "author": "Autór",
+    "authorRole": "Autór & kontribuinte",
+    "authorBio": "Notísia no informasaun ofisiál husi Partidu Sosialista Timor, prepara husi ekipa komunikasaun PST.",
+    "searchNews": "Buka notísia"
   },
   "press": {
     "title": "Komunikadu Imprensa",

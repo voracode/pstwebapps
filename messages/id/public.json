@@ -139,7 +139,16 @@
     "shareOn": "Bagikan di {network}",
     "copyLink": "Salin tautan",
     "back": "Kembali ke berita",
-    "more": "Berita lainnya"
+    "more": "Berita lainnya",
+    "shareThis": "Bagikan berita ini",
+    "latest": "Berita terbaru",
+    "prev": "Berita sebelumnya",
+    "next": "Berita berikutnya",
+    "postNav": "Navigasi berita",
+    "author": "Penulis",
+    "authorRole": "Penulis & kontributor",
+    "authorBio": "Berita dan informasi resmi Partai Sosialis Timor, disiapkan oleh tim komunikasi PST.",
+    "searchNews": "Cari berita"
   },
   "press": {
     "title": "Siaran Pers",

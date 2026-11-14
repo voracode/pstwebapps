@@ -57,16 +57,16 @@ export function SiteHeader() {
       >
         {t("skipToContent")}
       </a>
-      <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-4">
+      <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-4 xl:max-w-7xl">
         <Link href="/" className="flex min-w-0 items-center gap-2.5" aria-label={`${tm("name")} — ${t("home")}`}>
           <Emblem size={44} priority />
           <span className="flex min-w-0 flex-col leading-none">
             <span className="font-display text-xl font-extrabold uppercase tracking-wide text-pst-red">PST</span>
-            <span className="truncate text-[0.7rem] font-semibold uppercase tracking-wide text-muted-foreground sm:text-xs">{tm("name")}</span>
+            <span className="truncate text-[0.7rem] font-semibold uppercase tracking-wide text-muted-foreground sm:text-xs lg:max-xl:hidden">{tm("name")}</span>
           </span>
         </Link>
 
-        <nav aria-label={t("mainNav")} className="ml-auto hidden lg:block">
+        <nav aria-label={t("mainNav")} className="ml-auto hidden shrink-0 lg:block">
           <ul className="flex items-center gap-0.5">
             {NAV.map((n) => (
               <li key={n.href}>
@@ -74,7 +74,7 @@ export function SiteHeader() {
                   href={n.href}
                   aria-current={isActive(n.href) ? "page" : undefined}
                   className={cn(
-                    "rounded-md px-2.5 py-2 text-sm font-semibold transition-colors hover:bg-muted hover:text-pst-red",
+                    "whitespace-nowrap rounded-md px-2 py-2 text-sm font-semibold transition-colors hover:bg-muted hover:text-pst-red xl:px-2.5",
                     isActive(n.href) ? "text-pst-red" : "text-foreground/80",
                   )}
                 >
@@ -85,7 +85,7 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="ml-auto flex items-center gap-2 lg:ml-2">
+        <div className="ml-auto flex shrink-0 items-center gap-2 lg:ml-2">
           <Suspense fallback={null}>
             <LocaleSwitcher variant="pills" className="hidden sm:flex" />
           </Suspense>

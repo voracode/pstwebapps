@@ -113,4 +113,6 @@
 @utility prose-pst {
   @apply prose prose-slate max-w-none prose-headings:font-[family-name:var(--font-display)] prose-a:text-pst-red prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-blockquote:border-pst-gold;
   & iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; border-radius: 0.5rem; }
+  /* Imported/CMS quotes usually carry their own quotation marks: no extra ones from CSS. */
+  & blockquote p::before, & blockquote p::after { content: none; }
 }
