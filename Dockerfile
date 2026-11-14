@@ -33,6 +33,10 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # No secrets or database are needed at build time: env is validated lazily
 # at runtime and public pages render on first request.
+# Small VPS (≈2 GB RAM): skip Next's type-check step (types are checked before
+# commit with `npm run typecheck`) and allow a larger heap, backed by swap.
+ENV SKIP_BUILD_TYPECHECK=1 \
+    NODE_OPTIONS=--max-old-space-size=1536
 RUN npx prisma generate && npx next build
 
 # ----------------------------------------------------------------- runtime base

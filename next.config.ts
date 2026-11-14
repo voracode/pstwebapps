@@ -12,6 +12,12 @@ const config: NextConfig = {
   experimental: {
     serverActions: { bodySizeLimit: "12mb" },
   },
+  // The Docker build sets SKIP_BUILD_TYPECHECK=1: the type-check step needs
+  // more than 1 GB of heap and crashes small VPS builds. Types are checked
+  // before every commit (`npm run typecheck`), not on the production server.
+  typescript: {
+    ignoreBuildErrors: process.env.SKIP_BUILD_TYPECHECK === "1",
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [360, 480, 640, 768, 1024, 1280, 1600],
